@@ -149,6 +149,14 @@ if (!canUploadDocument(session.user.role)) {
 }
 ```
 
+**Ownership-based checks need the same treatment as role checks.**
+When permission depends on *who created* a record (not just role),
+extract a small pure function — `canEditRecord(profile, record)` —
+and call it identically on both client (to hide/disable controls)
+and server (to actually enforce). Without this, buttons render as
+clickable for records the user cannot actually edit, and the
+server silently 403s.
+
 ---
 
 ## A-5. AI Provider Interface
@@ -259,6 +267,48 @@ The service role key (`SUPABASE_SERVICE_ROLE_KEY`) is used only in:
 
 Never use the service role key in client-side code.
 Never use the service role key in standard API routes.
+
+---
+
+## A-9. Memoize Derived Values Used as Effect Dependencies
+
+Any array/object computed fresh in a component body (`.filter()`,
+`.sort()`, `{ ...spread }`) is a NEW reference on every render. If
+that value is used as a `useEffect` dependency — especially one
+whose body calls a parent state-setter — the effect fires on every
+render, including unrelated ones, and can produce an unbounded
+render loop that a screenshot will not reveal (React's internal
+safety cutoff prevents an actual freeze, but the console logs
+"Maximum update depth exceeded" and CPU is wasted continuously).
+
+Rule: wrap any derived array/object with `useMemo` before using it
+as an effect dependency or passing it to a callback that updates
+state elsewhere. Verify by checking the browser console at error
+level after any interaction that changes unrelated local state —
+see `DONE_CHECKLIST.md`.
+
+*Learned from web-app-chronos: an unmemoized filtered/sorted list fed
+a `useEffect` that synced print-view state to a parent — the loop ran
+silently on every single page load for months, undetected because two
+earlier stress-test passes checked network calls and screenshots but
+never the console.*
+
+---
+
+## A-10. Pre-Check Deletion Blockers, Never Loosen Audit FK Rules
+
+When an entity (typically a user) has `ON DELETE NO ACTION`
+foreign keys from audit/history tables — which is correct and
+should stay `NO ACTION`, since audit trails must be permanent —
+deleting that entity will fail at the database level the moment
+any referencing row exists. Do not "fix" this by changing the
+delete rule to CASCADE or SET NULL.
+
+Instead: before attempting the delete, query every table with such
+a reference for a non-zero count, and if any exist, return a
+specific blocked response (which tables, how many rows) instead of
+a raw database error — and offer a reversible alternative (e.g.
+ban/disable instead of delete) in the same response.
 
 ---
 

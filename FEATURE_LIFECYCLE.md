@@ -23,6 +23,20 @@ Before touching the keyboard, answer these questions:
 - Which API routes or Server Actions does it require?
 - Which UI components does it need?
 - What does this feature explicitly NOT do? (scope boundary)
+- If this feature includes an undo/revert capability, check it
+  against the RBAC model before designing it. A "revert last action"
+  pattern that assumes uniform permissions breaks the moment "who
+  can delete" is narrower than "who can create" — design undo to
+  only cover operations reversible within the user's existing
+  permissions, not as a blanket capability.
+- If this feature replaces a mocked/placeholder integration,
+  text-search the whole `src/` tree for the old system's name in UI
+  copy — not just a symbol/import search. A label can render
+  perfectly and be factually wrong about what the app now does
+  ("Google Drive", "Simulate the cron job", "remembered for 30 days"
+  with no such logic wired). Treat any static UI copy making a
+  specific, falsifiable claim as something to verify against actual
+  wired logic, not just visually.
 
 If you cannot answer all of these: STOP and ask.
 
@@ -103,6 +117,19 @@ Test end-to-end in the browser before declaring done:
 - Mobile viewport: all interactions must work on narrow screen
 - Loading states: every async action must show a loading indicator
 - Error states: every error must show a user-friendly message
+- Any "add N months/years to a date" logic ships with explicit test
+  cases for month-end dates (28/29/30/31) and leap-year Feb 29 — not
+  just today's date. This class of bug is invisible in normal
+  dogfooding and only appears in production months later when a real
+  deadline happens to land near a month boundary.
+- Any "refresh parent data after a child action succeeds" callback:
+  check whether the parent's loading indicator un-mounts the child.
+  Fix pattern: track "has this loaded at least once" with a `useRef`
+  (not `useState`, so it doesn't itself trigger a re-render loop) and
+  only show a blocking spinner on the first load; subsequent
+  refreshes happen silently so in-flight local child state (success
+  toasts, confirmation screens) survives. Verify this live — it is
+  invisible from reading the code.
 
 ---
 

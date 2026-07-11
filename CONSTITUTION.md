@@ -289,4 +289,50 @@ No long pastes. No lost context. No repeated explanations.
 
 ---
 
+## M-15. Confidentiality Rules Propagate to Every Surface
+
+When a visibility/confidentiality rule is added to one view of an
+entity, it is not done until every OTHER place that entity's
+identifying data can be read has been checked and fixed:
+audit logs, search indexes, exports, printed reports, outbound
+emails/notifications, admin panels.
+
+These are the classic blind spots — built once, early, rarely
+revisited when access-control rules evolve later.
+
+When adding or changing a confidentiality rule: grep the whole
+repository for every read-path of that entity before declaring
+the change complete. This is Security > UI (M-3) applied literally,
+not just as a tie-breaker between two designs.
+
+*Learned from web-app-chronos: a watchers/visibility rule added to
+the obligations list in one sprint was never propagated to the
+audit-log endpoint written in an earlier sprint — every authenticated
+user could read "private" record titles through the activity log for
+months, completely bypassing the feature that was added specifically
+to prevent that.*
+
+---
+
+## M-16. Stack Deviation Is a Path, Not an Exception
+
+Commander's default stack (Next.js + Server Actions + Vercel) is a
+strong default, not a mandate. When a project inherits an existing,
+working codebase on a different stack (e.g. Vite SPA + Express),
+forcing a migration to match the default destroys working UI for
+no benefit.
+
+Per M-4/M-10, never assume — ask the Director explicitly, record
+the decision in the project's own DECISION_LOG.md, and then treat
+every subsequent Commander pattern (A-1 Five Layers, A-3 Repository
+Pattern, A-4 Permissions Pattern) as translated to the chosen stack's
+equivalent — Express routes instead of Server Actions, for example —
+rather than flagged as a deviation to "fix." A documented, reasoned
+stack choice is not technical debt.
+
+*See DECISION_LOG.md DL-009/DL-010 for the concrete alternate path
+(Vite + Express + Render.com) proven across a full project.*
+
+---
+
 *Commander v1.0 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*

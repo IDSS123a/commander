@@ -20,6 +20,13 @@
 - All API shapes defined as Zod schemas in `lib/validation/schemas.ts`
 - Every async function has an explicit return type annotation
 - No implicit `undefined` returns
+- When narrowing a discriminated union parsed from an API response
+  (e.g. `{ deleted: true } | { deleted: false; blockers: X }`),
+  use an explicit literal comparison — `if (result.deleted === false)`
+  — never `if (!result.deleted)`. The negation form has been observed
+  to fail to narrow the union correctly in some TS configurations,
+  leaving the discriminant field typed as possibly undefined even
+  after the check.
 
 ---
 
@@ -43,6 +50,16 @@ Zod validates at every system boundary:
 - Server Action inputs
 - Form submissions (with React Hook Form + Zod Resolver)
 - External API responses (parse before trusting)
+
+**Known pitfall (Zod 3.25.x):** `.default()` fields make
+`z.infer<>` mark that field — and sometimes sibling fields in
+nested array objects with no default of their own — as optional
+in the inferred type, even though `.safeParse()` guarantees the
+value is present at runtime. If this version is in use: hand-write
+the TypeScript interface instead of `z.infer<>`, use the Zod schema
+purely for runtime validation, and cast `parsed.data as ManualType`
+once, immediately after the success check. Otherwise: pin Zod below
+3.25, or confirm the bug is fixed in whatever version is current.
 
 ---
 
@@ -72,8 +89,27 @@ Never use uncontrolled native HTML forms for business logic forms.
 | RBAC | Enforced at API/Server Action level. Never trust client-side role claims. |
 | Input validation | Zod on every route and Server Action. Reject and log invalid inputs. |
 | File validation | MIME type + extension whitelist + size limit on every upload |
+| File content verification | MIME type from the client is a claim, not a fact — verify actual file content (magic bytes) matches the claimed type before storing, not just the reported Content-Type/extension. |
+| Outbound email content | Any user-controlled free text (title, name, message body) embedded in an outbound HTML email MUST be HTML-escaped before insertion. Any user-controlled text placed in an email SUBJECT line must have embedded `\r\n` stripped (defense-in-depth even if the mail provider's API already sanitizes it). Write this as one shared helper, not re-implemented per feature. |
 | Secret management | `.env` only. Never commit. Never log. Never expose to client. |
 | Service keys | Server-side only. Never in client bundle. Never in component files. |
+
+**Confirmed-safe RBAC pattern:** resolve role via a server-side profile
+lookup keyed by the verified auth-provider user id, on every request —
+never decode a role from the JWT payload or trust a header. Verify
+this live: a forged/garbage token, a token for a different role, and
+direct route calls bypassing the UI must all be correctly rejected
+because role never came from client-supplied data.
+
+**Known limitation to disclose, not silently accept:** banning/
+disabling a user via most auth providers (Supabase Auth included)
+blocks new logins immediately but does NOT invalidate an
+already-issued access token — it remains valid until its natural
+expiry (often ~1h), because ban status is checked at token issuance,
+not on every verification. Document this in the project Constitution
+and surface it in the admin UI rather than building a custom
+revocation blocklist, unless the project's risk profile specifically
+requires instant cutoff.
 
 ---
 
@@ -95,6 +131,14 @@ Standard response shapes — use these everywhere:
 // Success response
 { success: true, data: T }
 ```
+
+A caught error is not "handled" just because it doesn't crash the
+server. Before falling back to a generic 500, check for the specific,
+anticipatable failure reasons — resource not found (404), conflicting/
+duplicate state (409), permission denied (403) — and return the
+precise status with a specific message. Generic 500 should mean
+"truly unexpected," not "an admin acted on a stale ID" or "tried to
+reuse an email that already exists."
 
 ---
 
@@ -198,6 +242,34 @@ Never do these without explicit written approval in the project `DECISION_LOG.md
 | Fetching data directly in a React component | Use Server Components or Server Actions |
 | Business logic inside UI components | Move to domain layer |
 | Skipping `.env.example` update | Always update when adding env vars |
+
+---
+
+## E-12. Environment Gotchas (learned the hard way)
+
+- **Never name a server's port env var bare `PORT`.** Some dev/
+  hosting sandboxes export a global `PORT` for the primary web
+  process — a second process (e.g. an API server alongside a Vite
+  dev server) binding the same name collides. Use a distinct name
+  (`API_PORT`) for any secondary process; let the real deploy
+  target's assigned `PORT` take priority only in production.
+- **npm scripts may run through `cmd.exe`, not bash**, depending on
+  the launching tool/OS. Inline `VAR=value command` syntax fails
+  silently there. Use `cross-env VAR=value command` in any script
+  that sets an environment variable.
+- **`UNABLE_TO_VERIFY_LEAF_SIGNATURE` on outbound HTTPS** from a
+  Node process launched inside certain sandboxes (proxy/AV doing
+  TLS interception the OS trusts but Node's bundled CA store
+  doesn't) — fix with `NODE_OPTIONS=--use-system-ca` (Node ≥22.9).
+- **Anything a production script invokes (`npm run start`, cron
+  workers, build tools like `tsx`/`cross-env` themselves) must be
+  listed in `dependencies`, never `devDependencies`.** Local dev
+  never notices because local `npm install` installs both — this
+  is invisible until a real production platform runs
+  `npm install --omit=dev` and every deploy fails. Verify by
+  actually running `npm install --omit=dev && npm run start`
+  locally before trusting a deploy config — reusing an
+  already-populated `node_modules` will never surface this.
 
 ---
 

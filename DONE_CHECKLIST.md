@@ -21,6 +21,11 @@
       → Either complete them or log them in `DECISION_LOG.md` as future work
 - [ ] No unused imports or dead code
 - [ ] No `console.log` in production routes or Server Actions
+- [ ] Browser console checked at error level after loading every
+      changed screen AND after triggering unrelated local-state
+      interactions (not just the happy path) — zero uncaught errors
+      or React warnings. Screenshots and network status codes do
+      not catch render-loop bugs; the console does.
 
 ---
 
@@ -86,6 +91,17 @@
 - [ ] `npm run build` completes with zero TypeScript errors
 - [ ] No new environment variables missing from `.env.example`
 - [ ] No new dependencies added without updating `DECISION_LOG.md`
+- [ ] Every package a production script invokes (build tools,
+      process runners, anything named in `start`/production npm
+      scripts) is listed in `dependencies`, not `devDependencies` —
+      verified by actually running
+      `npm install --omit=dev && npm run start` locally, not
+      assumed from a working local dev environment.
+- [ ] Every cleanup/test-teardown script checks and logs the
+      `error` return of every delete/admin API call — never assumes
+      success from the absence of a thrown exception. A silently
+      swallowed error leaves orphaned test data that resurfaces
+      later as a confusing, unrelated-looking user-facing bug.
 
 ---
 

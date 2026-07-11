@@ -38,7 +38,14 @@ Review specifically for:
 **Input validation:**
 - [ ] All API inputs validated with Zod before use
 - [ ] All file uploads check MIME type, extension, and size
+- [ ] All file uploads verify actual content (magic bytes), not just reported MIME type
 - [ ] No user-provided data used in database queries without sanitisation
+
+**Outbound content:**
+- [ ] User-controlled text in outbound email bodies is HTML-escaped
+- [ ] User-controlled text in outbound email SUBJECT lines has embedded `\r\n` stripped
+- [ ] Every admin/error response returns the precise status code (404/409/403) for anticipatable failures, not a generic 500
+- [ ] If the auth provider supports "ban"/"disable": confirmed and documented whether it invalidates already-issued tokens immediately or only blocks new logins
 
 **Environment:**
 - [ ] No hardcoded credentials anywhere in code

@@ -119,4 +119,39 @@ folders for related code, increasing the chance of inconsistencies and mistakes.
 
 ---
 
+## DL-009 — Alternate Stack: Vite SPA + Express (not Next.js) when inheriting an existing non-Next.js codebase
+
+**Date:** 2026-07-11
+**Decision:** When a project inherits a working Vite+React SPA
+(e.g. from an AI-Studio-generated scaffold), keep it and add an
+Express+TypeScript backend rather than migrating to Next.js.
+**Rationale:**
+Proven across a full 10-sprint project (web-app-chronos) through production
+deployment. Migrating a working frontend to match a default stack destroys
+real work for no functional benefit. The Five Layers (A-1) and Repository
+Pattern (A-3) translate directly: Express routes replace Server Actions,
+`server/features/*/repository.ts` replaces the Next.js repository pattern.
+**Upgrade path:** N/A — this is a first-class alternate path, not a temporary
+deviation to unwind later. See CONSTITUTION.md M-16.
+
+---
+
+## DL-010 — Deployment for Vite+Express projects: Render.com
+
+**Date:** 2026-07-11
+**Decision:** For projects on the DL-009 alternate stack (single
+Express process serving built frontend + `/api/*`), deploy on
+Render.com's free tier via a `render.yaml` Blueprint rather than Vercel.
+**Rationale:**
+Vercel's zero-config model assumes Next.js/serverless functions. A
+persistent single Node process (needed here for in-process `node-cron`
+jobs — see the reminder/notification engine pattern) fits Render's
+always-on web service model directly.
+**Known trap:** confirm every package invoked by the production start
+script is in `dependencies` — see `ENGINEERING_RULES.md` E-12. Render's
+`x-render-routing: no-deploy` response header on the live URL means "no
+build has ever succeeded," not "cold start, wait."
+
+---
+
 *Commander v1.0 — IDSS123a Organisation*
