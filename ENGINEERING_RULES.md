@@ -1,16 +1,19 @@
 # ENGINEERING_RULES.md — Universal Engineering Standards
 # Commander — Project Operating System
-# Version 1.0 — June 2026
+# Version 1.1 — July 2026
 
 ---
 
 > These rules apply to every project under IDSS123a.
 > Project-specific rules are in the project Constitution.
 > When a project rule conflicts with this document, the project rule wins for that project.
+>
+> **Severity:** 🔴 CRITICAL  🟡 STANDARD  🟢 PREFERRED
+> **Status:** `[ACTIVE]` `[DEPRECATED: reason, date]` `[SUPERSEDED BY E-XX]`
 
 ---
 
-## E-1. TypeScript
+## E-1. TypeScript `[ACTIVE]` 🔴 CRITICAL
 
 - `"strict": true` in every `tsconfig.json` — mandatory, no exceptions
 - No `any` types — ever
@@ -22,20 +25,19 @@
 - No implicit `undefined` returns
 - When narrowing a discriminated union parsed from an API response
   (e.g. `{ deleted: true } | { deleted: false; blockers: X }`),
-  use an explicit literal comparison — `if (result.deleted === false)`
-  — never `if (!result.deleted)`. The negation form has been observed
+  use an explicit literal comparison — `if (result.deleted === false)` — never `if (!result.deleted)`. The negation form has been observed
   to fail to narrow the union correctly in some TS configurations,
   leaving the discriminant field typed as possibly undefined even
   after the check.
 
 ---
 
-## E-2. Validation — Zod on Every Boundary
+## E-2. Validation — Zod on Every Boundary `[ACTIVE]` 🔴 CRITICAL
 
 All inputs validated with Zod. All schemas in `lib/validation/schemas.ts`.
 Never write inline validation logic. Never repeat a schema.
 
-```typescript
+```
 // Correct
 import { DocumentUploadSchema } from '@/lib/validation/schemas';
 const result = DocumentUploadSchema.safeParse(body);
@@ -46,28 +48,27 @@ if (!body.name || body.name.length > 100) { ... }
 ```
 
 Zod validates at every system boundary:
+
 - API route inputs
 - Server Action inputs
 - Form submissions (with React Hook Form + Zod Resolver)
 - External API responses (parse before trusting)
 
-**Known pitfall (Zod 3.25.x):** `.default()` fields make
-`z.infer<>` mark that field — and sometimes sibling fields in
+**Known pitfall (Zod 3.25.x):** `.default()` fields make `z.infer<>` mark that field — and sometimes sibling fields in
 nested array objects with no default of their own — as optional
 in the inferred type, even though `.safeParse()` guarantees the
 value is present at runtime. If this version is in use: hand-write
 the TypeScript interface instead of `z.infer<>`, use the Zod schema
-purely for runtime validation, and cast `parsed.data as ManualType`
-once, immediately after the success check. Otherwise: pin Zod below
+purely for runtime validation, and cast `parsed.data as ManualType` once, immediately after the success check. Otherwise: pin Zod below
 3.25, or confirm the bug is fixed in whatever version is current.
 
 ---
 
-## E-3. Forms
+## E-3. Forms `[ACTIVE]` 🟡 STANDARD
 
 Use **React Hook Form** with **Zod Resolver** for all forms.
 
-```typescript
+```
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginSchema } from '@/lib/validation/schemas';
@@ -79,20 +80,20 @@ Never use uncontrolled native HTML forms for business logic forms.
 
 ---
 
-## E-4. Security
+## E-4. Security `[ACTIVE]` 🔴 CRITICAL
 
-| Requirement | Standard |
-|---|---|
-| Authentication | Defined per project. Default: email + password only. |
-| Password hashing | bcrypt, cost factor minimum `12` |
-| Sessions | HTTP-only cookie, `SameSite=Strict` |
-| RBAC | Enforced at API/Server Action level. Never trust client-side role claims. |
-| Input validation | Zod on every route and Server Action. Reject and log invalid inputs. |
-| File validation | MIME type + extension whitelist + size limit on every upload |
-| File content verification | MIME type from the client is a claim, not a fact — verify actual file content (magic bytes) matches the claimed type before storing, not just the reported Content-Type/extension. |
-| Outbound email content | Any user-controlled free text (title, name, message body) embedded in an outbound HTML email MUST be HTML-escaped before insertion. Any user-controlled text placed in an email SUBJECT line must have embedded `\r\n` stripped (defense-in-depth even if the mail provider's API already sanitizes it). Write this as one shared helper, not re-implemented per feature. |
-| Secret management | `.env` only. Never commit. Never log. Never expose to client. |
-| Service keys | Server-side only. Never in client bundle. Never in component files. |
+| Requirement               | Standard                                                                                                                                                                                                 |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Authentication            | Defined per project. Default: email + password only.                                                                                                                                                     |
+| Password hashing          | bcrypt, cost factor minimum `12`                                                                                                                                                                         |
+| Sessions                  | HTTP-only cookie, `SameSite=Strict`                                                                                                                                                                      |
+| RBAC                      | Enforced at API/Server Action level. Never trust client-side role claims.                                                                                                                                |
+| Input validation          | Zod on every route and Server Action. Reject and log invalid inputs.                                                                                                                                     |
+| File validation           | MIME type + extension whitelist + size limit on every upload                                                                                                                                             |
+| File content verification | MIME type from the client is a claim, not a fact — verify actual file content (magic bytes) matches the claimed type before storing, not just the reported Content-Type/extension.                       |
+| Outbound email content    | Any user-controlled free text (title, name, message body) embedded in an outbound HTML email MUST be HTML-escaped before insertion. Any user-controlled text placed in an email SUBJECT line must have embedded `\r\n` stripped (defense-in-depth even if the mail provider's API already sanitizes it). Write this as one shared helper, not re-implemented per feature. |
+| Secret management         | `.env` only. Never commit. Never log. Never expose to client.                                                                                                                                            |
+| Service keys              | Server-side only. Never in client bundle. Never in component files.                                                                                                                                      |
 
 **Confirmed-safe RBAC pattern:** resolve role via a server-side profile
 lookup keyed by the verified auth-provider user id, on every request —
@@ -113,18 +114,19 @@ requires instant cutoff.
 
 ---
 
-## E-5. Error Handling
+## E-5. Error Handling `[ACTIVE]` 🔴 CRITICAL
 
 Every async operation must have a `try/catch`. No silent failures. Ever.
 
 Every caught error must:
+
 1. Log to server console: timestamp, location, message, stack
 2. Log to `audit_log` table (for write operations)
 3. Return a user-friendly message — never expose stack traces or internals to users
 
 Standard response shapes — use these everywhere:
 
-```typescript
+```
 // Error response
 { success: false, error: string, code?: string }
 
@@ -142,7 +144,7 @@ reuse an email that already exists."
 
 ---
 
-## E-6. API Routes and Server Actions
+## E-6. API Routes and Server Actions `[ACTIVE]` 🔴 CRITICAL
 
 Every API route and Server Action must follow this exact sequence:
 
@@ -156,7 +158,7 @@ Every API route and Server Action must follow this exact sequence:
 
 Every API route must have a JSDoc comment block:
 
-```typescript
+```
 /**
  * POST /api/documents/upload
  * Role required: admin, super_admin
@@ -168,7 +170,7 @@ Every API route must have a JSDoc comment block:
 
 ---
 
-## E-7. State Management
+## E-7. State Management `[ACTIVE]` 🟡 STANDARD
 
 Follow this priority order. Only descend when the level above is insufficient.
 
@@ -184,7 +186,7 @@ in the project `DECISION_LOG.md`.
 
 ---
 
-## E-8. Monitoring and Error Tracking
+## E-8. Monitoring and Error Tracking `[ACTIVE]` 🟡 STANDARD
 
 - **Sentry** for error tracking — install from project start, not as an afterthought
 - **Project-specific LLM monitoring** — defined in each project Constitution
@@ -194,26 +196,26 @@ in the project `DECISION_LOG.md`.
 
 ---
 
-## E-9. Naming Conventions
+## E-9. Naming Conventions `[ACTIVE]` 🟢 PREFERRED
 
-| Element | Convention | Example |
-|---|---|---|
-| Files | kebab-case | `document-upload.ts` |
-| React components | PascalCase | `QuizCard.tsx` |
-| Functions | camelCase | `getActiveChunks()` |
-| Constants | SCREAMING_SNAKE_CASE | `MAX_QUIZ_QUESTIONS` |
-| Database tables | snake_case | `document_chunks` |
-| Database columns | snake_case | `created_at` |
-| CSS classes | kebab-case | `quiz-option-btn` |
-| Environment variables | SCREAMING_SNAKE_CASE | `GEMINI_API_KEY_1` |
-| Feature folders | kebab-case | `features/quiz-engine/` |
+| Element               | Convention             | Example                 |
+| --------------------- | ---------------------- | ----------------------- |
+| Files                 | kebab-case             | `document-upload.ts`    |
+| React components      | PascalCase             | `QuizCard.tsx`          |
+| Functions             | camelCase              | `getActiveChunks()`     |
+| Constants             | SCREAMING\_SNAKE\_CASE | `MAX_QUIZ_QUESTIONS`    |
+| Database tables       | snake\_case            | `document_chunks`       |
+| Database columns      | snake\_case            | `created_at`            |
+| CSS classes           | kebab-case             | `quiz-option-btn`       |
+| Environment variables | SCREAMING\_SNAKE\_CASE | `GEMINI_API_KEY_1`      |
+| Feature folders       | kebab-case             | `features/quiz-engine/` |
 
 No abbreviations except: `req`, `res`, `id`, `url`, `api`, `db`.
 Write `document` not `doc`. Write `chapter` not `chp`. Write `question` not `qst`.
 
 ---
 
-## E-10. Documentation
+## E-10. Documentation `[ACTIVE]` 🟡 STANDARD
 
 Every new module must update these (where applicable):
 
@@ -227,25 +229,25 @@ Every new module must update these (where applicable):
 
 ---
 
-## E-11. Forbidden Patterns
+## E-11. Forbidden Patterns `[ACTIVE]` 🟡 STANDARD
 
 Never do these without explicit written approval in the project `DECISION_LOG.md`:
 
-| Pattern | Reason |
-|---|---|
-| Hardcoded hex/pixel values in component files | Use design tokens |
-| Raw SQL repeated in multiple files | Use repository functions |
-| `console.log` in production routes | Use structured logging |
-| Magic numbers anywhere | Name them in `constants/index.ts` |
-| Inline `style={{}}` for layout | Use Tailwind classes |
-| `setTimeout` for logic flow control | Use proper async/await |
-| Fetching data directly in a React component | Use Server Components or Server Actions |
-| Business logic inside UI components | Move to domain layer |
-| Skipping `.env.example` update | Always update when adding env vars |
+| Pattern                                       | Reason                                  |
+| --------------------------------------------- | --------------------------------------- |
+| Hardcoded hex/pixel values in component files | Use design tokens                       |
+| Raw SQL repeated in multiple files            | Use repository functions                |
+| `console.log` in production routes            | Use structured logging                  |
+| Magic numbers anywhere                        | Name them in `constants/index.ts`       |
+| Inline `style={{}}` for layout                | Use Tailwind classes                    |
+| `setTimeout` for logic flow control           | Use proper async/await                  |
+| Fetching data directly in a React component   | Use Server Components or Server Actions |
+| Business logic inside UI components           | Move to domain layer                    |
+| Skipping `.env.example` update                | Always update when adding env vars      |
 
 ---
 
-## E-12. Environment Gotchas (learned the hard way)
+## E-12. Environment Gotchas (learned the hard way) `[ACTIVE]` 🟡 STANDARD
 
 - **Never name a server's port env var bare `PORT`.** Some dev/
   hosting sandboxes export a global `PORT` for the primary web
@@ -267,10 +269,9 @@ Never do these without explicit written approval in the project `DECISION_LOG.md
   never notices because local `npm install` installs both — this
   is invisible until a real production platform runs
   `npm install --omit=dev` and every deploy fails. Verify by
-  actually running `npm install --omit=dev && npm run start`
-  locally before trusting a deploy config — reusing an
+  actually running `npm install --omit=dev && npm run start` locally before trusting a deploy config — reusing an
   already-populated `node_modules` will never surface this.
 
 ---
 
-*Commander v1.0 — IDSS123a Organisation*
+*Commander v1.1 — IDSS123a Organisation*

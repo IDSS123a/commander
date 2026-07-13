@@ -1,6 +1,6 @@
 # DONE_CHECKLIST.md — Universal Definition of Done
 # Commander — Project Operating System
-# Version 1.0 — June 2026
+# Version 1.1 — July 2026
 
 ---
 
@@ -16,16 +16,16 @@
 - [ ] No `any` types anywhere in new or modified code
 - [ ] No `@ts-ignore` comments anywhere in new or modified code
 - [ ] No hardcoded values (hex colours, pixel sizes, magic numbers, strings)
-      → All in `constants/index.ts` or CSS tokens
+  → All in `constants/index.ts` or CSS tokens
 - [ ] No TODO comments left in production code
-      → Either complete them or log them in `DECISION_LOG.md` as future work
+  → Either complete them or log them in `DECISION_LOG.md` as future work
 - [ ] No unused imports or dead code
 - [ ] No `console.log` in production routes or Server Actions
 - [ ] Browser console checked at error level after loading every
-      changed screen AND after triggering unrelated local-state
-      interactions (not just the happy path) — zero uncaught errors
-      or React warnings. Screenshots and network status codes do
-      not catch render-loop bugs; the console does.
+  changed screen AND after triggering unrelated local-state
+  interactions (not just the happy path) — zero uncaught errors
+  or React warnings. Screenshots and network status codes do
+  not catch render-loop bugs; the console does.
 
 ---
 
@@ -59,7 +59,7 @@
 - [ ] Every write operation error is logged to audit_log
 - [ ] No raw error messages exposed to users (user sees friendly message only)
 - [ ] All API routes and Server Actions return standardised shape:
-      `{ success: true, data: T }` or `{ success: false, error: string }`
+  `{ success: true, data: T }` or `{ success: false, error: string }`
 
 ---
 
@@ -92,16 +92,59 @@
 - [ ] No new environment variables missing from `.env.example`
 - [ ] No new dependencies added without updating `DECISION_LOG.md`
 - [ ] Every package a production script invokes (build tools,
-      process runners, anything named in `start`/production npm
-      scripts) is listed in `dependencies`, not `devDependencies` —
-      verified by actually running
-      `npm install --omit=dev && npm run start` locally, not
-      assumed from a working local dev environment.
+  process runners, anything named in `start`/production npm
+  scripts) is listed in `dependencies`, not `devDependencies` —
+  verified by actually running
+  `npm install --omit=dev && npm run start` locally, not
+  assumed from a working local dev environment.
 - [ ] Every cleanup/test-teardown script checks and logs the
-      `error` return of every delete/admin API call — never assumes
-      success from the absence of a thrown exception. A silently
-      swallowed error leaves orphaned test data that resurfaces
-      later as a confusing, unrelated-looking user-facing bug.
+  `error` return of every delete/admin API call — never assumes
+  success from the absence of a thrown exception. A silently
+  swallowed error leaves orphaned test data that resurfaces
+  later as a confusing, unrelated-looking user-facing bug.
+
+---
+
+## Sprint-Level Learning (M-18)
+
+- [ ] `corrections/SPRINT_XX_LESSONS.md` created or updated with:
+  - Corrections applied during this sprint
+  - Gotchas discovered (environment, tooling, library behaviour)
+  - Commander improvement candidates (suggested rule changes)
+- [ ] If this is the final sprint of a project:
+  - All `corrections/*.md` files reviewed
+  - Applicable improvements committed to Commander repository
+
+---
+
+## Commander Compliance Scoring
+
+*Fill this section in the sprint handoff note. It provides data for
+the annual Commander Audit (M-19).*
+
+```
+COMMANDER COMPLIANCE — Sprint XX
+──────────────────────────────────
+Rules followed without reminder:        ___/___
+Rules violated, caught by ACA:          ___
+Rules violated, caught by Director:     ___
+Rules that slowed work or felt wrong:   [list or "none"]
+New rules suggested by this sprint:     [list or "none"]
+```
+
+**How to count:**
+- "Without reminder" = ACA followed the rule naturally without
+  the Director pointing it out.
+- "Caught by ACA" = ACA violated a rule, then self-corrected
+  (🔄 COURSE CORRECTION).
+- "Caught by Director" = Director had to point out a Commander
+  violation the ACA missed.
+- "Slowed work" = Be honest. If a rule required effort that
+  didn't produce value, it's a deprecation candidate (M-17).
+
+This scoring is not punitive — it is diagnostic. It tells the
+Director which rules are working, which need reinforcement, and
+which should be retired.
 
 ---
 
@@ -110,7 +153,8 @@
 - [ ] Sprint document updated with completed items
 - [ ] Handoff note written: completed, not completed, risks, technical debt, next sprint
 - [ ] Commit message is clear and structured (see `FEATURE_LIFECYCLE.md` Step 7)
+- [ ] Commander Compliance score recorded (above)
 
 ---
 
-*Commander v1.0 — IDSS123a Organisation*
+*Commander v1.1 — IDSS123a Organisation*

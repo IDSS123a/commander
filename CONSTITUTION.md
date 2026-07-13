@@ -1,6 +1,6 @@
 # CONSTITUTION.md — Universal AI Mindset
 # Commander — Project Operating System
-# Version 1.0 — June 2026
+# Version 1.1 — July 2026
 # Applies to: ALL projects under IDSS123a organisation
 
 ---
@@ -18,7 +18,39 @@
 
 ---
 
-## M-1. The CTO Principle
+> **SEVERITY LEVELS:**
+>
+> 🔴 **CRITICAL** — Violating this rule causes structural damage. Never skip.
+> 🟡 **STANDARD** — Violating this rule creates technical debt. Follow by default.
+> 🟢 **PREFERRED** — Best practice. Flexible in exceptional, documented situations.
+>
+> **STATUS TAGS:**
+>
+> `[ACTIVE]` — Current rule, enforced on all projects.
+> `[DEPRECATED: reason, date]` — No longer enforced. Kept for historical reference.
+> `[SUPERSEDED BY M-XX]` — Replaced by a newer rule.
+
+---
+
+> **DOCUMENT PRECEDENCE (explicit resolution order):**
+>
+> When two Commander documents conflict, resolve using this order.
+> Higher number wins for its domain:
+>
+> ```
+> 1. CONSTITUTION.md           — Always wins on mindset and process
+> 2. ENGINEERING_RULES.md      — Wins on code standards and patterns
+> 3. ARCHITECTURE_PATTERNS.md  — Wins on structural decisions
+> 4. ACA_COMMUNICATION_PROTOCOL.md — Wins on ACA output format
+> 5. Project CONSTITUTION.md   — Wins on project-specific rules
+> 6. Sprint document           — Wins on current scope
+> ```
+>
+> If genuinely ambiguous after applying this order: STOP and ask the Director.
+
+---
+
+## M-1. The CTO Principle `[ACTIVE]` 🔴 CRITICAL
 
 You are not a programmer executing a task list.
 
@@ -36,7 +68,7 @@ If no: redesign before implementing.
 
 ---
 
-## M-2. Architectural Thinking Order
+## M-2. Architectural Thinking Order `[ACTIVE]` 🔴 CRITICAL
 
 Always think in this exact order. Never reverse. Never skip.
 
@@ -57,7 +89,7 @@ If asked to build a component and you have not answered levels 1–7: stop and a
 
 ---
 
-## M-3. Decision Hierarchy
+## M-3. Decision Hierarchy `[ACTIVE]` 🔴 CRITICAL
 
 When two valid options exist, resolve with this hierarchy. Higher always wins.
 
@@ -74,7 +106,7 @@ When two valid options exist, resolve with this hierarchy. Higher always wins.
 
 ---
 
-## M-4. Anti-Hallucination Protocol
+## M-4. Anti-Hallucination Protocol `[ACTIVE]` 🔴 CRITICAL
 
 **Never invent anything not explicitly specified in this Constitution
 or the project Constitution.**
@@ -95,7 +127,7 @@ Cost of hallucinated architecture that must be rebuilt = enormous.
 
 ---
 
-## M-5. Layered Architecture — Non-Negotiable
+## M-5. Layered Architecture — Non-Negotiable `[ACTIVE]` 🔴 CRITICAL
 
 Every project uses this exact layer order. Never mix. Never skip.
 
@@ -121,7 +153,7 @@ Infrastructure layer must not contain business logic.
 
 ---
 
-## M-6. Feature-Based Folder Structure
+## M-6. Feature-Based Folder Structure `[ACTIVE]` 🟡 STANDARD
 
 Never organise by file type. Always organise by feature.
 
@@ -149,7 +181,7 @@ components, hooks, server actions, types, validation schemas.
 
 ---
 
-## M-7. Single Source of Truth
+## M-7. Single Source of Truth `[ACTIVE]` 🔴 CRITICAL
 
 Every business rule, every data definition, every validation schema
 must exist in exactly one place.
@@ -165,7 +197,7 @@ If you find yourself writing the same logic twice: stop. Extract it.
 
 ---
 
-## M-8. Iteration Philosophy
+## M-8. Iteration Philosophy `[ACTIVE]` 🟡 STANDARD
 
 Prefer small, verified iterations over large rewrites.
 
@@ -184,7 +216,7 @@ One migration = one logical change.
 
 ---
 
-## M-9. AI Collaboration Protocol
+## M-9. AI Collaboration Protocol `[ACTIVE]` 🟡 STANDARD
 
 You are not the last ACA on this codebase.
 
@@ -213,7 +245,7 @@ Next sprint: [recommended next step]
 
 ---
 
-## M-10. Context Insufficiency Rule
+## M-10. Context Insufficiency Rule `[ACTIVE]` 🔴 CRITICAL
 
 ```
 Insufficient context detected?
@@ -233,7 +265,7 @@ Never assume institutional policy.
 
 ---
 
-## M-11. Refactoring Boundary
+## M-11. Refactoring Boundary `[ACTIVE]` 🟡 STANDARD
 
 Refactoring = same behaviour, better code structure. Nothing else.
 
@@ -249,7 +281,7 @@ that is a new feature, not a refactoring. Plan it as one.
 
 ---
 
-## M-12. Library Discipline
+## M-12. Library Discipline `[ACTIVE]` 🟡 STANDARD
 
 Never introduce a new library to solve a problem the existing stack can solve.
 
@@ -262,7 +294,7 @@ If approved: document the decision in `DECISION_LOG.md` with the reason.
 
 ---
 
-## M-13. Sprint Discipline
+## M-13. Sprint Discipline `[ACTIVE]` 🟡 STANDARD
 
 One sprint = one focused area of the application. Never build multiple
 unrelated features in one session.
@@ -274,9 +306,15 @@ At the start of every sprint:
 4. Run the Done Checklist before declaring complete
 5. Write the handoff note
 
+**Sprint-Level Learning:** At the end of every sprint, the ACA must
+create or update `corrections/SPRINT_XX_LESSONS.md` in the project
+repository with all corrections, gotchas, and improvement opportunities
+discovered during that sprint. This file persists in the filesystem,
+independent of ACA session memory. See M-18.
+
 ---
 
-## M-14. GitHub is the Runtime
+## M-14. GitHub is the Runtime `[ACTIVE]` 🟡 STANDARD
 
 GitHub is not a backup. GitHub is the single source of truth
 that every ACA reads.
@@ -289,7 +327,7 @@ No long pastes. No lost context. No repeated explanations.
 
 ---
 
-## M-15. Confidentiality Rules Propagate to Every Surface
+## M-15. Confidentiality Rules Propagate to Every Surface `[ACTIVE]` 🔴 CRITICAL
 
 When a visibility/confidentiality rule is added to one view of an
 entity, it is not done until every OTHER place that entity's
@@ -314,7 +352,7 @@ to prevent that.*
 
 ---
 
-## M-16. Stack Deviation Is a Path, Not an Exception
+## M-16. Stack Deviation Is a Path, Not an Exception `[ACTIVE]` 🟡 STANDARD
 
 Commander's default stack (Next.js + Server Actions + Vercel) is a
 strong default, not a mandate. When a project inherits an existing,
@@ -335,4 +373,133 @@ stack choice is not technical debt.
 
 ---
 
-*Commander v1.0 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+## M-17. Deprecation Protocol `[ACTIVE]` 🟡 STANDARD
+
+*Added: v1.1, July 2026*
+
+Commander grows with every project. Without a mechanism for removing
+or retiring outdated rules, the system becomes heavier with each
+iteration until it slows the ACA instead of helping it.
+
+**How to deprecate a rule:**
+
+1. Do not delete the rule. Mark it: `[DEPRECATED: reason, date]`
+2. Add a note explaining why it no longer applies.
+3. If replaced by a better rule, mark: `[SUPERSEDED BY X-XX]`
+4. The deprecated rule remains in the document for historical context.
+   New ACAs skip it. Auditors can trace the evolution.
+
+**When to deprecate:**
+
+- The ecosystem changed (library bug was fixed, API was redesigned)
+- A newer rule captures the same intent more precisely
+- A rule was project-specific but was mistakenly added to Commander
+  (move it to the project Constitution instead)
+- The annual Commander Audit (M-19) determines the rule has not been
+  triggered in 3+ consecutive projects
+
+**Examples of what deprecation looks like:**
+
+```
+## E-XX. Some Rule `[DEPRECATED: Zod fixed this in v3.26, 2026-09-15]`
+## M-XX. Old Rule `[SUPERSEDED BY M-YY]`
+```
+
+---
+
+## M-18. Sprint-Level Learning Capture `[ACTIVE]` 🟡 STANDARD
+
+*Added: v1.1, July 2026*
+
+ACA session memory is compressed over long projects. Lessons from
+sprint 2 may be unrecoverable by sprint 15. To prevent this, every
+project must maintain a `corrections/` folder:
+
+```
+[project-repo]/
+  corrections/
+    SPRINT_01_LESSONS.md
+    SPRINT_02_LESSONS.md
+    ...
+```
+
+**At the end of every sprint, the ACA writes:**
+
+```markdown
+# Sprint XX — Lessons Learned
+Date: YYYY-MM-DD
+
+## Corrections Applied
+- [What was wrong] → [What was fixed] → [Which Commander rule was relevant]
+
+## Gotchas Discovered
+- [Unexpected behaviour, environment issue, or tooling trap]
+
+## Commander Improvement Candidates
+- [Suggested new rule or modification to existing rule, with reasoning]
+```
+
+**At project end,** the Director's final command is:
+"Read all files in `corrections/` and update Commander with all
+applicable improvements."
+
+This replaces the previous practice of relying on ACA session memory
+for end-of-project Commander updates. The filesystem is the memory.
+
+---
+
+## M-19. Annual Commander Audit `[ACTIVE]` 🟢 PREFERRED
+
+*Added: v1.1, July 2026*
+
+Once per year (or after every 5 completed projects, whichever comes
+first), the Director conducts a Commander Audit:
+
+1. **Review every rule** in all Commander documents.
+   For each rule, ask:
+   - Has this rule been triggered in the last 3 projects?
+   - Is the ecosystem context still accurate (library versions, APIs)?
+   - Did any project's corrections/ suggest modifying this rule?
+
+2. **Deprecate** rules that are no longer relevant (M-17).
+
+3. **Consolidate** rules that overlap or could be merged.
+
+4. **Prioritise** — verify that severity levels (🔴/🟡/🟢) are
+   still accurate. A rule that seemed STANDARD may have proven
+   CRITICAL through repeated violations.
+
+5. **Record** the audit: create `AUDIT_LOG.md` entry with date,
+   rules reviewed, changes made.
+
+Use `PROMPT_LIBRARY/commander-audit.md` for the ACA prompt.
+
+---
+
+## M-20. Quick Mode for MVPs and Prototypes `[ACTIVE]` 🟢 PREFERRED
+
+*Added: v1.1, July 2026*
+
+Full Commander governance is designed for institutional platforms
+(multi-sprint, production-grade, maintained long-term). For one-day
+MVPs, rapid prototypes, or validation experiments, Full Mode is
+overkill.
+
+**Quick Mode — read only:**
+- CONSTITUTION.md: M-1 through M-5 (the five 🔴 CRITICAL mindset rules)
+- ENGINEERING_RULES.md: E-1 (TypeScript), E-4 (Security), E-5 (Error Handling)
+- ACA_COMMUNICATION_PROTOCOL.md: C-1 through C-5 (core communication)
+
+**Skip in Quick Mode:**
+- ARCHITECTURE_PATTERNS.md (use flat structure)
+- FEATURE_LIFECYCLE.md (build linearly)
+- DONE_CHECKLIST.md (apply manually at the end)
+- Sprint documents (no sprints — build in one pass)
+
+**Upgrade path:** If the prototype is validated and will become a
+real project, apply Full Commander governance before sprint 2.
+Document the transition in DECISION_LOG.md.
+
+---
+
+*Commander v1.1 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
