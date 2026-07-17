@@ -1,6 +1,6 @@
 # CLAUDE.md — [PROJECT NAME]
 # Commander-Governed Project
-# Template version: 1.0 — July 2026
+# Template version: 1.2 — July 2026
 # INSTRUKCIJA: Kopiraj ovaj fajl kao CLAUDE.md u root svakog novog projekta.
 # Zamijeni [PROJECT NAME] i [project-repo] stvarnim vrijednostima, obriši ove 3 linije.
 
@@ -8,8 +8,10 @@
 
 ## GOVERNANCE — READ FIRST, EVERY SESSION
 
-This project is governed by Commander v1.1. Before writing any code,
-read these documents completely:
+This project is governed by Commander v1.2. Before writing any code,
+read documents per M-21 tier rules appropriate to your task:
+
+**TIER 2 (sprints, features, bug fixes) — read these:**
 
 ```
 https://raw.githubusercontent.com/IDSS123a/commander/main/CONSTITUTION.md
@@ -86,16 +88,10 @@ being asked:
 
 ### End-of-project (only step that needs the Director)
 
-When the Director says the project is finished, remind him once:
-
-"All lessons are captured in corrections/. Final Commander step:
-say 'update Commander' and I will read all corrections/ files and
-propose the exact changes to the Commander repository (following
-M-17 deprecation protocol and the AUDIT_LOG format)."
-
+When the Director says **KRAJ**, execute M-22 (KRAJ Protocol) from
+CONSTITUTION.md exactly. Reference: PROMPT_LIBRARY/kraj.md.
 Do NOT push changes to the Commander repository without explicit
-approval — Commander governs all projects, so changes to it always
-require the Director's review.
+approval — M-22 Step 4 (CONFIRM) requires it.
 
 ---
 
@@ -106,7 +102,7 @@ special institutional rules, environment quirks, deployment target.]
 
 ---
 
-*Commander v1.1 — IDSS123a Organisation — Davor Mulalić*
+*Commander v1.2 — IDSS123a Organisation — Davor Mulalić*
 
 ---
 
