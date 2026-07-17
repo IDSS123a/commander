@@ -2,7 +2,7 @@
 
 **Owner:** Davor Mulalić — P.U. Internationale Deutsche Schule Sarajevo
 **Purpose:** Universal AI Coding Assistant operating system for all projects
-**Version:** 1.1 — July 2026
+**Version:** 1.2 — July 2026
 
 ---
 
@@ -21,20 +21,22 @@ start from a stronger baseline.
 
 ---
 
-## How to Use Commander in Any New Project
+## How to Start an ACA Conversation (M-21 Tiered Loading)
 
-For the **first message of a brand-new project** (or when adopting an
-existing codebase into Commander governance for the first time), use
-`PROMPT_LIBRARY/start-new-project.md` — it walks the ACA through
-reading all Commander documents in order, then the project's own
-repository if one exists, before any code is discussed.
+Commander uses **tiered loading** to minimise token consumption.
+The ACA reads only the documents required for the current task.
 
-For every later ACA conversation on an already-governed project,
-provide these URLs:
+### Bug fixes and small changes (Tier 2)
 
 ```
 Commander Constitution:
 https://raw.githubusercontent.com/IDSS123a/commander/main/CONSTITUTION.md
+
+Commander Engineering Rules:
+https://raw.githubusercontent.com/IDSS123a/commander/main/ENGINEERING_RULES.md
+
+Commander Architecture Patterns:
+https://raw.githubusercontent.com/IDSS123a/commander/main/ARCHITECTURE_PATTERNS.md
 
 Commander ACA Communication Protocol:
 https://raw.githubusercontent.com/IDSS123a/commander/main/ACA_COMMUNICATION_PROTOCOL.md
@@ -46,12 +48,16 @@ Current Sprint:
 https://raw.githubusercontent.com/IDSS123a/[project-repo]/main/sprints/SPRINT_XX.md
 ```
 
-The ACA fetches all documents, reads them completely, then proceeds.
-No long pastes. No lost context. No repeated explanations.
+### New projects (Tier 3)
 
----
+Use `PROMPT_LIBRARY/start-new-project.md` — it walks the ACA through
+reading all Commander documents in order.
 
-## Quick Mode (for MVPs and Prototypes)
+### End of project
+
+Type: **KRAJ** — the ACA executes M-22 (KRAJ Protocol) automatically.
+
+### Quick Mode (MVPs and Prototypes — M-20)
 
 Full Commander governance is designed for institutional platforms. For
 one-day MVPs, rapid prototypes, or validation experiments, use Quick Mode.

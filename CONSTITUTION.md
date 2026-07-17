@@ -1,6 +1,6 @@
 # CONSTITUTION.md — Universal AI Mindset
 # Commander — Project Operating System
-# Version 1.1 — July 2026
+# Version 1.2 — July 2026
 # Applies to: ALL projects under IDSS123a organisation
 
 ---
@@ -502,4 +502,97 @@ Document the transition in DECISION_LOG.md.
 
 ---
 
-*Commander v1.1 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+## M-21. Tiered Loading — Read Only What the Task Requires `[ACTIVE]` 🔴 CRITICAL
+
+*Added: v1.2, July 2026*
+
+Do not read every Commander document at session start.
+Read only the tier your task requires:
+
+**TIER 1 — ALWAYS** (every task, every ACA, no exceptions):
+- CONSTITUTION.md: M-1 through M-5 only (stop at M-6)
+- ~2K tokens. Covers: CTO mindset, thinking order, decision hierarchy, anti-hallucination, layered architecture.
+
+**TIER 2 — IMPLEMENTATION** (sprints, features, bug fixes):
+- Everything in Tier 1, plus:
+- ENGINEERING_RULES.md (full)
+- ARCHITECTURE_PATTERNS.md (full)
+- ACA_COMMUNICATION_PROTOCOL.md: C-1 through C-5
+- Project CONSTITUTION.md (full)
+- Current sprint document (full)
+
+**TIER 3 — FULL** (new projects, annual audit, Commander updates):
+- All Commander documents in document hierarchy order.
+- Used only with PROMPT_LIBRARY/start-new-project.md or PROMPT_LIBRARY/commander-audit.md.
+
+The Director signals the tier implicitly through the task:
+- "Fix this bug" → Tier 2
+- "Implement Sprint 07" → Tier 2
+- "Start new project" → Tier 3
+- "KRAJ" → Tier 3
+
+DECISION_LOG.md, ACA_MANAGEMENT_GUIDE.md, and CLAUDE_CODE_OPERATIONS.md are NEVER loaded at session start. They are reference documents opened only when making a technology decision or when the Director explicitly links them.
+
+**Learned from:** Every Commander project from v1.0 to v1.1 consumed 60K+ tokens on initial ACA load. Most of those tokens were re-read on every conversation and never influenced the output. Token cost scaled linearly with conversation count, not project complexity.
+
+---
+
+## M-22. KRAJ Protocol — End-of-Project Commander Update `[ACTIVE]` 🔴 CRITICAL
+
+*Added: v1.2, July 2026*
+
+When the Director types **KRAJ** (end of project), the ACA executes this exact protocol. No other interpretation. No partial execution.
+
+**Step 1 — COLLECT**
+- Read every file in the project's `corrections/` folder.
+- Read DECISION_LOG.md from the project repository.
+- Read the last 3 sprint handoff notes (including Compliance Scores).
+
+**Step 2 — ANALYSE**
+
+Answer these questions:
+- a) Which Commander rules were violated more than once? → Candidate for severity upgrade (🟡→🔴)
+- b) Which Commander rules slowed work without producing value? → Candidate for deprecation (M-17)
+- c) Which problems occurred that no Commander rule covers? → Candidate for new rule
+- d) Which DECISION_LOG entries need adding to Commander? → New DL-XXX entries
+
+**Step 3 — PROPOSE**
+
+Generate a single Markdown document: `COMMANDER_UPDATE_PROPOSAL.md`
+
+Format:
+```
+# Commander Update Proposal — [Project Name]
+Date: YYYY-MM-DD
+Project: [name] ([repo URL])
+Sprints completed: XX
+
+## New Rules
+- [Rule ID] [Title] [Severity] — [One-line rationale]
+
+## Severity Changes
+- [Rule ID] 🟡→🔴 — [Why: violated X times in sprints Y, Z]
+
+## Deprecation Candidates
+- [Rule ID] — [Why: never triggered / ecosystem changed]
+
+## New Decision Log Entries
+- DL-XXX — [Title] — [Decision + rationale]
+
+## Learned-From Additions
+- [Which existing rule] += [new "learned from" paragraph]
+```
+
+**Step 4 — CONFIRM**
+- Present COMMANDER_UPDATE_PROPOSAL.md to the Director.
+- Wait for approval, correction, or rejection.
+- Do not commit anything without explicit "odobri" or "approved."
+
+**Step 5 — EXECUTE**
+- Apply approved changes to the Commander repository.
+- Commit with message: `feat: Commander vX.Y — [project name] end-of-project update`
+- Update AUDIT_LOG.md with the date and summary.
+
+---
+
+*Commander v1.2 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
