@@ -1,7 +1,8 @@
 # INITIAL INSTRUCTIONS — Commander Project Bootstrap
-# Verzija 1.0 — Juli 2026
-# UPOTREBA: Copy/paste cijeli ovaj dokument kao PRVU poruku u Claude Code
-# (ili drugi ACA) kada Direktor želi početi novi projekat. To je sve.
+# Version 1.2 — July 2026
+# USAGE: Copy/paste this entire document as the FIRST message in Claude Code
+# (or any other ACA) when the Director wants to start a new project.
+# That is all. Commander takes over from here.
 
 ---
 
@@ -19,19 +20,24 @@ commits in English (except where Commander specifies BCS).**
 
 ## STEP 1 — READ THE GOVERNANCE (silently, before anything else)
 
-Fetch and read completely:
+This is a Tier 3 task (M-21). Fetch and read completely, in this order:
 
 ```
-https://raw.githubusercontent.com/IDSS123a/commander/main/CONSTITUTION.md
-https://raw.githubusercontent.com/IDSS123a/commander/main/ENGINEERING_RULES.md
-https://raw.githubusercontent.com/IDSS123a/commander/main/ARCHITECTURE_PATTERNS.md
-https://raw.githubusercontent.com/IDSS123a/commander/main/ACA_COMMUNICATION_PROTOCOL.md
-https://raw.githubusercontent.com/IDSS123a/commander/main/FEATURE_LIFECYCLE.md
-https://raw.githubusercontent.com/IDSS123a/commander/main/DONE_CHECKLIST.md
-https://raw.githubusercontent.com/IDSS123a/commander/main/DECISION_LOG.md
+1. https://raw.githubusercontent.com/IDSS123a/commander/main/CONSTITUTION.md
+2. https://raw.githubusercontent.com/IDSS123a/commander/main/ENGINEERING_RULES.md
+3. https://raw.githubusercontent.com/IDSS123a/commander/main/ARCHITECTURE_PATTERNS.md
+4. https://raw.githubusercontent.com/IDSS123a/commander/main/ACA_COMMUNICATION_PROTOCOL.md
+5. https://raw.githubusercontent.com/IDSS123a/commander/main/FEATURE_LIFECYCLE.md
+6. https://raw.githubusercontent.com/IDSS123a/commander/main/DONE_CHECKLIST.md
+7. https://raw.githubusercontent.com/IDSS123a/commander/main/DECISION_LOG.md
 ```
 
-Do not summarize them to the Director. Just obey them.
+Note: M-21 says DECISION_LOG.md is "NEVER loaded at session start."
+Project bootstrap is the explicit exception — the ACA needs prior
+technology decisions to scaffold correctly. After bootstrap, revert
+to normal M-21 tier rules.
+
+Do not summarize these documents to the Director. Just obey them.
 
 ---
 
@@ -41,9 +47,14 @@ Ask exactly these questions, in Bosnian, all at once, numbered:
 
 1. **Naziv projekta?** (postaje ime foldera i GitHub repo-a: web-app-[naziv])
 2. **Projektna ideja?** (2-3 rečenice: šta app radi i za koga)
-3. **Režim?** FULL (produkcija, sprintovi) ili QUICK (prototip, jedan prolaz — Commander M-20)
-4. **Ključna poslovna pravila?** (sve što ACA ne smije izmisliti po M-4:
-   uloge korisnika, jezici, institucionalna ograničenja — ili "standardno")
+3. **Režim?** FULL (produkcija, sprintovi) ili QUICK (prototip,
+   jedan prolaz — Commander M-20)
+4. **Postojeći codebase?** (Ako da: koji stack? Mapira na M-16.
+   Ako ne: koristimo Commander default stack — Next.js + Supabase +
+   Vercel, per DL-001 through DL-008)
+5. **Ključna poslovna pravila?** (sve što ACA ne smije izmisliti
+   po M-4: uloge korisnika, jezici, institucionalna ograničenja —
+   ili "standardno")
 
 Wait for answers. Then execute Steps 3–5 in one continuous run,
 narrating only with brief ✅ status lines.
@@ -73,20 +84,25 @@ Execute:
    https://raw.githubusercontent.com/IDSS123a/commander/main/automation/.claude/hooks/lessons-guard.js
      → .claude/hooks/lessons-guard.js
    ```
+   If raw URL fetch fails for `.claude` paths (GitHub may hide dotfiles),
+   fall back: download `automation/commander-automation.zip`, extract,
+   and copy the `.claude/` folder into the project root.
 4. Create `corrections/` folder with empty `ACTIVITY_LOG.md`.
 5. Generate `CLAUDE.md` from
    `https://raw.githubusercontent.com/IDSS123a/commander/main/automation/PROJECT_CLAUDE_MD_TEMPLATE.md`
-   with [PROJECT NAME] and [project-repo] filled in, template
-   instruction lines removed.
+   — fill in [PROJECT NAME] and [project-repo], remove template
+   instruction lines, update version references to v1.2.
 6. Generate project `CONSTITUTION.md`: project name, idea, business
-   rules from the Director's answers, stack per Commander defaults
-   (or M-16 documented deviation if the Director specified otherwise),
-   inheritance note pointing to Commander.
+   rules from the Director's answers. Stack per Commander defaults
+   (Next.js + Supabase + Vercel) UNLESS the Director indicated an
+   existing codebase in question 4 — in that case, document the
+   deviation per M-16 and record it in the project's DECISION_LOG.md.
 7. Generate `sprints/SPRINT_01.md`: first sprint scoped to project
    skeleton + core data model + auth (FULL mode). In QUICK mode: skip
    sprints entirely.
-8. Initialize the stack per ARCHITECTURE_PATTERNS.md defaults.
-9. First commit: `chore: project initialization under Commander v1.1`
+8. Initialize the stack per ARCHITECTURE_PATTERNS.md defaults (or the
+   documented deviation from Step 6).
+9. First commit: `chore: project initialization under Commander v1.2`
    and push.
 10. Report: "✅ Projekat [naziv] inicijalizovan. Commander upravlja.
     Počinjemo Sprint 1?" (QUICK mode: "Počinjemo gradnju?")
@@ -98,7 +114,8 @@ Execute:
 These run automatically for every session until the project ends.
 Never ask the Director whether to do them.
 
-1. **Every session start:** re-read CLAUDE.md and the current sprint doc.
+1. **Every session start:** re-read CLAUDE.md and the current sprint
+   doc. Load documents per M-21 tier appropriate to the task.
 2. **Lesson capture:** the moment a correction, gotcha, course
    correction, or Commander improvement candidate occurs — append it
    to `corrections/SPRINT_XX_LESSONS.md` immediately, same turn
@@ -116,28 +133,18 @@ Never ask the Director whether to do them.
 
 ## STEP 5 — MAGIC WORD: "KRAJ"
 
-When the Director writes exactly **KRAJ** (alone or in a sentence
-clearly ending the project), execute the End-of-Project Protocol
-automatically:
+When the Director writes **KRAJ**, execute M-22 (KRAJ Protocol) from
+CONSTITUTION.md exactly. For reference:
 
-1. Run the final DONE_CHECKLIST + pre-deploy stress test
-   (PROMPT_LIBRARY/pre-deploy-stress-test.md).
-2. Read ALL files in `corrections/` (every sprint's lessons +
-   ACTIVITY_LOG).
-3. Classify every lesson: (a) new Commander rule, (b) modification
-   of an existing rule, (c) deprecation per M-17, (d) project-specific
-   only → stays out of Commander.
-4. Clone `https://github.com/IDSS123a/commander`, apply categories
-   a/b/c to the correct documents (respecting severity tags, status
-   tags, and version history format), append an AUDIT_LOG.md entry,
-   update the Active Projects table in README.md (this project →
-   Complete).
-5. Commit: `feat: Commander learning from [project-name]` and push.
-   If push fails due to auth, output the exact files + one git command
-   block for the Director.
-6. Report to the Director, in Bosnian, max 10 lines: what Commander
-   learned (counts per category) and confirmation that the loop is
-   closed.
+```
+https://raw.githubusercontent.com/IDSS123a/commander/main/PROMPT_LIBRARY/kraj.md
+```
+
+The protocol has 5 steps: COLLECT → ANALYSE → PROPOSE → CONFIRM → EXECUTE.
+
+**Critical:** Do NOT commit anything to the Commander repository without
+the Director's explicit approval in Step 4 (CONFIRM). Present the
+COMMANDER_UPDATE_PROPOSAL.md first and wait.
 
 ---
 
@@ -153,4 +160,4 @@ automatically:
 
 ---
 
-*Commander v1.1 — IDSS123a Organisation — Davor Mulalić*
+*Commander v1.2 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
