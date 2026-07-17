@@ -1,6 +1,6 @@
 # ARCHITECTURE_PATTERNS.md — Universal Structural Rules
 # Commander — Project Operating System
-# Version 1.0 — June 2026
+# Version 1.1 — July 2026
 
 ---
 
@@ -49,6 +49,21 @@ React Component
       → reads from Supabase                 (External)
 ```
 
+> **Express stack equivalent (see M-16, DL-009):**
+>
+> The five layers remain identical. Only the Application layer changes:
+> - Server Actions → Express route handlers in `server/routes/`
+> - Next.js middleware → Express middleware in `server/middleware/`
+> - Server Components → not applicable (Vite SPA fetches via API)
+>
+> Dependency direction is still strictly top-down:
+> ```
+> React SPA (Vite)
+>   → calls Express API route                (Application)
+>     → calls repository function            (Infrastructure)
+>       → reads from Supabase                (External)
+> ```
+
 ---
 
 ## A-2. Feature-Based Folder Structure
@@ -85,6 +100,30 @@ components/
   ui/                 Shadcn/ui components (never modify directly)
 ```
 
+> **Express stack equivalent (see M-16, DL-009):**
+> ```
+> src/                          ← Vite SPA (Presentation)
+>   features/
+>     [feature-name]/
+>       components/
+>       hooks.ts
+>       types.ts
+>       constants.ts
+>
+> server/                       ← Express backend (Application + Infrastructure)
+>   features/
+>     [feature-name]/
+>       routes.ts               ← Express route handlers (replaces actions.ts)
+>       repository.ts           ← Database queries (identical pattern)
+>       domain.ts               ← Business rules (identical pattern)
+>       schemas.ts              ← Zod validation (identical pattern)
+>   middleware/
+>     auth.ts                   ← Authentication middleware
+>     permissions.ts            ← RBAC checks (identical to lib/permissions.ts)
+>   lib/
+>     db/                       ← Supabase client (server-only)
+> ```
+
 ---
 
 ## A-3. Database Repository Pattern
@@ -115,6 +154,10 @@ Repository functions:
 - Throw errors with descriptive messages (never swallow)
 - Never contain business logic (that belongs in `domain.ts`)
 - Are imported only by Server Actions and API routes
+
+> **Express stack equivalent:** Repository functions are imported
+> only by Express route handlers in `server/features/[name]/routes.ts`.
+> The pattern, naming, and error handling are identical.
 
 ---
 
@@ -268,6 +311,11 @@ The service role key (`SUPABASE_SERVICE_ROLE_KEY`) is used only in:
 Never use the service role key in client-side code.
 Never use the service role key in standard API routes.
 
+> **Express stack equivalent:** There is no browser client. The Vite
+> SPA calls the Express API; the Express API uses a single server
+> Supabase client created once in `server/lib/db/supabase.ts`.
+> The service role key restriction remains identical.
+
 ---
 
 ## A-9. Memoize Derived Values Used as Effect Dependencies
@@ -312,4 +360,4 @@ ban/disable instead of delete) in the same response.
 
 ---
 
-*Commander v1.0 — IDSS123a Organisation*
+*Commander v1.1 — IDSS123a Organisation*
