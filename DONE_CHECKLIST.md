@@ -105,6 +105,25 @@
 
 ---
 
+## Post-Deploy Verification
+
+- [ ] Production URL loads without errors (not a Vercel/Render error page)
+- [ ] Core user flow works end-to-end on the production URL
+  (login → primary action → expected result)
+- [ ] Browser console on production URL checked at error level — zero
+  uncaught errors (production builds can surface errors that
+  `npm run dev` silences)
+- [ ] Environment variables confirmed set in hosting dashboard
+  (Vercel → Settings → Environment Variables, or
+  Render → Environment → Environment Variables) —
+  a missing variable returns a generic 500 that looks like a
+  code bug, not a config bug
+- [ ] For Render.com deploys: confirm the live URL does NOT return
+  the `x-render-routing: no-deploy` header (see DL-010) —
+  this means no build has ever succeeded, not "cold start"
+
+---
+
 ## Sprint-Level Learning (M-18)
 
 - [ ] `corrections/SPRINT_XX_LESSONS.md` created or updated with:
