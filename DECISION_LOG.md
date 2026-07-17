@@ -1,6 +1,6 @@
 # DECISION_LOG.md — Universal Technology Decisions
 # Commander — Project Operating System
-# Version 1.0 — June 2026
+# Version 1.1 — July 2026
 
 ---
 
@@ -154,4 +154,28 @@ build has ever succeeded," not "cold start, wait."
 
 ---
 
-*Commander v1.0 — IDSS123a Organisation*
+## DL-011 — UI Components: Shadcn/UI (not Material UI / Ant Design / Chakra)
+
+**Date:** 2026-07-17
+**Decision:** Use Shadcn/UI as the component library for all projects.
+Components live in `components/ui/` and are never modified directly.
+**Rationale:**
+Shadcn/UI copies components into the project rather than installing an
+opaque npm package — the ACA can read, understand, and debug every
+component without navigating `node_modules`. This aligns with M-9
+(AI Collaboration Protocol): the next ACA has everything it needs in
+the codebase. Material UI, Ant Design, and Chakra are npm dependencies
+with internal abstractions that ACAs frequently hallucinate or
+misconfigure.
+Shadcn/UI also integrates natively with Tailwind CSS (our styling
+standard) and React Hook Form + Zod (DL-007).
+**Rule:** Never edit files in `components/ui/` directly. If a Shadcn
+component needs customisation, create a wrapper in the feature folder
+that composes the original. This preserves the ability to regenerate
+Shadcn components without losing changes.
+**Upgrade path:** N/A — Shadcn/UI is the permanent standard unless a
+project Constitution explicitly overrides it.
+
+---
+
+*Commander v1.1 — IDSS123a Organisation*
