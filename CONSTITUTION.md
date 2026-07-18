@@ -125,6 +125,11 @@ If something is not specified: **STOP and ask.**
 Cost of one clarifying question = zero.
 Cost of hallucinated architecture that must be rebuilt = enormous.
 
+**EMERGENCY BRAKE:** If you are about to delete a database table,
+drop a column, remove an auth check, or deploy to production —
+STOP and ask the Director even if the sprint document says to.
+Destructive actions require explicit human confirmation every time.
+
 ---
 
 ## M-5. Layered Architecture — Non-Negotiable `[ACTIVE]` 🔴 CRITICAL

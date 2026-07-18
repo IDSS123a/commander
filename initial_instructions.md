@@ -83,11 +83,19 @@ Execute:
      → .claude/hooks/log-change.js
    https://raw.githubusercontent.com/IDSS123a/commander/main/automation/.claude/hooks/lessons-guard.js
      → .claude/hooks/lessons-guard.js
+   https://raw.githubusercontent.com/IDSS123a/commander/main/automation/.claude/hooks/version-check.js
+     → .claude/hooks/version-check.js
+   https://raw.githubusercontent.com/IDSS123a/commander/main/automation/.claude/hooks/patterns-detect.js
+     → .claude/hooks/patterns-detect.js
    ```
    If raw URL fetch fails for `.claude` paths (GitHub may hide dotfiles),
    fall back: download `automation/commander-automation.zip`, extract,
    and copy the `.claude/` folder into the project root.
 4. Create `corrections/` folder with empty `ACTIVITY_LOG.md`.
+   Create `.commander-version` in the project root containing exactly
+   the Commander version number from CONSTITUTION.md header (e.g. `1.2`),
+   one line, nothing else. The version-check hook uses this to detect
+   drift between the project and live Commander.
 5. Generate `CLAUDE.md` from
    `https://raw.githubusercontent.com/IDSS123a/commander/main/automation/PROJECT_CLAUDE_MD_TEMPLATE.md`
    — fill in [PROJECT NAME] and [project-repo], remove template

@@ -227,6 +227,10 @@ Every new module must update these (where applicable):
 - `CHANGELOG.md` — one line per feature: `[DATE] [FEATURE] Description`
 - `DECISION_LOG.md` if a significant technology or architecture choice was made
 
+**Commit messages follow Conventional Commits:**
+`feat:` / `fix:` / `chore:` / `docs:` / `refactor:`
+Max 72 characters. No period at end. Do not deliberate — apply mechanically.
+
 ---
 
 ## E-11. Forbidden Patterns `[ACTIVE]` 🟡 STANDARD
