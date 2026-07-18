@@ -22,7 +22,10 @@ const CONSTITUTION_URL =
 function readProjectVersion(projectDir) {
   const vFile = path.join(projectDir, '.commander-version');
   if (!fs.existsSync(vFile)) return null;
-  return fs.readFileSync(vFile, 'utf8').trim();
+  const raw = fs.readFileSync(vFile, 'utf8').trim();
+  // Sanitize: accept only digits and dots; anything else is treated
+  // as a corrupt version file and reported as "unknown"
+  return /^[\d.]+$/.test(raw) ? raw : 'unknown (corrupt .commander-version)';
 }
 
 function fetchLiveVersion(cb) {
