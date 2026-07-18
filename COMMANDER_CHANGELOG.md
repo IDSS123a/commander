@@ -9,6 +9,14 @@
 
 ## v1.2 (July 2026)
 
+### v1.2 stress-test fixes (2026-07-18)
+- FIXED: install-automation.bat now installs all 4 hooks and creates `.commander-version`
+- FIXED: README.md Repository Structure updated (M-22, CHANGELOG, initial_instructions, kraj.md, automation/)
+- FIXED: ENGINEERING_RULES.md version bumped to 1.2 (contains v1.2 Conventional Commits addition)
+- FIXED: ACA_MANAGEMENT_GUIDE.md dead reference (recover-env.md → CLAUDE_CODE_OPERATIONS.md)
+- FIXED: version-check.js sanitizes corrupt `.commander-version` content
+
+
 - ADDED: M-21 Tiered Loading — read only what the task requires (CONSTITUTION.md)
 - ADDED: M-22 KRAJ Protocol — end-of-project Commander update, 5 steps with mandatory Director approval (CONSTITUTION.md)
 - ADDED: PROMPT_LIBRARY/kraj.md — KRAJ execution template

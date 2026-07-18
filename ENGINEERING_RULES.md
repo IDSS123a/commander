@@ -1,6 +1,6 @@
 # ENGINEERING_RULES.md — Universal Engineering Standards
 # Commander — Project Operating System
-# Version 1.1 — July 2026
+# Version 1.2 — July 2026
 
 ---
 
@@ -278,4 +278,4 @@ Never do these without explicit written approval in the project `DECISION_LOG.md
 
 ---
 
-*Commander v1.1 — IDSS123a Organisation*
+*Commander v1.2 — IDSS123a Organisation*

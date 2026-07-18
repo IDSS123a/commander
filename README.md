@@ -159,26 +159,36 @@ for relevance, consolidates overlaps, and retires outdated rules.
 ```
 commander/
 ├── README.md                        ← This file
-├── CONSTITUTION.md                  ← Universal mindset (M-1 to M-20)
+├── CONSTITUTION.md                  ← Universal mindset (M-1 to M-22)
 ├── ENGINEERING_RULES.md             ← Universal code standards (E-1 to E-12)
-├── ARCHITECTURE_PATTERNS.md         ← Universal structural rules
+├── ARCHITECTURE_PATTERNS.md         ← Universal structural rules (A-1 to A-10)
 ├── FEATURE_LIFECYCLE.md             ← Universal build process
 ├── DONE_CHECKLIST.md                ← Universal definition of done
-├── DECISION_LOG.md                  ← Universal technology decisions
+├── DECISION_LOG.md                  ← Universal technology decisions (DL-001 to DL-011)
+├── COMMANDER_CHANGELOG.md           ← Version diff reference (read on version mismatch only)
 ├── ACA_MANAGEMENT_GUIDE.md          ← ACA management practices
-├── ACA_COMMUNICATION_PROTOCOL.md    ← ACA output and interaction standards
+├── ACA_COMMUNICATION_PROTOCOL.md    ← ACA output and interaction standards (C-1 to C-11)
 ├── CLAUDE_CODE_OPERATIONS.md        ← Director's Claude Code operator guide
 ├── AUDIT_LOG.md                     ← Commander Audit history
-└── PROMPT_LIBRARY/
-    ├── start-new-project.md
-    ├── create-feature.md
-    ├── bug-fix.md
-    ├── review-code.md
-    ├── security-review.md
-    ├── prepare-sprint.md
-    ├── pre-deploy-stress-test.md
-    ├── sprint-lessons.md            ← Template for sprint corrections
-    └── commander-audit.md           ← Prompt for annual Commander Audit
+├── initial_instructions.md          ← Project bootstrap (Director copy/pastes into new ACA)
+├── PROMPT_LIBRARY/
+│   ├── start-new-project.md         ← Redirect to initial_instructions.md
+│   ├── create-feature.md
+│   ├── bug-fix.md
+│   ├── review-code.md
+│   ├── security-review.md
+│   ├── prepare-sprint.md
+│   ├── pre-deploy-stress-test.md
+│   ├── sprint-lessons.md            ← Template for sprint corrections
+│   ├── commander-audit.md           ← Prompt for annual Commander Audit
+│   └── kraj.md                      ← KRAJ Protocol execution (M-22)
+└── automation/
+    ├── PROJECT_CLAUDE_MD_TEMPLATE.md
+    ├── install-automation.bat
+    ├── commander-automation.zip
+    └── .claude/
+        ├── settings.json
+        └── hooks/                   ← log-change, lessons-guard, version-check, patterns-detect
 ```
 
 ---

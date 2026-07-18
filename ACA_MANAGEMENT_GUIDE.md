@@ -460,7 +460,7 @@ Stvari koje sam naučio na IDSS Handbook projektu a koje idu u Commander:
 5. `DECISION_LOG.md` — ACA alati mogu brisati .env — uvijek backup
 6. `DECISION_LOG.md` — Supabase CLI ne radi za Vercel org projekte
 7. `DECISION_LOG.md` — `text-embedding-004` nije na free Gemini tier
-8. `PROMPT_LIBRARY/recover-env.md` — kako regenerirati .env ključeve
+8. `CLAUDE_CODE_OPERATIONS.md` — kako regenerirati .env ključeve (recovery procedura)
 9. `FEATURE_LIFECYCLE.md` — ACA kreira HANDOFF_SPRINT_XX.md (korisna praksa)
 
 ---
