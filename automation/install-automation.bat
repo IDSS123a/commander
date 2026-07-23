@@ -1,5 +1,5 @@
 @echo off
-rem === COMMANDER AUTOMATION INSTALLER (v1.2) ===
+rem === COMMANDER AUTOMATION INSTALLER (v1.3) ===
 rem Usage: install-automation.bat C:\path\to\project
 rem Copies .claude hooks + settings into the target project.
 
@@ -24,14 +24,22 @@ echo.
 if not exist "%TARGET%\.claude\hooks" mkdir "%TARGET%\.claude\hooks"
 if not exist "%TARGET%\corrections" mkdir "%TARGET%\corrections"
 
-copy /Y "%SOURCE%.claude\hooks\log-change.js" "%TARGET%\.claude\hooks\log-change.js"
-copy /Y "%SOURCE%.claude\hooks\lessons-guard.js" "%TARGET%\.claude\hooks\lessons-guard.js"
 copy /Y "%SOURCE%.claude\hooks\version-check.js" "%TARGET%\.claude\hooks\version-check.js"
+copy /Y "%SOURCE%.claude\hooks\log-change.js" "%TARGET%\.claude\hooks\log-change.js"
+copy /Y "%SOURCE%.claude\hooks\project-guard.js" "%TARGET%\.claude\hooks\project-guard.js"
+copy /Y "%SOURCE%.claude\hooks\lessons-guard.js" "%TARGET%\.claude\hooks\lessons-guard.js"
 copy /Y "%SOURCE%.claude\hooks\patterns-detect.js" "%TARGET%\.claude\hooks\patterns-detect.js"
 
+if not exist "%TARGET%\.claude\project-guard.config.json" (
+    copy "%SOURCE%.claude\project-guard.config.example.json" "%TARGET%\.claude\project-guard.config.json"
+    echo [OK] project-guard.config.json created from example - add project-specific forbidden patterns
+) else (
+    echo [SKIP] project-guard.config.json already exists - not overwritten
+)
+
 if not exist "%TARGET%\.commander-version" (
-    echo 1.2> "%TARGET%\.commander-version"
-    echo [OK] .commander-version created: 1.2
+    echo 1.3> "%TARGET%\.commander-version"
+    echo [OK] .commander-version created - version-check hook now active
 ) else (
     echo [SKIP] .commander-version already exists - not overwritten
 )
@@ -56,11 +64,12 @@ if not exist "%TARGET%\CLAUDE.md" (
 
 echo.
 echo === INSTALLED ===
-echo Layer 1: log-change.js      - logs every file change automatically
-echo Layer 2: lessons-guard.js   - enforces lesson capture before Claude finishes
-echo Layer 3: version-check.js   - detects Commander version drift at session start
-echo Layer 4: patterns-detect.js - auto-detects recurring rule violations
-echo Layer 5: CLAUDE.md          - standing orders read at session start
+echo version-check.js   - SessionStart: warns on Commander version drift
+echo log-change.js      - PostToolUse: logs every file change automatically
+echo project-guard.js   - PostToolUse: blocks forbidden patterns (E-13); also CLI: node .claude/hooks/project-guard.js --scan
+echo lessons-guard.js   - Stop: enforces lesson capture before Claude finishes
+echo patterns-detect.js - Stop: pre-computes rule-recurrence for KRAJ (M-22)
+echo CLAUDE.md          - standing orders read at session start
 echo.
 echo Requirement: Node.js in PATH (already true for all Next.js/Vite projects)
 echo.
