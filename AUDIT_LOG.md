@@ -1,6 +1,6 @@
 # AUDIT_LOG.md — Commander Audit History
 # Commander — Project Operating System
-# Version 1.1 — July 2026
+# Version 1.3 — July 2026
 
 ---
 
@@ -85,8 +85,29 @@
 
 ---
 
+## AUDIT-002 — v1.2 Baseline + v1.3 Efficiency Upgrade
+
+**Date:** 2026-07-23
+**Trigger:** Approved efficiency strategy (official Claude Code
+cheatsheet capabilities only) + M-18 harvest from
+web-app-vibe-coding-journal (6 sprints)
+**Conducted by:** Director + Claude Code (Fable 5)
+
+The v1.2 state (automation layer v1, M-21, M-22), which had existed
+only in the Director's local working folder, was committed as a
+baseline; v1.3 was then built on it in 10 reviewed commits: E-13,
+M-23, complete five-hook automation layer with project-guard,
+skills (/kraj, /sprint-close, /commander-audit), zero-fetch CLAUDE.md
+template, measured-context practice, sprint-06 lessons harvest, and
+COMMANDER_CHANGELOG.md. Full per-version diff: COMMANDER_CHANGELOG.md
+(single source — not duplicated here). Hard constraint applied to
+every candidate: replace a manual step or remove tokens; standing
+subagent rules and blanket MCP expansion were rejected by that test.
+
+---
+
 *Next audit due: January 2027 or after 5th project completion, whichever comes first.*
 
 ---
 
-*Commander v1.1 — IDSS123a Organisation*
+*Commander v1.3 — IDSS123a Organisation*
