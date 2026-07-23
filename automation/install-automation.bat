@@ -30,6 +30,11 @@ copy /Y "%SOURCE%.claude\hooks\project-guard.js" "%TARGET%\.claude\hooks\project
 copy /Y "%SOURCE%.claude\hooks\lessons-guard.js" "%TARGET%\.claude\hooks\lessons-guard.js"
 copy /Y "%SOURCE%.claude\hooks\patterns-detect.js" "%TARGET%\.claude\hooks\patterns-detect.js"
 
+if exist "%SOURCE%.claude\skills" (
+    xcopy /E /I /Y "%SOURCE%.claude\skills" "%TARGET%\.claude\skills" >nul
+    echo [OK] Skills installed: /kraj, /sprint-close, /commander-audit
+)
+
 if not exist "%TARGET%\.claude\project-guard.config.json" (
     copy "%SOURCE%.claude\project-guard.config.example.json" "%TARGET%\.claude\project-guard.config.json"
     echo [OK] project-guard.config.json created from example - add project-specific forbidden patterns
