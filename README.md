@@ -54,10 +54,23 @@ Current Sprint:
 https://raw.githubusercontent.com/IDSS123a/[project-repo]/main/sprints/SPRINT_XX.md
 ```
 
-### New projects (Tier 3)
+### New projects (Tier 3) — two ways to bootstrap
 
-Use `PROMPT_LIBRARY/start-new-project.md` — it walks the ACA through
-reading all Commander documents in order.
+Both end the same way: the ACA works exclusively under Commander from
+the first message.
+
+1. **Paste-in (any ACA):** copy the ENTIRE `initial_instructions.md`
+   as the first message of a new session. The ACA silently reads the
+   governance, asks the Director 5 questions in Bosnian, then scaffolds
+   everything: repo, hooks, skills, CLAUDE.md, project Constitution,
+   Sprint 01, first commit.
+2. **Local installer (repo on disk):** run
+   `automation\install-automation.bat C:\path\to\project` — all five
+   hooks, skills, guard config, CLAUDE.md and `.commander-version` in
+   one command — then start the ACA session in that folder.
+
+(`PROMPT_LIBRARY/start-new-project.md` redirects to
+`initial_instructions.md`.)
 
 ### End of project
 
