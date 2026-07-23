@@ -1,5 +1,5 @@
 # INITIAL INSTRUCTIONS — Commander Project Bootstrap
-# Version 1.2 — July 2026
+# Version 1.3 — July 2026
 # USAGE: Copy/paste this entire document as the FIRST message in Claude Code
 # (or any other ACA) when the Director wants to start a new project.
 # That is all. Commander takes over from here.
@@ -74,32 +74,39 @@ Execute:
 2. Create GitHub repo `IDSS123a/web-app-[naziv]` via `gh repo create`
    if gh CLI is authenticated; if not, give the Director ONE line:
    "Kreiraj repo web-app-[naziv] na github.com/IDSS123a i reci mi kad je gotovo."
-3. Install Commander Automation — fetch these files from the Commander
-   repo into the project:
+3. Install Commander Automation.
+   **Shortcut:** if the Commander repo is available on local disk,
+   `automation\install-automation.bat C:\path\to\project` performs this
+   step and step 4 in one command. Otherwise fetch from the repo
+   (base `https://raw.githubusercontent.com/IDSS123a/commander/main/automation/`):
    ```
-   https://raw.githubusercontent.com/IDSS123a/commander/main/automation/.claude/settings.json
-     → .claude/settings.json
-   https://raw.githubusercontent.com/IDSS123a/commander/main/automation/.claude/hooks/log-change.js
-     → .claude/hooks/log-change.js
-   https://raw.githubusercontent.com/IDSS123a/commander/main/automation/.claude/hooks/lessons-guard.js
-     → .claude/hooks/lessons-guard.js
-   https://raw.githubusercontent.com/IDSS123a/commander/main/automation/.claude/hooks/version-check.js
-     → .claude/hooks/version-check.js
-   https://raw.githubusercontent.com/IDSS123a/commander/main/automation/.claude/hooks/patterns-detect.js
-     → .claude/hooks/patterns-detect.js
+   .claude/settings.json                    → .claude/settings.json
+   .claude/hooks/version-check.js           → .claude/hooks/version-check.js
+   .claude/hooks/log-change.js              → .claude/hooks/log-change.js
+   .claude/hooks/project-guard.js           → .claude/hooks/project-guard.js
+   .claude/hooks/lessons-guard.js           → .claude/hooks/lessons-guard.js
+   .claude/hooks/patterns-detect.js         → .claude/hooks/patterns-detect.js
+   .claude/project-guard.config.example.json → .claude/project-guard.config.json
+   .claude/skills/kraj/SKILL.md             → .claude/skills/kraj/SKILL.md
+   .claude/skills/sprint-close/SKILL.md     → .claude/skills/sprint-close/SKILL.md
+   .claude/skills/commander-audit/SKILL.md  → .claude/skills/commander-audit/SKILL.md
    ```
-   If raw URL fetch fails for `.claude` paths (GitHub may hide dotfiles),
-   fall back: download `automation/commander-automation.zip`, extract,
-   and copy the `.claude/` folder into the project root.
+   If raw URL fetch fails for `.claude` paths, fall back:
+   `git clone --depth 1 https://github.com/IDSS123a/commander __cmdr_tmp`,
+   copy `__cmdr_tmp/automation/.claude/` into the project root, delete
+   `__cmdr_tmp`. Add project-specific forbidden patterns to
+   `.claude/project-guard.config.json` (E-13) based on the Director's
+   business rules from Step 2 — or leave the secret-pattern defaults.
 4. Create `corrections/` folder with empty `ACTIVITY_LOG.md`.
    Create `.commander-version` in the project root containing exactly
-   the Commander version number from CONSTITUTION.md header (e.g. `1.2`),
+   the Commander version number from CONSTITUTION.md header (e.g. `1.3`),
    one line, nothing else. The version-check hook uses this to detect
    drift between the project and live Commander.
 5. Generate `CLAUDE.md` from
    `https://raw.githubusercontent.com/IDSS123a/commander/main/automation/PROJECT_CLAUDE_MD_TEMPLATE.md`
    — fill in [PROJECT NAME] and [project-repo], remove template
-   instruction lines, update version references to v1.2.
+   instruction lines, keep version references at the current
+   Commander version (from CONSTITUTION.md header).
 6. Generate project `CONSTITUTION.md`: project name, idea, business
    rules from the Director's answers. Stack per Commander defaults
    (Next.js + Supabase + Vercel) UNLESS the Director indicated an
@@ -110,7 +117,7 @@ Execute:
    sprints entirely.
 8. Initialize the stack per ARCHITECTURE_PATTERNS.md defaults (or the
    documented deviation from Step 6).
-9. First commit: `chore: project initialization under Commander v1.2`
+9. First commit: `chore: project initialization under Commander v1.3`
    and push.
 10. Report: "✅ Projekat [naziv] inicijalizovan. Commander upravlja.
     Počinjemo Sprint 1?" (QUICK mode: "Počinjemo gradnju?")
@@ -142,7 +149,9 @@ Never ask the Director whether to do them.
 ## STEP 5 — MAGIC WORD: "KRAJ"
 
 When the Director writes **KRAJ**, execute M-22 (KRAJ Protocol) from
-CONSTITUTION.md exactly. For reference:
+CONSTITUTION.md exactly. In Claude Code the installed `/kraj` skill
+carries these instructions (and `/sprint-close` the sprint close-out);
+other ACAs use the reference:
 
 ```
 https://raw.githubusercontent.com/IDSS123a/commander/main/PROMPT_LIBRARY/kraj.md
@@ -168,4 +177,4 @@ COMMANDER_UPDATE_PROPOSAL.md first and wait.
 
 ---
 
-*Commander v1.2 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+*Commander v1.3 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
