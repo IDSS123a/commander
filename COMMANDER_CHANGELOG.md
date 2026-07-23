@@ -9,6 +9,19 @@
 
 ## v1.3 (2026-07-23)
 
+### v1.3 stress-test fixes (2026-07-23)
+- FIXED: project-guard.js ReDoS — a pathological regex in the config
+  (catastrophic backtracking) froze the hook on every edit; each rule
+  now runs in a 500ms vm timebox: hook mode skips the dead rule (fail
+  open), CLI `--scan` reports it as a config defect and exits 1
+- FIXED: initial_instructions.md Step 3 — now installs all five hooks
+  + guard config + skills; dead fallback to the removed
+  commander-automation.zip replaced with a shallow `git clone` copy;
+  version references brought to v1.3
+- FIXED: README "New projects" — concise two-path bootstrap
+  (paste initial_instructions.md / run install-automation.bat) instead
+  of the stale start-new-project description
+
 - ADDED: E-13 Mechanically Checkable Rules Ship as Automation (🟡) —
   scriptable rules (forbidden strings, secret patterns, lint gates)
   ship as hooks on hook-capable ACAs, or as the one-line
