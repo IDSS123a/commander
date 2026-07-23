@@ -85,7 +85,7 @@
 
 ---
 
-## AUDIT-002 — v1.2 Baseline + v1.3 Efficiency Upgrade
+## AUDIT-002 — v1.3 Efficiency Upgrade
 
 **Date:** 2026-07-23
 **Trigger:** Approved efficiency strategy (official Claude Code
@@ -93,16 +93,23 @@ cheatsheet capabilities only) + M-18 harvest from
 web-app-vibe-coding-journal (6 sprints)
 **Conducted by:** Director + Claude Code (Fable 5)
 
-The v1.2 state (automation layer v1, M-21, M-22), which had existed
-only in the Director's local working folder, was committed as a
-baseline; v1.3 was then built on it in 10 reviewed commits: E-13,
-M-23, complete five-hook automation layer with project-guard,
+v1.3 built on the stress-tested v1.2 in 11 reviewed commits: E-13,
+M-23, project-guard.js completing the five-hook automation layer,
 skills (/kraj, /sprint-close, /commander-audit), zero-fetch CLAUDE.md
 template, measured-context practice, sprint-06 lessons harvest, and
-COMMANDER_CHANGELOG.md. Full per-version diff: COMMANDER_CHANGELOG.md
-(single source — not duplicated here). Hard constraint applied to
-every candidate: replace a manual step or remove tokens; standing
-subagent rules and blanket MCP expansion were rejected by that test.
+the tracked commander-automation.zip removed per the new E-4 rule.
+Full per-version diff: COMMANDER_CHANGELOG.md (single source — not
+duplicated here). Hard constraint applied to every candidate: replace
+a manual step or remove tokens; standing subagent rules and blanket
+MCP expansion were rejected by that test.
+
+**Process note (recorded per M-23b):** the session initially built on
+a stale local copy of v1.2 because a failed `git clone` into an
+existing directory went unnoticed (stderr suppressed) — an instance of
+trusting local state over a live external check. The mandatory
+pre-push `git ls-remote` caught the divergence before anything was
+pushed; work was rebased onto the true origin/main. M-23b exists for
+exactly this failure mode.
 
 ---
 
