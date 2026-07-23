@@ -1,6 +1,6 @@
 # ENGINEERING_RULES.md — Universal Engineering Standards
 # Commander — Project Operating System
-# Version 1.2 — July 2026
+# Version 1.3 — July 2026
 
 ---
 
@@ -278,4 +278,31 @@ Never do these without explicit written approval in the project `DECISION_LOG.md
 
 ---
 
-*Commander v1.2 — IDSS123a Organisation*
+## E-13. Mechanically Checkable Rules Ship as Automation `[ACTIVE]` 🟡 STANDARD
+
+*Added: v1.3, July 2026*
+
+If a rule can be checked by a script — forbidden strings, secret
+patterns, lint gates, banned file types, required files — it is
+enforced by tooling, not by an instruction the ACA is expected to
+remember:
+
+- **ACAs with lifecycle hooks (e.g. Claude Code):** ship the check as
+  a hook in `.claude/hooks/` — see `automation/` for templates,
+  including the configurable `project-guard.js`. The hook runs at the
+  system level; the ACA cannot forget it.
+- **ACAs without hooks (graceful degradation):** the same script runs
+  as a manual pre-commit step (`node .claude/hooks/project-guard.js`),
+  listed as one line in the project's Done Checklist — never as a
+  re-explained procedure.
+
+A rule enforced by a hook must NOT also live on as a "remember to
+check X every time" paragraph in project documents — delete the
+paragraph when the hook lands. Discipline-dependent enforcement is
+the failure mode this rule eliminates: a manual pre-commit audit,
+run faithfully for weeks, still let one violation slip into a pushed
+file. A hook makes that class of failure structurally impossible.
+
+---
+
+*Commander v1.3 — IDSS123a Organisation*
