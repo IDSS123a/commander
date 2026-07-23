@@ -2,7 +2,7 @@
 
 **Owner:** Davor Mulalić — P.U. Internationale Deutsche Schule Sarajevo
 **Purpose:** Universal AI Coding Assistant operating system for all projects
-**Version:** 1.2 — July 2026
+**Version:** 1.3 — July 2026
 
 ---
 
@@ -25,6 +25,12 @@ start from a stronger baseline.
 
 Commander uses **tiered loading** to minimise token consumption.
 The ACA reads only the documents required for the current task.
+
+**Projects with the automation layer installed (v1.3+): nothing to
+paste.** The `CLAUDE.md` installed by `automation/` carries the 🔴
+CRITICAL rules inline and directs on-demand reading — session start
+costs zero fetches. The URL blocks below are the fallback for ACAs
+without a `CLAUDE.md` mechanism.
 
 ### Bug fixes and small changes (Tier 2)
 
@@ -55,7 +61,8 @@ reading all Commander documents in order.
 
 ### End of project
 
-Type: **KRAJ** — the ACA executes M-22 (KRAJ Protocol) automatically.
+Type: **KRAJ** (or `/kraj` in Claude Code) — the ACA executes M-22
+(KRAJ Protocol) automatically. Sprint close-out: `/sprint-close`.
 
 ### Quick Mode (MVPs and Prototypes — M-20)
 
@@ -159,8 +166,8 @@ for relevance, consolidates overlaps, and retires outdated rules.
 ```
 commander/
 ├── README.md                        ← This file
-├── CONSTITUTION.md                  ← Universal mindset (M-1 to M-22)
-├── ENGINEERING_RULES.md             ← Universal code standards (E-1 to E-12)
+├── CONSTITUTION.md                  ← Universal mindset (M-1 to M-23)
+├── ENGINEERING_RULES.md             ← Universal code standards (E-1 to E-13)
 ├── ARCHITECTURE_PATTERNS.md         ← Universal structural rules (A-1 to A-10)
 ├── FEATURE_LIFECYCLE.md             ← Universal build process
 ├── DONE_CHECKLIST.md                ← Universal definition of done
@@ -171,24 +178,27 @@ commander/
 ├── CLAUDE_CODE_OPERATIONS.md        ← Director's Claude Code operator guide
 ├── AUDIT_LOG.md                     ← Commander Audit history
 ├── initial_instructions.md          ← Project bootstrap (Director copy/pastes into new ACA)
-├── PROMPT_LIBRARY/
-│   ├── start-new-project.md         ← Redirect to initial_instructions.md
-│   ├── create-feature.md
-│   ├── bug-fix.md
-│   ├── review-code.md
-│   ├── security-review.md
-│   ├── prepare-sprint.md
-│   ├── pre-deploy-stress-test.md
-│   ├── sprint-lessons.md            ← Template for sprint corrections
-│   ├── commander-audit.md           ← Prompt for annual Commander Audit
-│   └── kraj.md                      ← KRAJ Protocol execution (M-22)
-└── automation/
-    ├── PROJECT_CLAUDE_MD_TEMPLATE.md
-    ├── install-automation.bat
-    ├── commander-automation.zip
-    └── .claude/
-        ├── settings.json
-        └── hooks/                   ← log-change, lessons-guard, version-check, patterns-detect
+├── automation/                      ← Deterministic layer (installed per project)
+│   ├── install-automation.bat       ← One-command installer
+│   ├── PROJECT_CLAUDE_MD_TEMPLATE.md ← CLAUDE.md with critical rules inline
+│   └── .claude/
+│       ├── settings.json            ← Hook wiring
+│       ├── project-guard.config.example.json
+│       ├── hooks/                   ← version-check, log-change,
+│       │                              project-guard, lessons-guard,
+│       │                              patterns-detect
+│       └── skills/                  ← /kraj, /sprint-close, /commander-audit
+└── PROMPT_LIBRARY/
+    ├── start-new-project.md         ← Redirect to initial_instructions.md
+    ├── create-feature.md
+    ├── bug-fix.md
+    ├── review-code.md
+    ├── security-review.md
+    ├── prepare-sprint.md
+    ├── pre-deploy-stress-test.md
+    ├── sprint-lessons.md            ← Template for sprint corrections
+    ├── commander-audit.md           ← Prompt for annual Commander Audit
+    └── kraj.md                      ← KRAJ Protocol (M-22) — fallback for non-skill ACAs
 ```
 
 ---
@@ -199,6 +209,7 @@ commander/
 | ------------------------------------- | -------------------------------------------------------------------------- | ---------------------------------- |
 | IDSS Handbook Web App                 | [web-app-idss-handbook](https://github.com/IDSS123a/web-app-idss-handbook) | Active                             |
 | Chronos (Obligation/Deadline Tracker) | [web-app-chronos](https://github.com/IDSS123a/web-app-chronos)             | Active — v1.0, 10 sprints complete |
+| Vibe-Coding Journal                   | [web-app-vibe-coding-journal](https://github.com/IDSS123a/web-app-vibe-coding-journal) | Active — 6 sprints, deployed |
 | VIP Travel                            | TBD                                                                        | Active                             |
 | IDSS ISO QMS Web App                  | TBD                                                                        | Planned                            |
 | AISBP Framework                       | TBD                                                                        | Planned                            |
@@ -220,6 +231,26 @@ v1.1  2026-07  Added: severity levels (🔴/🟡/🟢), status tags ([ACTIVE]/[D
                sprint-lessons and commander-audit prompt templates.
                Source: comprehensive system review, Claude Code research,
                viral prompt code debunking.
+
+v1.2  2026-07  Added: 4-hook automation layer (log-change, lessons-guard,
+               version-check, patterns-detect + installer, CLAUDE.md template),
+               tiered loading (M-21), KRAJ protocol (M-22), kraj.md,
+               initial_instructions.md rewrite, COMMANDER_CHANGELOG.md,
+               .commander-version bootstrap, M-4 Emergency Brake,
+               E-10 Conventional Commits. Stress-test fixes 2026-07-18.
+               Source: vibe-coding-journal operation.
+
+v1.3  2026-07  Added: E-13 (checkable rules ship as automation), M-23
+               (destructive-action confirmation), project-guard.js hook, skills
+               (/kraj, /sprint-close, /commander-audit), COMMANDER_CHANGELOG.md,
+               sprint-06 M-18 harvest (E-4, E-8, E-11, E-12, DONE_CHECKLIST).
+               Changed: CLAUDE.md template — critical rules inline, zero-fetch
+               session start; measured /context + /compact practice.
+               Removed: tracked commander-automation.zip (new E-4 rule).
+               Source: approved efficiency strategy (official Claude Code
+               cheatsheet capabilities only) + vibe-coding-journal M-18 harvest.
+               Constraint: every change replaces a manual step or removes
+               tokens; subagent rules and MCP expansion rejected by that test.
 ```
 
 ---
