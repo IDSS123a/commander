@@ -102,6 +102,11 @@
   success from the absence of a thrown exception. A silently
   swallowed error leaves orphaned test data that resurfaces
   later as a confusing, unrelated-looking user-facing bug.
+- [ ] No test/fixture rows left behind in production tables from
+  manual testing — deleted in-session, or seeded with sentinel
+  values (`1970-01-01`, `is_test` flag) that can never collide
+  with real data (E-11). Future-dated fixtures silently defeat
+  "already exists for today" idempotency checks later.
 
 ---
 

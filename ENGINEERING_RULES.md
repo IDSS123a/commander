@@ -102,6 +102,19 @@ this live: a forged/garbage token, a token for a different role, and
 direct route calls bypassing the UI must all be correctly rejected
 because role never came from client-supplied data.
 
+**Pre-push secret audit covers text AND binaries:** before the first
+push of any repository (and after any history-affecting change), audit
+the full history for secrets. A text grep over `git log --all -p` is
+blind to binary blobs — git prints "Binary files differ" and never
+exposes their content, so a secret inside a tracked archive survives
+the entire audit unseen. List tracked binaries explicitly
+(`git ls-files` filtered by non-text extensions) and either inspect
+them directly (`unzip -l` for archives) or record them as explicitly
+out of audit scope — never silently. Derived artifacts
+(`node_modules/`, build output, `.zip` exports) must never be tracked
+at all; discovering them at first-push time is the expensive way to
+learn this.
+
 **Known limitation to disclose, not silently accept:** banning/
 disabling a user via most auth providers (Supabase Auth included)
 blocks new logins immediately but does NOT invalidate an
@@ -193,6 +206,21 @@ in the project `DECISION_LOG.md`.
 - Log at INFO level: significant user actions (login, document upload, quiz completion)
 - Log at ERROR level: all caught exceptions with full context
 - Never log: passwords, tokens, API keys, personal data
+- **Redact by allowlist, not by discarding the whole body.** "Never
+  log the secret" and "never log anything from the error response" are
+  different rules — conflating them destroys the diagnostics a
+  post-mortem needs. When redacting an external API's error body,
+  extract the specific fields known to be safe (quota id, retry delay,
+  status string) into the log line; never the key, the request URL, or
+  free-text message fields.
+- **An external trigger/monitor whose failure notification derives
+  from its own request timeout will false-alarm on every run** longer
+  than that timeout. Check this before enabling any such notification;
+  if the timeout is shorter than the real expected duration, disable
+  the notification rather than tuning it — normalized false alarms
+  train you to ignore the real one. Success/failure signal comes from
+  the application's own logic, never from the caller's opinion of its
+  request.
 
 ---
 
@@ -248,6 +276,7 @@ Never do these without explicit written approval in the project `DECISION_LOG.md
 | Fetching data directly in a React component   | Use Server Components or Server Actions |
 | Business logic inside UI components           | Move to domain layer                    |
 | Skipping `.env.example` update                | Always update when adding env vars      |
+| Test/fixture rows with realistic future dates in production tables | They silently satisfy "already exists for today" idempotency checks once the calendar catches up. Delete in-session, track as a cleanup item, or use sentinel values (`1970-01-01`, `is_test` flag) |
 
 ---
 
@@ -267,6 +296,15 @@ Never do these without explicit written approval in the project `DECISION_LOG.md
   Node process launched inside certain sandboxes (proxy/AV doing
   TLS interception the OS trusts but Node's bundled CA store
   doesn't) — fix with `NODE_OPTIONS=--use-system-ca` (Node ≥22.9).
+- **"Sensitive"-typed Vercel env vars are write-only.** Once set,
+  the plaintext is unrecoverable through any channel — `vercel env
+  pull` still exits 0 but writes the literal string `[SENSITIVE]`,
+  indistinguishable from a real value unless checked. Piping it onward
+  (e.g. into `gh secret set`) silently installs a garbage credential
+  that surfaces only as 401s a full round trip later. To replicate a
+  Sensitive value to another platform: generate a NEW value, set it on
+  both sides in the same step, then verify with a real authenticated
+  request before reporting done.
 - **Anything a production script invokes (`npm run start`, cron
   workers, build tools like `tsx`/`cross-env` themselves) must be
   listed in `dependencies`, never `devDependencies`.** Local dev
