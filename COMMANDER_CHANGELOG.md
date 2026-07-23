@@ -7,6 +7,50 @@
 
 ---
 
+## v1.3 (2026-07-23)
+
+- ADDED: E-13 Mechanically Checkable Rules Ship as Automation (🟡) —
+  scriptable rules (forbidden strings, secret patterns, lint gates)
+  ship as hooks on hook-capable ACAs, or as the one-line
+  `project-guard.js --scan` pre-commit step elsewhere. Prose
+  duplicating a shipped hook is deleted. (ENGINEERING_RULES.md)
+- ADDED: M-23 Destructive-Action Confirmation (🔴) — git history
+  rewrites require explicit prior approval, no low-risk exception;
+  external-state claims justifying destructive-adjacent actions are
+  verified live before execution. (CONSTITUTION.md)
+- ADDED: automation/.claude/hooks/project-guard.js — configurable
+  forbidden-pattern guard: PostToolUse block mode + `--scan` CLI mode;
+  per-project config (project-guard.config.json, example included)
+- ADDED: automation/.claude/skills/ — /kraj, /sprint-close,
+  /commander-audit: recurring rituals load instructions only on
+  invocation; PROMPT_LIBRARY originals remain the fallback for ACAs
+  without skill support
+- ADDED: M-18 harvest from vibe-coding-journal sprint 06 — E-4
+  pre-push secret audit covers tracked binaries; E-8 allowlist
+  redaction of error bodies + external-trigger timeout-notification
+  rule; E-11 + DONE_CHECKLIST no future-dated test fixtures in
+  production tables; E-12 Vercel Sensitive env vars are write-only
+- CHANGED: automation/PROJECT_CLAUDE_MD_TEMPLATE.md — all 15 🔴
+  CRITICAL rules inlined as one-line compressions; full documents read
+  on demand per M-21 tiers; replaces the 5-document raw-URL load every
+  session (~60K tokens) with zero mandatory fetches
+- CHANGED: automation/install-automation.bat — additionally installs
+  project-guard.js, skills/, and seeds project-guard.config.json;
+  `.commander-version` seeded as 1.3
+- CHANGED: automation/.claude/settings.json — registers project-guard
+  as second PostToolUse hook (five hooks total)
+- CHANGED: CLAUDE_CODE_OPERATIONS.md — measured context practice:
+  /context at phase boundaries, deliberate /compact with focus
+  instructions
+- REMOVED: automation/commander-automation.zip — tracked derived
+  binary, prohibited by the new E-4 binary-audit rule (the folder it
+  mirrors is the source of truth)
+
+Constraint honoured: every v1.3 change replaces a manual step or
+removes tokens (approved efficiency strategy, 2026-07-23); nothing
+additive-only. Rejected by the same test: standing subagent rules,
+blanket MCP server expansion.
+
 ## v1.2 (July 2026)
 
 ### v1.2 stress-test fixes (2026-07-18)
@@ -61,4 +105,4 @@
 
 ---
 
-*Commander v1.2 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+*Commander v1.3 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
