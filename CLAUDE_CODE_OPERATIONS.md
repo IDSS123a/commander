@@ -1,6 +1,6 @@
 # CLAUDE_CODE_OPERATIONS.md — Claude Code Operator's Guide
 # Commander — Project Operating System
-# Version 1.0 — July 2026
+# Version 1.3 — July 2026
 # Applies to: Director's Claude Code sessions on ALL projects
 
 ---
@@ -85,6 +85,13 @@ These are real, built-in CLI commands. Type `/` to see the full list.
 | `/clear` | Reset conversation history entirely | Starting a completely new task in the same terminal |
 | `/resume` | Jump back into a previous session | Terminal crashed, machine rebooted, or you closed by accident |
 | `/fork` | Branch conversation into a new session | You want to try an alternative approach without losing the current one |
+
+**Commander practice — context is measured, not felt:** check
+`/context` at every phase boundary (feature done, before the next
+sprint step); between phases run `/compact` **deliberately, with focus
+instructions** (e.g. `/compact keep: current sprint scope, open bugs,
+decisions made`). Never let auto-compaction fire at an arbitrary
+moment mid-phase — it summarises without your priorities.
 
 ### Information
 
@@ -329,6 +336,13 @@ a newline (useful for multi-line prompts):
 ## VERSIONING
 
 ```
+v1.3  2026-07-23  Added: measured context practice (/context at phase
+                  boundaries, deliberate /compact with focus
+                  instructions). Note: recurring rituals now ship as
+                  skills in automation/.claude/skills/ (/kraj,
+                  /sprint-close, /commander-audit) — no need to
+                  re-create them as custom commands per project.
+
 v1.0  2026-07-13  Initial Claude Code Operations Guide.
                   Covers: real shortcuts, real slash commands,
                   CLAUDE.md template, custom commands, and
@@ -340,4 +354,4 @@ v1.0  2026-07-13  Initial Claude Code Operations Guide.
 
 ---
 
-*Commander v1.0 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+*Commander v1.3 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
