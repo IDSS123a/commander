@@ -1,6 +1,6 @@
 # CONSTITUTION.md — Universal AI Mindset
 # Commander — Project Operating System
-# Version 1.2 — July 2026
+# Version 1.3 — July 2026
 # Applies to: ALL projects under IDSS123a organisation
 
 ---
@@ -600,4 +600,39 @@ Sprints completed: XX
 
 ---
 
-*Commander v1.2 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+## M-23. Destructive-Action Confirmation `[ACTIVE]` 🔴 CRITICAL
+
+*Added: v1.3, July 2026*
+
+**a) History rewrites always ask first.** Any git history rewrite —
+`filter-branch`, `filter-repo`, `rebase` of already-created commits,
+`commit --amend` beyond the immediately-preceding commit, or
+equivalent — requires explicit Director approval BEFORE running. There
+is no exception for "nothing is pushed yet" or "it only changes the
+message, not the diff": the mechanism (rewriting commit identity) is
+what requires confirmation, not the currently-visible consequence.
+State exactly which commits change and how; perceived low risk is
+never implicit authorization. This holds even inside an autonomous
+multi-task turn — a history rewrite is never bundled into "proceed
+with the fix"; it needs its own ask.
+
+**b) External-state claims are verified live, before execution.** When
+the justification for an approved destructive-adjacent action depends
+on a factual claim about external or shared state ("nothing is pushed
+yet", "the remote is empty", "no one else has this branch"), verify
+that claim directly against the actual external system
+(`git ls-remote` for a remote; the equivalent live check elsewhere) —
+not against local assumptions or a possibly-stale earlier check —
+before executing, and surface the actual result to the Director. A
+verification that happens only in a post-action audit means the action
+already ran on a possibly-false premise; report any discrepancy
+plainly even when the outcome happened to be safe.
+
+**Learned from:** vibe-coding-journal PROCESS_LESSONS.md — one
+unapproved (cosmetic, unpushed, still wrong) `filter-branch`, and one
+approved `filter-repo` whose "remote is empty" premise turned out to
+be false and harmless only by luck.
+
+---
+
+*Commander v1.3 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
