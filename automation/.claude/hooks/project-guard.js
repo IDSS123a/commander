@@ -31,6 +31,15 @@
  */
 const fs = require('fs');
 const path = require('path');
+const vm = require('vm');
+
+// Per rule per file budget. A pathological pattern (catastrophic
+// backtracking, e.g. "(a+)+$") would otherwise freeze every edit until
+// the ACA's hook timeout. V8 regex execution is interruptible via vm
+// timeouts, so each rule runs inside a timebox: hook mode skips a
+// timed-out rule (fail open — guard bugs never block work), CLI scan
+// mode reports it as a config defect.
+const RULE_TIMEOUT_MS = 500;
 
 const DEFAULT_EXTENSIONS = [
   '.js', '.jsx', '.ts', '.tsx', '.md', '.json', '.html', '.css',
@@ -60,7 +69,7 @@ function loadConfig(projectDir) {
   }
 }
 
-function scanFile(filePath, config) {
+function scanFile(filePath, config, timedOutPatterns) {
   const violations = [];
   let text;
   try {
@@ -76,27 +85,38 @@ function scanFile(filePath, config) {
     } catch (e) {
       continue; // invalid pattern → skip that rule, keep the rest working
     }
-    lines.forEach((line, i) => {
-      if (re.test(line)) {
-        violations.push({
-          file: filePath,
-          line: i + 1,
-          pattern: rule.pattern,
-          reason: rule.reason || 'forbidden pattern',
-        });
-      }
-    });
+    let hits;
+    try {
+      hits = vm.runInNewContext(
+        'const h = []; for (let i = 0; i < lines.length; i++) ' +
+          'if (re.test(lines[i])) h.push(i); h',
+        { re, lines },
+        { timeout: RULE_TIMEOUT_MS }
+      );
+    } catch (e) {
+      // pathological pattern — record for CLI reporting, skip here
+      if (timedOutPatterns) timedOutPatterns.add(rule.pattern);
+      continue;
+    }
+    for (const i of hits) {
+      violations.push({
+        file: filePath,
+        line: i + 1,
+        pattern: rule.pattern,
+        reason: rule.reason || 'forbidden pattern',
+      });
+    }
   }
   return violations;
 }
 
-function walk(dir, config, results) {
+function walk(dir, config, results, timedOut) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     if (config.exclude.includes(entry.name)) continue;
     const full = path.join(dir, entry.name);
-    if (entry.isDirectory()) walk(full, config, results);
+    if (entry.isDirectory()) walk(full, config, results, timedOut);
     else if (config.extensions.includes(path.extname(entry.name).toLowerCase()))
-      results.push(...scanFile(full, config));
+      results.push(...scanFile(full, config, timedOut));
   }
 }
 
@@ -115,13 +135,22 @@ if (process.argv.includes('--scan')) {
     process.exit(0);
   }
   const results = [];
+  const timedOut = new Set();
   try {
-    walk(projectDir, config, results);
+    walk(projectDir, config, results, timedOut);
   } catch (e) {
     console.error('[project-guard] scan error: ' + e.message);
     process.exit(0); // fail open
   }
+  if (timedOut.size > 0) {
+    for (const p of timedOut)
+      console.error(
+        `[project-guard] WARNING: pattern timed out (>${RULE_TIMEOUT_MS}ms, ` +
+          `likely catastrophic backtracking) and was NOT enforced: ${p} — fix this regex.`
+      );
+  }
   if (results.length === 0) {
+    if (timedOut.size > 0) process.exit(1); // audit cannot vouch with a dead rule
     console.log('[project-guard] clean — no forbidden patterns found.');
     process.exit(0);
   }
