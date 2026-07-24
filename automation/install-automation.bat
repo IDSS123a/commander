@@ -1,5 +1,5 @@
 @echo off
-rem === COMMANDER AUTOMATION INSTALLER (v1.3) ===
+rem === COMMANDER AUTOMATION INSTALLER (v1.4) ===
 rem Usage: install-automation.bat C:\path\to\project
 rem Copies .claude hooks + settings into the target project.
 
@@ -33,6 +33,12 @@ copy /Y "%SOURCE%.claude\hooks\patterns-detect.js" "%TARGET%\.claude\hooks\patte
 if exist "%SOURCE%.claude\skills" (
     xcopy /E /I /Y "%SOURCE%.claude\skills" "%TARGET%\.claude\skills" >nul
     echo [OK] Skills installed: /kraj, /sprint-close, /commander-audit
+)
+
+if exist "%SOURCE%.github\workflows\project-guard.yml" (
+    if not exist "%TARGET%\.github\workflows" mkdir "%TARGET%\.github\workflows"
+    copy /Y "%SOURCE%.github\workflows\project-guard.yml" "%TARGET%\.github\workflows\project-guard.yml"
+    echo [OK] GitHub Actions workflow installed - enforces project-guard server-side on every push/PR
 )
 
 if not exist "%TARGET%\.claude\project-guard.config.json" (
@@ -74,6 +80,7 @@ echo log-change.js      - PostToolUse: logs every file change automatically
 echo project-guard.js   - PostToolUse: blocks forbidden patterns (E-13); also CLI: node .claude/hooks/project-guard.js --scan
 echo lessons-guard.js   - Stop: enforces lesson capture before Claude finishes
 echo patterns-detect.js - Stop: pre-computes rule-recurrence for KRAJ (M-22)
+echo project-guard.yml  - GitHub Actions: enforces the guard server-side too (E-13)
 echo CLAUDE.md          - standing orders read at session start
 echo.
 echo Requirement: Node.js in PATH (already true for all Next.js/Vite projects)

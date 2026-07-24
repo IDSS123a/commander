@@ -90,13 +90,21 @@ Execute:
    .claude/skills/kraj/SKILL.md             → .claude/skills/kraj/SKILL.md
    .claude/skills/sprint-close/SKILL.md     → .claude/skills/sprint-close/SKILL.md
    .claude/skills/commander-audit/SKILL.md  → .claude/skills/commander-audit/SKILL.md
+   .github/workflows/project-guard.yml      → .github/workflows/project-guard.yml
    ```
    If raw URL fetch fails for `.claude` paths, fall back:
    `git clone --depth 1 https://github.com/IDSS123a/commander __cmdr_tmp`,
-   copy `__cmdr_tmp/automation/.claude/` into the project root, delete
+   copy `__cmdr_tmp/automation/.claude/` and
+   `__cmdr_tmp/automation/.github/` into the project root, delete
    `__cmdr_tmp`. Add project-specific forbidden patterns to
    `.claude/project-guard.config.json` (E-13) based on the Director's
    business rules from Step 2 — or leave the secret-pattern defaults.
+   **Checklist item, not a scripted step (verification, not automation
+   — availability depends on the account's plan):** confirm GitHub
+   push protection / secret scanning is enabled in the new repo's
+   Settings → Code security. This plus `project-guard.yml` together
+   mean a forbidden pattern is caught whether it arrives through this
+   ACA's own session or any other path into the repo (E-13).
 4. Create `corrections/` folder with empty `ACTIVITY_LOG.md`.
    Create `.commander-version` in the project root containing exactly
    the Commander version number from CONSTITUTION.md header (e.g. `1.3`),

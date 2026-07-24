@@ -341,6 +341,17 @@ the failure mode this rule eliminates: a manual pre-commit audit,
 run faithfully for weeks, still let one violation slip into a pushed
 file. A hook makes that class of failure structurally impossible.
 
+**A local hook only covers pushes that go through the ACA's own
+session.** A push made another way — a teammate's machine, GitHub's
+own web "upload files" flow — bypasses every local hook entirely; this
+is exactly how a tracked binary artifact slipped past the local guard
+into this very repository (AUDIT-002). `automation/.github/workflows/
+project-guard.yml` runs the identical `project-guard.js --scan` check
+server-side on every push and PR, closing that gap. Install it via
+`install-automation.bat` like every other automation file; it stays
+inactive (not failing) on repos with no
+`.claude/project-guard.config.json`, same contract as the hook itself.
+
 ---
 
-*Commander v1.3 — IDSS123a Organisation*
+*Commander v1.4 — IDSS123a Organisation*
