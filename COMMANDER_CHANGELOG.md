@@ -7,6 +7,48 @@
 
 ---
 
+## v1.4 (2026-07-24)
+
+Trigger: brutal stress-test + comparative report against GitHub Spec
+Kit, BMAD, OpenSpec, and Agent OS (2026-07-23) — see AUDIT-002/AUDIT-003
+in AUDIT_LOG.md for full detail.
+
+- ADDED: `automation/.github/workflows/project-guard.yml` — runs
+  `project-guard.js --scan` server-side on every push/PR, closing the
+  gap where a push outside the ACA's own session (e.g. GitHub web
+  upload) bypasses every local hook
+- ADDED: release tagging practice — every version bump gets an
+  annotated git tag immediately after push; bootstrap (`initial_
+  instructions.md` Step 3, `install-automation.bat`) now fetches
+  executable automation (hooks, settings, installer, CI workflow) from
+  the release tag, never from `main`. Advisory documents deliberately
+  stay on `main` (M-21); `version-check.js` is unchanged. Retroactively
+  tagged v1.3.
+- ADDED: first real M-19 audit (AUDIT-003) — E-3 and E-11 amended to
+  match real, legitimate project practice found in idss-handbook
+  (Server-Action forms, CSS-token styling); A-5, A-10, E-5 extended
+  with 3 new rules (maxTokens sizing, AI-derived-content FK cascade,
+  HTTP-200-≠-usable-output); governance/product commit ratio computed
+  (54 : 77) and the computation step added to the audit skill for
+  future runs
+- ADDED: `specs/[feature-name]/` spec→plan→tasks layer — `/specify`
+  (SPEC.md: what/why, no tech stack), `/plan-feature` (PLAN.md:
+  technical approach checked against ARCHITECTURE_PATTERNS.md and
+  ENGINEERING_RULES.md), `/tasks` (TASKS.md: ordered checklist).
+  Closes the one structural gap every competing spec-driven framework
+  treats as its core value proposition
+- ADDED: DL-012 — pause further investment in untested
+  model-agnosticism (graceful-degradation prose) until Commander runs
+  on a real second ACA
+- CHANGED: `FEATURE_LIFECYCLE.md` Steps 1–3 reference the new spec
+  artifacts instead of describing freeform reasoning; Steps 4–7
+  unchanged
+- CHANGED: `CLAUDE_CODE_OPERATIONS.md` §5 — points to the real
+  `PROJECT_CLAUDE_MD_TEMPLATE.md` instead of a stale inline example
+  that had drifted out of sync (M-7)
+
+---
+
 ## v1.3 (2026-07-23)
 
 ### v1.3 stress-test fixes (2026-07-23)
@@ -118,4 +160,4 @@ blanket MCP server expansion.
 
 ---
 
-*Commander v1.3 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+*Commander v1.4 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*

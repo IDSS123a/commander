@@ -2,7 +2,7 @@
 
 **Owner:** Davor Mulalić — P.U. Internationale Deutsche Schule Sarajevo
 **Purpose:** Universal AI Coding Assistant operating system for all projects
-**Version:** 1.3 — July 2026
+**Version:** 1.4 — July 2026
 
 ---
 
@@ -264,6 +264,21 @@ v1.3  2026-07  Added: E-13 (checkable rules ship as automation), M-23
                cheatsheet capabilities only) + vibe-coding-journal M-18 harvest.
                Constraint: every change replaces a manual step or removes
                tokens; subagent rules and MCP expansion rejected by that test.
+
+v1.4  2026-07  Added: CI enforcement (project-guard.yml runs the guard
+               server-side on every push/PR — closes the gap where a
+               push outside the ACA's own session bypasses local hooks),
+               release tagging (executable automation pinned to a
+               version tag, never main), first real M-19 audit
+               (AUDIT-003: E-3/E-11 amended to match real project
+               practice, A-5/A-10/E-5 extended with 3 new learned-from
+               rules, governance/product commit ratio measured),
+               spec→plan→tasks layer (/specify, /plan-feature, /tasks —
+               specs/[name]/SPEC.md → PLAN.md → TASKS.md,
+               FEATURE_LIFECYCLE Steps 1-3 rewritten to reference them),
+               DL-012 (pause unproven model-agnosticism investment).
+               Source: brutal stress-test + comparison against GitHub
+               Spec Kit/BMAD/OpenSpec/Agent OS (2026-07-23).
 ```
 
 ---

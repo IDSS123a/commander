@@ -1,7 +1,7 @@
 # Kako upravljati AI Coding Assistantom (ACA)
 ## Univerzalni priručnik za non-codera koji gradi web apps
 ## Autor: Davor Mulalić | Sistem: Commander (github.com/IDSS123a/commander)
-## Verzija: 1.0 — Juli 2026
+## Verzija: 1.4 — Juli 2026
 
 ---
 
@@ -489,6 +489,6 @@ Ako si zaglavljen s greškom više od 30 minuta — zaustavi se. Napiši mi. Pon
 
 ---
 
-*Commander v1.0 — IDSS123a Organisation*
+*Commander v1.4 — IDSS123a Organisation*
 *Dokument: ACA Management Guide*
 *Na osnovu iskustva gradnje IDSS Handbook Web App — Sarajevo 2026*

@@ -49,7 +49,7 @@ if not exist "%TARGET%\.claude\project-guard.config.json" (
 )
 
 if not exist "%TARGET%\.commander-version" (
-    echo 1.3> "%TARGET%\.commander-version"
+    echo 1.4> "%TARGET%\.commander-version"
     echo [OK] .commander-version created - version-check hook now active
 ) else (
     echo [SKIP] .commander-version already exists - not overwritten

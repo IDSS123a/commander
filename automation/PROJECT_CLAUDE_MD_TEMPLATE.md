@@ -8,7 +8,7 @@
 
 ## GOVERNANCE — TIERED LOADING (M-21)
 
-This project is governed by **Commander v1.3**
+This project is governed by **Commander v1.4**
 (github.com/IDSS123a/commander). The 🔴 CRITICAL rules are inlined
 below and always apply — do NOT bulk-load full Commander documents at
 session start. Read a full document only when the task enters its
@@ -94,4 +94,4 @@ deployment target.]
 
 ---
 
-*Commander v1.3 — IDSS123a Organisation — Davor Mulalić*
+*Commander v1.4 — IDSS123a Organisation — Davor Mulalić*

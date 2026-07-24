@@ -1,6 +1,6 @@
 # CLAUDE_CODE_OPERATIONS.md — Claude Code Operator's Guide
 # Commander — Project Operating System
-# Version 1.3 — July 2026
+# Version 1.4 — July 2026
 # Applies to: Director's Claude Code sessions on ALL projects
 
 ---
@@ -163,32 +163,18 @@ line. Use for 2–3 line prompts. For longer prompts, use `Ctrl+G`.
 Every project should have a `CLAUDE.md` in the root directory.
 Claude Code reads it automatically at session start.
 
-**Recommended structure for Commander-governed projects:**
+**Recommended structure for Commander-governed projects:** use
+`automation/PROJECT_CLAUDE_MD_TEMPLATE.md` directly (installed
+automatically by `install-automation.bat`, or fetched by
+`initial_instructions.md` Step 3) — not a hand-written example here.
+The template inlines the 🔴 CRITICAL rules and loads everything else
+on demand (M-21); an inline example in this document would drift out
+of sync with the real template every time it changes, which is
+exactly the M-7 (Single Source of Truth) failure mode this note
+replaces.
 
-```markdown
-# Project: [Name]
-
-## Commander Governance
-This project is governed by Commander v1.0.
-Read all Commander documents before any code:
-- Constitution: https://raw.githubusercontent.com/IDSS123a/commander/main/CONSTITUTION.md
-- Engineering Rules: https://raw.githubusercontent.com/IDSS123a/commander/main/ENGINEERING_RULES.md
-- Architecture Patterns: https://raw.githubusercontent.com/IDSS123a/commander/main/ARCHITECTURE_PATTERNS.md
-- ACA Communication Protocol: https://raw.githubusercontent.com/IDSS123a/commander/main/ACA_COMMUNICATION_PROTOCOL.md
-- Done Checklist: https://raw.githubusercontent.com/IDSS123a/commander/main/DONE_CHECKLIST.md
-
-## Project Constitution
-https://raw.githubusercontent.com/IDSS123a/[repo]/main/CONSTITUTION.md
-
-## Current Sprint
-https://raw.githubusercontent.com/IDSS123a/[repo]/main/sprints/SPRINT_XX.md
-
-## Project-Specific Notes
-[Anything specific to this project that doesn't belong in the Constitution]
-```
-
-This eliminates the need to paste URLs at the start of every session.
-Claude Code reads it, fetches the documents, and proceeds.
+This eliminates the need to paste URLs at the start of every session
+— `install-automation.bat` writes the real `CLAUDE.md` directly.
 
 ---
 
@@ -217,6 +203,14 @@ auto-propagate into code that runs on the Director's machine.
 Advisory documents (CONSTITUTION.md, ENGINEERING_RULES.md, etc.) stay
 on `main` — M-21 wants those always-current, and the version-check
 hook's entire purpose depends on comparing against live `main`.
+
+**Before tagging, grep for the old version number across the repo**
+(`grep -rn "1\.X"` for the version being replaced) — every document's
+header/footer stamp, plus the hardcoded `.commander-version` seed
+line in `install-automation.bat`, needs to match. The v1.4 release
+caught that exact line still seeding `1.3` only during the final
+fresh-install smoke test, one step before tagging — a live example of
+why this check belongs in the process, not in memory.
 
 ---
 
@@ -365,4 +359,4 @@ v1.0  2026-07-13  Initial Claude Code Operations Guide.
 
 ---
 
-*Commander v1.3 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+*Commander v1.4 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
