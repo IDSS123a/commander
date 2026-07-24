@@ -1,6 +1,6 @@
 # FEATURE_LIFECYCLE.md — Universal Feature Build Process
 # Commander — Project Operating System
-# Version 1.0 — June 2026
+# Version 1.4 — July 2026
 
 ---
 
@@ -15,14 +15,16 @@ Every feature follows this 7-step lifecycle without exception.
 
 ## Step 1 — ANALYSIS
 
-Before touching the keyboard, answer these questions:
+*As of v1.4: produced via `/specify`, not freeform reasoning.*
 
-- What is the institutional purpose of this feature?
-- Which Constitution section governs it?
-- Which database tables does it touch?
-- Which API routes or Server Actions does it require?
-- Which UI components does it need?
-- What does this feature explicitly NOT do? (scope boundary)
+Run `/specify` to produce `specs/[feature-name]/SPEC.md` — purpose,
+user stories, acceptance criteria, and the explicit scope boundary
+(what this feature does NOT do). No tech stack or implementation
+detail belongs in this file; that's Step 2's job.
+
+Two standing checks apply regardless of feature, worth keeping in
+mind while writing `SPEC.md`'s acceptance criteria:
+
 - If this feature includes an undo/revert capability, check it
   against the RBAC model before designing it. A "revert last action"
   pattern that assumes uniform permissions breaks the moment "who
@@ -38,35 +40,32 @@ Before touching the keyboard, answer these questions:
   specific, falsifiable claim as something to verify against actual
   wired logic, not just visually.
 
-If you cannot answer all of these: STOP and ask.
+If `/specify` cannot answer all of `SPEC.md`'s sections: STOP and ask.
 
 ---
 
 ## Step 2 — PLAN
 
-Write a brief plan as a comment block in the feature's main file:
+*As of v1.4: produced via `/plan-feature`, not a code comment block.*
 
-```typescript
-/**
- * FEATURE: Document Upload Pipeline
- * PURPOSE: Allow Admin to upload institutional documents for Super Admin approval
- * TOUCHES: documents table, Supabase Storage bucket 'staging-documents'
- * ROUTES: POST /api/documents/upload, GET /api/documents/:id/status
- * SERVER ACTIONS: uploadDocument(), getDocumentStatus()
- * OUT OF SCOPE: OCR (Sprint 08), RAG indexing (triggered post-approval)
- * SPRINT: 07
- * CONSTITUTION REF: O-3 (Document Upload Pipeline)
- */
-```
+Run `/plan-feature` to produce `specs/[feature-name]/PLAN.md` from
+`SPEC.md` — architecture, data model, API/Server Action contracts, and
+which Commander rules constrained each decision, checked against
+`ARCHITECTURE_PATTERNS.md` and `ENGINEERING_RULES.md` directly rather
+than reasoned from memory.
 
 Confirm the plan matches the Constitution before writing any code.
-If the plan contradicts the Constitution: the Constitution wins.
+If the plan contradicts the Constitution: the Constitution wins —
+`/plan-feature` stops and surfaces the conflict rather than resolving
+it silently.
 
 ---
 
 ## Step 3 — IMPLEMENTATION ORDER
 
-Build strictly in this order. Never jump ahead.
+*As of v1.4: the checklist lives in `specs/[feature-name]/TASKS.md`,
+produced by `/tasks` from `PLAN.md`.* Build strictly in that order —
+`TASKS.md` mirrors this sequence and must not be reordered:
 
 ```
 1. Database migration       (if new tables or columns needed)
@@ -88,6 +87,8 @@ Build strictly in this order. Never jump ahead.
 
 Verify each step before moving to the next.
 Do not write the UI before the data layer is complete and tested.
+Check off items in `TASKS.md` as each completes — don't hold progress
+in session memory alone.
 
 ---
 
@@ -177,4 +178,4 @@ Next sprint: Sprint 08 — OCR Pipeline
 
 ---
 
-*Commander v1.0 — IDSS123a Organisation*
+*Commander v1.4 — IDSS123a Organisation*

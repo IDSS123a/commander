@@ -32,7 +32,7 @@ copy /Y "%SOURCE%.claude\hooks\patterns-detect.js" "%TARGET%\.claude\hooks\patte
 
 if exist "%SOURCE%.claude\skills" (
     xcopy /E /I /Y "%SOURCE%.claude\skills" "%TARGET%\.claude\skills" >nul
-    echo [OK] Skills installed: /kraj, /sprint-close, /commander-audit
+    echo [OK] Skills installed: /kraj, /sprint-close, /commander-audit, /specify, /plan-feature, /tasks
 )
 
 if exist "%SOURCE%.github\workflows\project-guard.yml" (
