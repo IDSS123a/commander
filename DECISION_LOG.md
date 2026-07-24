@@ -1,6 +1,6 @@
 # DECISION_LOG.md — Universal Technology Decisions
 # Commander — Project Operating System
-# Version 1.1 — July 2026
+# Version 1.4 — July 2026
 
 ---
 
@@ -178,4 +178,29 @@ project Constitution explicitly overrides it.
 
 ---
 
-*Commander v1.1 — IDSS123a Organisation*
+## DL-012 — Pause Further Investment in Untested Model-Agnosticism
+
+**Date:** 2026-07-23
+**Decision:** Stop adding new graceful-degradation prose ("ACAs
+without hook/skill support do X instead") to Commander documents until
+Commander has actually run a real project on a second ACA (Cursor,
+Windsurf, Lovable, or equivalent). Existing graceful-degradation text
+(E-13's hook/CLI split, CLAUDE_CODE_OPERATIONS.md's framing) stays as
+documentation of intent — it is not deleted, just not grown further.
+**Rationale:** Every enforcement mechanism shipped in v1.2–v1.4 — the
+five hooks, the three (now six) skills, CI enforcement — is Claude
+Code-specific in practice. "Model-agnostic" has been an aspiration
+since v1.0 but has never been exercised: no Commander project has ever
+actually run on a non-Claude ACA. Continuing to write fallback
+language for untested environments is speculative cost with no
+verification behind it, the same failure mode the brutal stress test
+(2026-07-23) flagged across the system generally: build for evidence,
+not for hypothetical coverage.
+**Upgrade path:** the moment a real project runs Commander on a second
+ACA, that experience becomes the evidence base for resuming
+model-agnostic investment — informed by what actually broke, not by
+speculation about what might.
+
+---
+
+*Commander v1.4 — IDSS123a Organisation*
