@@ -597,6 +597,10 @@ Sprints completed: XX
 - Apply approved changes to the Commander repository.
 - Commit with message: `feat: Commander vX.Y — [project name] end-of-project update`
 - Update AUDIT_LOG.md with the date and summary.
+- Push, then tag the release: `git tag vX.Y && git push origin vX.Y`
+  (see CLAUDE_CODE_OPERATIONS.md — every version bump gets an
+  immediate tag; bootstrap fetches executable automation files from
+  the tag, never from `main`).
 
 ---
 

@@ -37,6 +37,12 @@ Project bootstrap is the explicit exception — the ACA needs prior
 technology decisions to scaffold correctly. After bootstrap, revert
 to normal M-21 tier rules.
 
+Note: these seven documents are read from `main` deliberately — they
+are advisory text the ACA reasons about, and M-21 wants them always
+current. Step 3's automation files are different: they are executable
+code, fetched from the version tag read here, never from `main` (see
+CLAUDE_CODE_OPERATIONS.md).
+
 Do not summarize these documents to the Director. Just obey them.
 
 ---
@@ -77,8 +83,11 @@ Execute:
 3. Install Commander Automation.
    **Shortcut:** if the Commander repo is available on local disk,
    `automation\install-automation.bat C:\path\to\project` performs this
-   step and step 4 in one command. Otherwise fetch from the repo
-   (base `https://raw.githubusercontent.com/IDSS123a/commander/main/automation/`):
+   step and step 4 in one command. Otherwise fetch from the repo —
+   **pinned to the release tag matching the version read in Step 1**
+   (e.g. `v1.4`), never `main`: a compromised or broken `main` must not
+   auto-propagate into code that executes on the Director's machine.
+   Base `https://raw.githubusercontent.com/IDSS123a/commander/v{version}/automation/`:
    ```
    .claude/settings.json                    → .claude/settings.json
    .claude/hooks/version-check.js           → .claude/hooks/version-check.js
@@ -93,7 +102,8 @@ Execute:
    .github/workflows/project-guard.yml      → .github/workflows/project-guard.yml
    ```
    If raw URL fetch fails for `.claude` paths, fall back:
-   `git clone --depth 1 https://github.com/IDSS123a/commander __cmdr_tmp`,
+   `git clone --branch v{version} --depth 1 https://github.com/IDSS123a/commander __cmdr_tmp`
+   (same pin — never clone `main` for this step),
    copy `__cmdr_tmp/automation/.claude/` and
    `__cmdr_tmp/automation/.github/` into the project root, delete
    `__cmdr_tmp`. Add project-specific forbidden patterns to
@@ -107,7 +117,7 @@ Execute:
    ACA's own session or any other path into the repo (E-13).
 4. Create `corrections/` folder with empty `ACTIVITY_LOG.md`.
    Create `.commander-version` in the project root containing exactly
-   the Commander version number from CONSTITUTION.md header (e.g. `1.3`),
+   the Commander version number from CONSTITUTION.md header (e.g. `1.4`),
    one line, nothing else. The version-check hook uses this to detect
    drift between the project and live Commander.
 5. Generate `CLAUDE.md` from

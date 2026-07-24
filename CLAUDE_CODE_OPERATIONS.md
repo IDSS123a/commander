@@ -207,6 +207,17 @@ the current sprint, then continue."
 Claude will recover context from the codebase, git history,
 CLAUDE.md, and any Commander documents referenced.
 
+**Commander-repo maintenance only:** every version bump to the
+Commander repository itself gets tagged immediately after push —
+`git tag vX.Y && git push origin vX.Y` (also in CONSTITUTION.md M-22
+Step 5). Project bootstrap (`initial_instructions.md`) fetches
+executable automation files (hooks, settings, the CI workflow) from
+that tag rather than `main`, so a broken or compromised `main` cannot
+auto-propagate into code that runs on the Director's machine.
+Advisory documents (CONSTITUTION.md, ENGINEERING_RULES.md, etc.) stay
+on `main` — M-21 wants those always-current, and the version-check
+hook's entire purpose depends on comparing against live `main`.
+
 ---
 
 ## 7. THE REAL "GOD MODE"
