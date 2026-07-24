@@ -39,6 +39,7 @@ AUDIT REPORT:
 - Rules deprecated: [list with reason]
 - Rules consolidated: [list showing which merged into which]
 - New rules suggested: [list with rationale]
+- Governance/product commit ratio since last audit: [commander : product]
 - AUDIT_LOG.md entry: [ready to append]
 
 Wait for Director approval before making any changes.
@@ -53,6 +54,7 @@ Update this list as projects complete:
 ```
 - https://github.com/IDSS123a/web-app-idss-handbook
 - https://github.com/IDSS123a/web-app-chronos
+- https://github.com/IDSS123a/web-app-vibe-coding-journal
 - [add new projects as they complete]
 ```
 
@@ -71,4 +73,4 @@ After the Director approves the audit findings:
 
 ---
 
-*Commander v1.1 — IDSS123a Organisation*
+*Commander v1.4 — IDSS123a Organisation*

@@ -18,6 +18,14 @@ EVERY rule (M-XX, E-XX, C-XX) run the five checks:
 4. **OVERLAP** — can it be consolidated with another rule?
 5. **DEPRECATION** — should M-17 retire it? With what replacement?
 
+**Governance/product ratio (no extra session cost — computed only
+here):** for the commander repo and each audited project repo, run
+`git log --since <date of last audit> --oneline | wc -l` and report
+`commander commits : sum(product commits)` as one line in the AUDIT
+REPORT. Exclude any project repo whose history was reset/rewritten
+since the last audit (note it by name with the reason instead of
+computing a misleading count from it).
+
 Produce the AUDIT REPORT in the format defined in
 PROMPT_LIBRARY/commander-audit.md (counts, severity changes,
 deprecations, consolidations, new rules, ready-to-append AUDIT_LOG.md

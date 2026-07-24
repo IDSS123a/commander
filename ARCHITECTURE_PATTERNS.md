@@ -1,6 +1,6 @@
 # ARCHITECTURE_PATTERNS.md — Universal Structural Rules
 # Commander — Project Operating System
-# Version 1.1 — July 2026
+# Version 1.4 — July 2026
 
 ---
 
@@ -229,6 +229,14 @@ Swapping AI providers:
 3. Update `lib/ai/ai-provider.factory.ts`
 4. Zero changes to any business logic or UI
 
+**`maxTokens` sizing (AUDIT-003):** size `maxTokens` to the LONGEST
+expected structured output, never the average. A model that hits the
+limit mid-JSON-array truncates silently — the HTTP call still returns
+200 (the model call itself succeeded), but the truncated JSON fails
+to parse downstream, and if that failure is swallowed the item is
+silently skipped forever. This class of bug hides in testing because
+short inputs never hit the limit; only the longest real inputs do.
+
 ---
 
 ## A-6. Database Migration Pattern
@@ -358,6 +366,15 @@ specific blocked response (which tables, how many rows) instead of
 a raw database error — and offer a reversible alternative (e.g.
 ban/disable instead of delete) in the same response.
 
+**AI-generated/derived content (AUDIT-003):** the same discipline
+applies in the other direction. A foreign key from generated content
+(e.g. `quiz_questions`) to its regenerable parent (e.g.
+`handbook_chapters`) must NOT be `ON DELETE CASCADE` — regenerating
+or migrating the parent would silently wipe every row of generated
+content with no trace. Bind derived content to a stable key, or
+regenerate it explicitly; never rely on cascading delete to keep it
+in sync.
+
 ---
 
-*Commander v1.1 — IDSS123a Organisation*
+*Commander v1.4 — IDSS123a Organisation*

@@ -1,6 +1,6 @@
 # ENGINEERING_RULES.md — Universal Engineering Standards
 # Commander — Project Operating System
-# Version 1.3 — July 2026
+# Version 1.4 — July 2026
 
 ---
 
@@ -78,6 +78,17 @@ const form = useForm({ resolver: zodResolver(LoginSchema) });
 
 Never use uncontrolled native HTML forms for business logic forms.
 
+**Accepted alternative (AUDIT-003, confirmed in production):** a
+single-field or few-field form driven entirely by a Server Action —
+`<form action={serverAction}>` + `FormData` + `useState` for pending/
+error UI, with the same Zod schema validating inside the action — is
+not a violation of this rule. It satisfies E-2's "Zod on every
+boundary" without RHF's client-side wiring. Reach for RHF once a form
+has cross-field validation, dynamic field arrays, or complex
+client-side UX; don't add it to a simple form just to satisfy the
+letter of this rule when the Server Action pattern already covers the
+substance (Zod validation, no inline logic).
+
 ---
 
 ## E-4. Security `[ACTIVE]` 🔴 CRITICAL
@@ -154,6 +165,15 @@ duplicate state (409), permission denied (403) — and return the
 precise status with a specific message. Generic 500 should mean
 "truly unexpected," not "an admin acted on a stale ID" or "tried to
 reuse an email that already exists."
+
+**A successful external call is not a successful result (AUDIT-003):**
+an AI provider call (or any external API) returning HTTP 200 means
+the *call* succeeded — it says nothing about whether the payload is
+complete or usable. Truncated/malformed output that fails to parse
+downstream, then gets silently skipped by a broad catch, looks
+identical to "working correctly" until someone checks the actual
+data months later. Log and count every parse/validation failure on
+data from a "successful" external call as loudly as any other error.
 
 ---
 
@@ -271,7 +291,7 @@ Never do these without explicit written approval in the project `DECISION_LOG.md
 | Raw SQL repeated in multiple files            | Use repository functions                |
 | `console.log` in production routes            | Use structured logging                  |
 | Magic numbers anywhere                        | Name them in `constants/index.ts`       |
-| Inline `style={{}}` for layout                | Use Tailwind classes                    |
+| Inline `style={{}}` for layout                | Use Tailwind classes OR CSS custom-property design tokens (`var(--space-4)`, `var(--color-brand)`) declared in the project's `DESIGN_SYSTEM.md` — the substance being enforced is "no magic values," not "must be Tailwind." A hardcoded literal (`#ffe0e0`, `12px`) inside either approach is the actual violation (AUDIT-003). |
 | `setTimeout` for logic flow control           | Use proper async/await                  |
 | Fetching data directly in a React component   | Use Server Components or Server Actions |
 | Business logic inside UI components           | Move to domain layer                    |

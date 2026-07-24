@@ -1,6 +1,6 @@
 # AUDIT_LOG.md — Commander Audit History
 # Commander — Project Operating System
-# Version 1.3 — July 2026
+# Version 1.4 — July 2026
 
 ---
 
@@ -113,8 +113,107 @@ exactly this failure mode.
 
 ---
 
+## AUDIT-003 — First Real M-19 Annual Audit
+
+**Date:** 2026-07-23
+**Trigger:** Brutal stress-test + comparative report (2026-07-23)
+flagged that M-19 had never actually been executed — AUDIT-001 was a
+severity-assignment pass and AUDIT-002 was the v1.3 upgrade itself,
+neither ran the five-check protocol against real project evidence.
+**Conducted by:** Director + Claude Opus 4.8
+**Projects reviewed:** web-app-idss-handbook, web-app-chronos,
+web-app-vibe-coding-journal (per `PROMPT_LIBRARY/commander-audit.md`,
+corrected this audit to actually list all three — it was missing the
+third).
+
+### Evidence base
+
+- **web-app-idss-handbook:** `corrections/SPRINT_12_LESSONS.md` and
+  `corrections/SPRINT_LESSONS_AUTH.md` — 2 real lesson files, 21
+  sprints total. Commit history was reset 2026-07-17 ("history reset
+  for data protection," M-15-consistent) — only 2 commits survive, so
+  this repo's commit count is **excluded** from the governance/product
+  ratio below as non-representative of real activity.
+- **web-app-chronos:** 21 commits, 10 sprints, its own project-level
+  `DECISION_LOG.md` (CD-001–CD-011). **No `corrections/` folder at
+  all** — this project predates M-18 (added v1.1, after Chronos's
+  active development). Zero lesson-file evidence is a historical gap,
+  not a sign the rules were never violated; recorded here so a future
+  audit doesn't misread silence as compliance.
+- **web-app-vibe-coding-journal:** already exhaustively reviewed
+  during the v1.3 M-18 harvest (6 sprints + `PROCESS_LESSONS.md`); not
+  re-litigated here.
+
+### Findings (per the five-check protocol)
+
+1. **STATUS/USAGE — E-3 (Forms: React Hook Form + Zod mandatory)
+   does not match real practice.** idss-handbook's entire
+   `(auth)` route group never adopted RHF — Server Actions + FormData
+   + `useState`, with an explicit written project-level justification
+   (consistency with the rest of the codebase, M-8/M-12 over the
+   letter of E-3). **Action taken:** E-3 amended (not deprecated) to
+   explicitly accept the Server-Action-driven pattern for
+   simple/few-field forms, reserving RHF for cross-field validation or
+   complex client UX — the rule now matches what was already
+   legitimate practice instead of contradicting it.
+2. **STATUS/USAGE — E-11's Tailwind-only framing conflicted with a
+   legitimate alternative.** idss-handbook's `DESIGN_SYSTEM.md` uses
+   CSS custom-property tokens via inline `style={{}}`, not Tailwind
+   classes — a real design system, not sloppy inline styling (though
+   one hardcoded hex value was a genuine violation, already flagged in
+   the project's own lessons file). **Action taken:** E-11 amended to
+   name both Tailwind classes and CSS custom-property tokens as
+   acceptable; the actual forbidden thing — hardcoded magic values —
+   is now the explicit target either way.
+3. **New rule candidate, adopted — A-10 extended.** FK from
+   AI-generated/derived content to its regenerable parent must never
+   be `ON DELETE CASCADE` (idss-handbook SPRINT_12: a live near-miss,
+   not yet triggered, caught before Phase 18 regeneration work).
+4. **New rule candidate, adopted — A-5 extended.** Size `maxTokens` to
+   the longest expected structured output, not the average — a
+   silent-truncation bug that only manifests on the longest real
+   inputs and hides completely in short-input testing.
+5. **New rule candidate, adopted — E-5 extended.** An external call
+   returning HTTP 200 is not proof the payload was usable; a
+   truncated/malformed AI response that fails downstream parsing and
+   gets silently caught is indistinguishable from "working" until
+   someone checks the data directly.
+6. **OVERLAP/DEPRECATION:** no rule found unused across all three
+   projects and no rule found purely overlapping — genuinely nothing
+   to deprecate or consolidate this round. Recorded honestly rather
+   than manufacturing a deprecation to look thorough.
+7. **SEVERITY:** no severity changes indicated — no rule showed the
+   repeat-violation pattern that would justify a 🟡→🔴 upgrade, and
+   no 🔴 rule showed evidence of being safely relaxable.
+
+### Governance/product commit ratio (D4, computed once, here)
+
+Since inception (no prior real M-19 audit to date from):
+commander-repo **54** commits; product repos (chronos 21 +
+vibe-coding-journal 56 = 77; idss-handbook excluded, history reset)
+**77** commits. Ratio ≈ **41 : 59** (commander : product). Read with
+caution for a single data point — chronos and vibe-coding-journal
+together span roughly a year of the Director's real project work,
+while commander-repo's 54 commits are concentrated in two intense
+governance sessions (v1.3, v1.4); the ratio will read very differently
+once measured over a rolling window at the next audit rather than
+since inception.
+
+### Post-audit checklist (per `PROMPT_LIBRARY/commander-audit.md`)
+
+- [x] `ENGINEERING_RULES.md` updated — E-3, E-5, E-11 amendments
+- [x] `ARCHITECTURE_PATTERNS.md` updated — A-5, A-10 amendments
+- [x] `PROMPT_LIBRARY/commander-audit.md` project list corrected
+- [x] `automation/.claude/skills/commander-audit/SKILL.md` — ratio
+  step added for future audits
+- [x] `AUDIT_LOG.md` entry appended (this entry)
+- [ ] `README.md` version history — covered in the v1.4 version-bump
+  commit, not duplicated here
+
+---
+
 *Next audit due: January 2027 or after 5th project completion, whichever comes first.*
 
 ---
 
-*Commander v1.3 — IDSS123a Organisation*
+*Commander v1.4 — IDSS123a Organisation*
