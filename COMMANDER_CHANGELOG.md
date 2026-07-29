@@ -9,6 +9,18 @@
 
 ## v1.4 (2026-07-24)
 
+### v1.4 patch (2026-07-27)
+- FIXED: `CLAUDE_CODE_OPERATIONS.md`'s `/compact` guidance — "at phase
+  boundaries" was too vague to actually produce the behavior. Evidence:
+  the v1.3/v1.4 Commander maintenance work itself ran as one unbroken
+  multi-day conversation with zero deliberate `/compact` calls, later
+  confirmed in Claude Pro's own usage breakdown (95% of that week's
+  usage at >150k context, 78% from 8+ hour sessions). Replaced with
+  three concrete checkpoints: after every numbered deliverable commit,
+  every ~2 hours of continuous work, before switching topics or days.
+  No version bump — this is an advisory-document clarity fix (M-21:
+  these stay on `main`, never tag-pinned), not a new mechanism or rule.
+
 Trigger: brutal stress-test + comparative report against GitHub Spec
 Kit, BMAD, OpenSpec, and Agent OS (2026-07-23) — see AUDIT-002/AUDIT-003
 in AUDIT_LOG.md for full detail.

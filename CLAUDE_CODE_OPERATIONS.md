@@ -86,12 +86,28 @@ These are real, built-in CLI commands. Type `/` to see the full list.
 | `/resume` | Jump back into a previous session | Terminal crashed, machine rebooted, or you closed by accident |
 | `/fork` | Branch conversation into a new session | You want to try an alternative approach without losing the current one |
 
-**Commander practice — context is measured, not felt:** check
-`/context` at every phase boundary (feature done, before the next
-sprint step); between phases run `/compact` **deliberately, with focus
-instructions** (e.g. `/compact keep: current sprint scope, open bugs,
-decisions made`). Never let auto-compaction fire at an arbitrary
-moment mid-phase — it summarises without your priorities.
+**Commander practice — context is measured, not felt.** "At phase
+boundaries" proved too vague to actually trigger the behavior — the
+v1.3/v1.4 Commander maintenance sessions themselves ran for multiple
+calendar days as one unbroken conversation with zero deliberate
+`/compact` calls, later confirmed in Claude Pro's own usage breakdown
+(95% of that week's usage at >150k context, 78% from 8+ hour
+sessions). The rule existed; it wasn't concrete enough to survive
+contact with real work. Use these instead, as literal checkpoints:
+
+- **After every commit that completes a numbered deliverable** in a
+  multi-part task (a Dx/step in a plan) — check `/context`, and
+  `/compact` if it's climbed since the last check.
+- **When continuous work in one session passes ~2 hours**, regardless
+  of whether a deliverable just finished.
+- **Before switching to an unrelated topic or a new calendar day's
+  work**, even mid-conversation — don't let an old topic's context
+  ride along into a new one.
+
+Run `/compact` **deliberately, with focus instructions** (e.g.
+`/compact keep: current sprint scope, open bugs, decisions made`).
+Never let auto-compaction fire at an arbitrary moment mid-phase — it
+summarises without your priorities.
 
 ### Information
 
