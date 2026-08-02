@@ -1,6 +1,6 @@
 # CLAUDE.md — [PROJECT NAME]
 # Commander-Governed Project
-# Template version: 1.3 — July 2026
+# Template version: 1.5 — August 2026
 # INSTRUKCIJA: Kopiraj ovaj fajl kao CLAUDE.md u root svakog novog projekta.
 # Zamijeni [PROJECT NAME] i [project-repo] stvarnim vrijednostima, obriši ove 3 linije.
 
@@ -8,7 +8,7 @@
 
 ## GOVERNANCE — TIERED LOADING (M-21)
 
-This project is governed by **Commander v1.4**
+This project is governed by **Commander v1.5**
 (github.com/IDSS123a/commander). The 🔴 CRITICAL rules are inlined
 below and always apply — do NOT bulk-load full Commander documents at
 session start. Read a full document only when the task enters its
@@ -22,7 +22,7 @@ domain:
 | FEATURE_LIFECYCLE.md + DONE_CHECKLIST.md | at sprint close |
 | PROMPT_LIBRARY/* | when the Director invokes that ritual |
 
-Base URL: `https://raw.githubusercontent.com/IDSS123a/commander/main/`
+Base path (vendored locally): `.commander/`
 
 **Always read (small, project-specific):**
 - Project Constitution: `[project-repo]/CONSTITUTION.md` — wins over Commander for this project
@@ -94,4 +94,4 @@ deployment target.]
 
 ---
 
-*Commander v1.4 — IDSS123a Organisation — Davor Mulalić*
+*Commander v1.5 — IDSS123a Organisation — Davor Mulalić*

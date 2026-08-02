@@ -40,6 +40,11 @@ process.stdin.on('end', () => {
       );
     }
     fs.appendFileSync(logFile, `- [${now}] ${tool}: ${rel}\n`);
+    // Cap: keep newest ~1500 lines / ~200KB so it can't grow unbounded
+    if (fs.statSync(logFile).size > 200 * 1024) {
+      const L = fs.readFileSync(logFile, 'utf8').split('\n');
+      fs.writeFileSync(logFile, L.slice(0, 3).concat(['# … older trimmed …', ''], L.slice(-1500)).join('\n'));
+    }
   } catch (e) {
     // Hooks must never break the session — fail silently
   }

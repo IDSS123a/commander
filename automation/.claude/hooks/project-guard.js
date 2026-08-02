@@ -170,7 +170,7 @@ process.stdin.on('end', () => {
     if (!config) process.exit(0);
 
     const filePath =
-      (data.tool_input && data.tool_input.file_path) || null;
+      (data.tool_input && (data.tool_input.file_path || data.tool_input.path)) || null;
     if (!filePath || !fs.existsSync(filePath)) process.exit(0);
     if (!config.extensions.includes(path.extname(filePath).toLowerCase()))
       process.exit(0);

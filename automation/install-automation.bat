@@ -1,5 +1,5 @@
 @echo off
-rem === COMMANDER AUTOMATION INSTALLER (v1.4) ===
+rem === COMMANDER AUTOMATION INSTALLER (reads /VERSION) ===
 rem Usage: install-automation.bat C:\path\to\project
 rem Copies .claude hooks + settings into the target project.
 
@@ -11,6 +11,8 @@ if "%~1"=="" (
 
 set TARGET=%~1
 set SOURCE=%~dp0
+set CROOT=%~dp0..
+set /p CVER=<"%CROOT%\VERSION"
 
 if not exist "%TARGET%" (
     echo [FAIL] Target folder does not exist: %TARGET%
@@ -23,6 +25,10 @@ echo.
 
 if not exist "%TARGET%\.claude\hooks" mkdir "%TARGET%\.claude\hooks"
 if not exist "%TARGET%\corrections" mkdir "%TARGET%\corrections"
+if not exist "%TARGET%\.commander" mkdir "%TARGET%\.commander"
+copy /Y "%CROOT%\*.md" "%TARGET%\.commander\" >nul
+copy /Y "%CROOT%\VERSION" "%TARGET%\.commander\VERSION" >nul
+echo [OK] Commander rule docs vendored into .commander\ (local, no fetch)
 
 copy /Y "%SOURCE%.claude\hooks\version-check.js" "%TARGET%\.claude\hooks\version-check.js"
 copy /Y "%SOURCE%.claude\hooks\log-change.js" "%TARGET%\.claude\hooks\log-change.js"
@@ -49,7 +55,7 @@ if not exist "%TARGET%\.claude\project-guard.config.json" (
 )
 
 if not exist "%TARGET%\.commander-version" (
-    echo 1.4> "%TARGET%\.commander-version"
+    echo %CVER%> "%TARGET%\.commander-version"
     echo [OK] .commander-version created - version-check hook now active
 ) else (
     echo [SKIP] .commander-version already exists - not overwritten

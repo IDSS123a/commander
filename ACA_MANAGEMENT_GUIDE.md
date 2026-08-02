@@ -21,13 +21,13 @@ Svaki put kada kreneš novi razgovor s ACA-om, daj mu tri URL-a:
 
 ```
 1. Commander Constitution (univerzalni zakon):
-   https://raw.githubusercontent.com/IDSS123a/commander/main/CONSTITUTION.md
+   .commander/CONSTITUTION.md
 
 2. Project Constitution (zakon projekta):
-   https://raw.githubusercontent.com/IDSS123a/[projekt]/main/CONSTITUTION.md
+   CONSTITUTION.md
 
 3. Trenutni sprint:
-   https://raw.githubusercontent.com/IDSS123a/[projekt]/main/sprints/SPRINT_XX.md
+   sprints/SPRINT_XX.md
 ```
 
 Bez ovih tri URL-a — ne kreći. ACA koji ne zna zakon ne može poštovati zakon.
@@ -150,8 +150,8 @@ Uvijek počni razgovor s ovim blokom:
 ```
 Projekt: [naziv projekta]
 Local root: [putanja na računaru]
-Commander: https://raw.githubusercontent.com/IDSS123a/commander/main/CONSTITUTION.md
-Project Constitution: https://raw.githubusercontent.com/IDSS123a/[projekt]/main/CONSTITUTION.md
+Commander: .commander/CONSTITUTION.md
+Project Constitution: CONSTITUTION.md
 Zadnji završeni sprint: Sprint XX
 Sada implementiraj: Sprint XX+1
 URL sprinta: [sprint URL]
@@ -489,6 +489,6 @@ Ako si zaglavljen s greškom više od 30 minuta — zaustavi se. Napiši mi. Pon
 
 ---
 
-*Commander v1.4 — IDSS123a Organisation*
+*Commander v1.5 — IDSS123a Organisation*
 *Dokument: ACA Management Guide*
 *Na osnovu iskustva gradnje IDSS Handbook Web App — Sarajevo 2026*

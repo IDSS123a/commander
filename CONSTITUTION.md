@@ -1,6 +1,6 @@
 # CONSTITUTION.md — Universal AI Mindset
 # Commander — Project Operating System
-# Version 1.4 — July 2026
+# Version 1.5 — August 2026
 # Applies to: ALL projects under IDSS123a organisation
 
 ---
@@ -639,4 +639,4 @@ be false and harmless only by luck.
 
 ---
 
-*Commander v1.4 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+*Commander v1.5 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*

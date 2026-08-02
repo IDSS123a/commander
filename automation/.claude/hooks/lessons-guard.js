@@ -10,7 +10,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const SESSION_WINDOW_MS = 4 * 60 * 60 * 1000; // 4h — smatra se "ova sesija"
+const SESSION_WINDOW_MS = 12 * 60 * 60 * 1000; // 12h — real Commander sessions run 8h+ (see CHANGELOG /compact evidence); 4h bypassed enforcement on long days
 const GRACE_MS = 10 * 60 * 1000;              // 10 min tolerancije
 
 let input = '';

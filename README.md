@@ -21,6 +21,47 @@ start from a stronger baseline.
 
 ---
 
+## How Commander Is Maintained (Local ↔ GitHub)
+
+**Two copies, one truth.**
+- **Canonical source:** the private repo `github.com/IDSS123a/commander`. This is
+  the single source of truth — nothing is "done" until it is pushed here.
+- **Working copy:** a local git clone at `C:\DAVOR_PRIVATE\AI\COMMANDER`. All
+  edits happen here first.
+- **Projects** never depend on either at runtime — each project carries its own
+  vendored copy in `.commander/` (installed once). Commander can be private or
+  offline and every project still works.
+
+**The maintenance loop — run it on every change:**
+1. Edit locally in `C:\DAVOR_PRIVATE\AI\COMMANDER`.
+2. If it's a real version change, bump `/VERSION` (e.g. `1.5`). **Nothing else
+   stores the version number** — `/VERSION` is the single source; the installer
+   and hooks read it.
+3. Commit and **push** immediately:
+   `git add -A && git commit -m "..." && git push`
+4. **Tag the version (not optional):**
+   `git tag -a v1.5 -m "Commander v1.5" && git push --tags`
+   Executable automation is pinned to release tags, and the tag is what tells a
+   project it is behind. A version bump without a tag is an incomplete release.
+
+**The golden rule (the lesson that cost us):** GitHub is canonical; local is a
+clone. **Never let local run ahead of GitHub unpushed.** The whole "which version
+is the latest?" confusion happened because a change lived only locally and was
+never pushed/tagged. Push + tag on every change and that cannot recur. When unsure
+which is current, trust the highest `git tag` on GitHub — not a loose local file.
+
+**To apply this v1.5:** unzip `commander-v1.5.zip` over
+`C:\DAVOR_PRIVATE\AI\COMMANDER` (replacing the v1.4 files), then run the loop:
+commit, push, `git tag -a v1.5 -m "Commander v1.5" && git push --tags`.
+
+**How a project consumes Commander (runtime = local, zero fetch):** at project
+start `initial_instructions.md` (or `automation/install-automation.bat` /
+`automation/install.sh`) copies the rule docs into the project's `.commander/`,
+the hooks into `.claude/`, and writes `.commander-version` from `/VERSION`. From
+then on the ACA reads **local files only**. `version-check.js` compares the
+project's `.commander-version` against its vendored `.commander/VERSION` (and
+`COMMANDER_HOME` if set) and warns — locally — when the project is behind.
+
 ## How to Start an ACA Conversation (M-21 Tiered Loading)
 
 Commander uses **tiered loading** to minimise token consumption.
@@ -36,22 +77,22 @@ without a `CLAUDE.md` mechanism.
 
 ```
 Commander Constitution:
-https://raw.githubusercontent.com/IDSS123a/commander/main/CONSTITUTION.md
+.commander/CONSTITUTION.md
 
 Commander Engineering Rules:
-https://raw.githubusercontent.com/IDSS123a/commander/main/ENGINEERING_RULES.md
+.commander/ENGINEERING_RULES.md
 
 Commander Architecture Patterns:
-https://raw.githubusercontent.com/IDSS123a/commander/main/ARCHITECTURE_PATTERNS.md
+.commander/ARCHITECTURE_PATTERNS.md
 
 Commander ACA Communication Protocol:
-https://raw.githubusercontent.com/IDSS123a/commander/main/ACA_COMMUNICATION_PROTOCOL.md
+.commander/ACA_COMMUNICATION_PROTOCOL.md
 
 Project Constitution:
-https://raw.githubusercontent.com/IDSS123a/[project-repo]/main/CONSTITUTION.md
+CONSTITUTION.md
 
 Current Sprint:
-https://raw.githubusercontent.com/IDSS123a/[project-repo]/main/sprints/SPRINT_XX.md
+sprints/SPRINT_XX.md
 ```
 
 ### New projects (Tier 3) — two ways to bootstrap
@@ -223,9 +264,9 @@ commander/
 | IDSS Handbook Web App                 | [web-app-idss-handbook](https://github.com/IDSS123a/web-app-idss-handbook) | Active                             |
 | Chronos (Obligation/Deadline Tracker) | [web-app-chronos](https://github.com/IDSS123a/web-app-chronos)             | Active — v1.0, 10 sprints complete |
 | Vibe-Coding Journal                   | [web-app-vibe-coding-journal](https://github.com/IDSS123a/web-app-vibe-coding-journal) | Active — 6 sprints, deployed |
-| VIP Travel                            | TBD                                                                        | Active                             |
-| IDSS ISO QMS Web App                  | TBD                                                                        | Planned                            |
-| AISBP Framework                       | TBD                                                                        | Planned                            |
+| VIP Travel                            | — | Active                             |
+| IDSS ISO QMS Web App                  | — | Planned                            |
+| AISBP Framework                       | — | Planned                            |
 
 ---
 

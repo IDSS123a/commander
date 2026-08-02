@@ -3,8 +3,8 @@
  * patterns-detect.js — Commander Automation, Layer 1 (deterministic)
  * Claude Code Stop hook (runs after lessons-guard.js)
  *
- * Scans all corrections/SPRINT_*_LESSONS.md files and counts how many
- * times each Commander rule ID (M-XX / E-XX / A-XX / C-XX) appears.
+ * Scans all corrections/*_LESSONS.md files (SPRINT_* FULL mode +
+ * PROTOTYPE QUICK mode) and counts how many times each rule ID appears.
  * Any rule mentioned 3+ times across sprints is written to
  * corrections/PATTERNS.md as a severity-upgrade candidate.
  *
@@ -31,7 +31,7 @@ process.stdin.on('end', () => {
 
     const lessonFiles = fs
       .readdirSync(corrDir)
-      .filter((f) => /^SPRINT_.*LESSONS\.md$/i.test(f));
+      .filter((f) => /_LESSONS\.md$/i.test(f)); // FULL (SPRINT_*) + QUICK (PROTOTYPE)
     if (lessonFiles.length === 0) process.exit(0);
 
     // Count rule ID mentions per file (a rule mentioned 5x in one
@@ -57,7 +57,7 @@ process.stdin.on('end', () => {
     const lines = [
       '# PATTERNS.md — Auto-Detected Recurrence (patterns-detect.js)',
       `# Generated: ${new Date().toISOString().slice(0, 10)}`,
-      '# Rules appearing in 3+ sprint lessons files. Input for M-22 Step 2a.',
+      '# Rules appearing in 3+ lessons files (SPRINT_* + PROTOTYPE). Input for M-22 Step 2a.',
       '',
     ];
     for (const [id, sprints] of candidates) {

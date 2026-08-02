@@ -1,5 +1,5 @@
 # INITIAL INSTRUCTIONS — Commander Project Bootstrap
-# Version 1.4 — July 2026
+# Version 1.5 — August 2026
 # USAGE: Copy/paste this entire document as the FIRST message in Claude Code
 # (or any other ACA) when the Director wants to start a new project.
 # That is all. Commander takes over from here.
@@ -23,13 +23,13 @@ commits in English (except where Commander specifies BCS).**
 This is a Tier 3 task (M-21). Fetch and read completely, in this order:
 
 ```
-1. https://raw.githubusercontent.com/IDSS123a/commander/main/CONSTITUTION.md
-2. https://raw.githubusercontent.com/IDSS123a/commander/main/ENGINEERING_RULES.md
-3. https://raw.githubusercontent.com/IDSS123a/commander/main/ARCHITECTURE_PATTERNS.md
-4. https://raw.githubusercontent.com/IDSS123a/commander/main/ACA_COMMUNICATION_PROTOCOL.md
-5. https://raw.githubusercontent.com/IDSS123a/commander/main/FEATURE_LIFECYCLE.md
-6. https://raw.githubusercontent.com/IDSS123a/commander/main/DONE_CHECKLIST.md
-7. https://raw.githubusercontent.com/IDSS123a/commander/main/DECISION_LOG.md
+1. .commander/CONSTITUTION.md
+2. .commander/ENGINEERING_RULES.md
+3. .commander/ARCHITECTURE_PATTERNS.md
+4. .commander/ACA_COMMUNICATION_PROTOCOL.md
+5. .commander/FEATURE_LIFECYCLE.md
+6. .commander/DONE_CHECKLIST.md
+7. .commander/DECISION_LOG.md
 ```
 
 Note: M-21 says DECISION_LOG.md is "NEVER loaded at session start."
@@ -87,7 +87,9 @@ Execute:
    **pinned to the release tag matching the version read in Step 1**
    (e.g. `v1.4`), never `main`: a compromised or broken `main` must not
    auto-propagate into code that executes on the Director's machine.
-   Base `https://raw.githubusercontent.com/IDSS123a/commander/v{version}/automation/`:
+   On a PRIVATE repo, use the local shortcut above, or an authenticated
+   `git clone --branch v{version}` (below). Copy from the local
+   `commander/automation/` tree into the project:
    ```
    .claude/settings.json                    → .claude/settings.json
    .claude/hooks/version-check.js           → .claude/hooks/version-check.js
@@ -121,7 +123,7 @@ Execute:
    one line, nothing else. The version-check hook uses this to detect
    drift between the project and live Commander.
 5. Generate `CLAUDE.md` from
-   `https://raw.githubusercontent.com/IDSS123a/commander/main/automation/PROJECT_CLAUDE_MD_TEMPLATE.md`
+   `.commander/automation/PROJECT_CLAUDE_MD_TEMPLATE.md`
    — fill in [PROJECT NAME] and [project-repo], remove template
    instruction lines, keep version references at the current
    Commander version (from CONSTITUTION.md header).
@@ -172,7 +174,7 @@ carries these instructions (and `/sprint-close` the sprint close-out);
 other ACAs use the reference:
 
 ```
-https://raw.githubusercontent.com/IDSS123a/commander/main/PROMPT_LIBRARY/kraj.md
+.commander/PROMPT_LIBRARY/kraj.md
 ```
 
 The protocol has 5 steps: COLLECT → ANALYSE → PROPOSE → CONFIRM → EXECUTE.
@@ -195,4 +197,4 @@ COMMANDER_UPDATE_PROPOSAL.md first and wait.
 
 ---
 
-*Commander v1.4 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+*Commander v1.5 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*

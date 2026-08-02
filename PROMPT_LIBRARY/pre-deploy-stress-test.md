@@ -9,13 +9,13 @@
 Read these documents before responding:
 
 1. Commander Engineering Rules (Section E-4 — Security, E-12 — Environment Gotchas):
-   https://raw.githubusercontent.com/IDSS123a/commander/main/ENGINEERING_RULES.md
+   .commander/ENGINEERING_RULES.md
 
 2. Commander Architecture Patterns (Section A-9, A-10):
-   https://raw.githubusercontent.com/IDSS123a/commander/main/ARCHITECTURE_PATTERNS.md
+   .commander/ARCHITECTURE_PATTERNS.md
 
 3. Commander Done Checklist:
-   https://raw.githubusercontent.com/IDSS123a/commander/main/DONE_CHECKLIST.md
+   .commander/DONE_CHECKLIST.md
 
 4. Project Constitution:
    [INSERT PROJECT CONSTITUTION URL]
