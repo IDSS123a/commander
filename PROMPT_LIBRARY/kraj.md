@@ -8,9 +8,9 @@ Execute CONSTITUTION.md M-22 (KRAJ Protocol) exactly.
 1. All files in `[project-repo]/corrections/`
 2. `[project-repo]/DECISION_LOG.md`
 3. Last 3 sprint handoff notes from `[project-repo]/sprints/`
-4. .commander/CONSTITUTION.md
-5. .commander/DECISION_LOG.md
-6. .commander/AUDIT_LOG.md
+4. https://raw.githubusercontent.com/IDSS123a/commander/main/CONSTITUTION.md
+5. https://raw.githubusercontent.com/IDSS123a/commander/main/DECISION_LOG.md
+6. https://raw.githubusercontent.com/IDSS123a/commander/main/AUDIT_LOG.md
 
 ## Protocol
 

@@ -22,7 +22,7 @@ domain:
 | FEATURE_LIFECYCLE.md + DONE_CHECKLIST.md | at sprint close |
 | PROMPT_LIBRARY/* | when the Director invokes that ritual |
 
-Base path (vendored locally): `.commander/`
+Base URL: `https://raw.githubusercontent.com/IDSS123a/commander/main/`
 
 **Always read (small, project-specific):**
 - Project Constitution: `[project-repo]/CONSTITUTION.md` — wins over Commander for this project

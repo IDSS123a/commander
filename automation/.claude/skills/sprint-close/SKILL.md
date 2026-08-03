@@ -6,7 +6,7 @@ description: Commander sprint close-out — Done Checklist, lessons consolidatio
 # Sprint Close-Out (M-13, M-18, DONE_CHECKLIST)
 
 1. Fetch and run the full Commander `DONE_CHECKLIST.md`
-   (`.commander/DONE_CHECKLIST.md`, vendored locally).
+   (raw.githubusercontent.com/IDSS123a/commander/main/DONE_CHECKLIST.md).
    Report each item PASS or FAIL. Fix every FAIL, then re-check it.
 2. Consolidate `corrections/SPRINT_[current]_LESSONS.md`: merge
    duplicate entries, sharpen wording, and ensure the three summary

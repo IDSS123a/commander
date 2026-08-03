@@ -1,7 +1,7 @@
 # Kako upravljati AI Coding Assistantom (ACA)
 ## Univerzalni priručnik za non-codera koji gradi web apps
 ## Autor: Davor Mulalić | Sistem: Commander (github.com/IDSS123a/commander)
-## Verzija: 1.4 — Juli 2026
+## Verzija: 1.5 — August 2026
 
 ---
 
@@ -21,13 +21,13 @@ Svaki put kada kreneš novi razgovor s ACA-om, daj mu tri URL-a:
 
 ```
 1. Commander Constitution (univerzalni zakon):
-   .commander/CONSTITUTION.md
+   https://raw.githubusercontent.com/IDSS123a/commander/main/CONSTITUTION.md
 
 2. Project Constitution (zakon projekta):
-   CONSTITUTION.md
+   https://raw.githubusercontent.com/IDSS123a/[projekt]/main/CONSTITUTION.md
 
 3. Trenutni sprint:
-   sprints/SPRINT_XX.md
+   https://raw.githubusercontent.com/IDSS123a/[projekt]/main/sprints/SPRINT_XX.md
 ```
 
 Bez ovih tri URL-a — ne kreći. ACA koji ne zna zakon ne može poštovati zakon.
@@ -150,8 +150,8 @@ Uvijek počni razgovor s ovim blokom:
 ```
 Projekt: [naziv projekta]
 Local root: [putanja na računaru]
-Commander: .commander/CONSTITUTION.md
-Project Constitution: CONSTITUTION.md
+Commander: https://raw.githubusercontent.com/IDSS123a/commander/main/CONSTITUTION.md
+Project Constitution: https://raw.githubusercontent.com/IDSS123a/[projekt]/main/CONSTITUTION.md
 Zadnji završeni sprint: Sprint XX
 Sada implementiraj: Sprint XX+1
 URL sprinta: [sprint URL]

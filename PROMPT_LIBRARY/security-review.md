@@ -8,7 +8,7 @@
 Read these documents before responding:
 
 1. Commander Engineering Rules (Section E-4 — Security):
-   .commander/ENGINEERING_RULES.md
+   https://raw.githubusercontent.com/IDSS123a/commander/main/ENGINEERING_RULES.md
 
 2. Project Constitution:
    [INSERT PROJECT CONSTITUTION URL]

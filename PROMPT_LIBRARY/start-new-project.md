@@ -9,7 +9,7 @@ Copy/paste the entire contents of `initial_instructions.md` as the
 first message in a new ACA session:
 
 ```
-.commander/initial_instructions.md
+https://raw.githubusercontent.com/IDSS123a/commander/main/initial_instructions.md
 ```
 
 That document contains the complete bootstrap protocol: governance
@@ -22,11 +22,11 @@ If the Director pointed you here instead of giving you
 `initial_instructions.md`, fetch it yourself:
 
 ```
-.commander/initial_instructions.md
+https://raw.githubusercontent.com/IDSS123a/commander/main/initial_instructions.md
 ```
 
 Read it completely and execute from Step 1.
 
 ---
 
-*Commander v1.5 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+*Commander v1.2 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*

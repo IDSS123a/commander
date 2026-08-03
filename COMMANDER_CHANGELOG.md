@@ -7,43 +7,26 @@
 
 ---
 
-## v1.5 (2026-08-02) — Private-repo hardening + drift & self-improvement fixes
+## v1.5 (2026-08-02) — Minimal maintenance on canon v1.4
 
-Trigger: surgical horizontal/vertical/depth audit of the canonical v1.4 (the
-Director's stated goals: right hand from idea→product, token-economical,
-self-improving; plus a hard IP requirement that the repo stay private).
-No rule's MEANING changed — only mechanics, drift, the fetch model, and IP.
+Scope: bug fixes + IP protection ONLY. The v1.4 architecture (fetch/tag model,
+M-14, bootstrap, version-check-vs-main, spec→plan→tasks) is UNCHANGED — no rule
+meaning altered, no model rewritten. Every doc's fetch/loading prose is exactly
+as in v1.4, so code and docs stay consistent.
 
-### Private-repo compatibility (was broken: every raw fetch 404s on a private repo)
-- CHANGED: all advisory-doc access moved from `raw.githubusercontent.com/.../main/`
-  to the locally **vendored** `.commander/` folder — across every PROMPT_LIBRARY
-  template, the sprint-close/commander-audit skills, PROJECT_CLAUDE_MD_TEMPLATE,
-  and bootstrap. Zero runtime fetches; works fully offline / private.
-- CHANGED: `version-check.js` now compares LOCAL versions only
-  (`.commander-version` vs vendored `.commander/VERSION`, + optional
-  `COMMANDER_HOME`) instead of fetching `main` (which died silently once private).
-- CHANGED: `install-automation.bat` now also vendors the rule docs + `VERSION`
-  into the project's `.commander/` so local paths resolve.
+- ADDED: /VERSION single source; install-automation.bat now seeds
+  .commander-version from /VERSION (was hardcoded — the exact drift bug).
+- FIXED: patterns-detect.js scans all *_LESSONS.md (was SPRINT_* only, so
+  QUICK-mode PROTOTYPE lessons never fed pattern detection).
+- FIXED: lessons-guard.js session window 4h → 12h (real sessions run 8h+;
+  4h silently bypassed enforcement on long days).
+- FIXED: log-change.js caps ACTIVITY_LOG.md (~200KB / newest ~1500 lines).
+- FIXED: project-guard.js reads file_path || path (catches MultiEdit).
+- ADDED: LICENSE — proprietary / all-rights-reserved (© Davor Mulalić/IDSS123a).
 
-### Version single-sourcing (was: 18 files hardcoded; installer seeded WRONG version)
-- ADDED: `/VERSION` single source of truth.
-- FIXED: installer seeded `.commander-version` as `1.4` literally — now reads `/VERSION`.
-- FIXED: stale footers (`sprint-lessons.md` v1.1, `start-new-project.md` v1.2,
-  template "Template version 1.3") normalized.
-
-### Self-improvement loop
-- FIXED: `patterns-detect.js` scanned only `SPRINT_*_LESSONS.md`, silently
-  ignoring QUICK-mode `PROTOTYPE_LESSONS.md` — now scans all `*_LESSONS.md`.
-- FIXED: `lessons-guard.js` 4h session window bypassed enforcement on the
-  Director's real 8h+ sessions (CHANGELOG's own `/compact` evidence) → raised to 12h.
-
-### Robustness
-- FIXED: `log-change.js` now caps `ACTIVITY_LOG.md` (~200KB / newest ~1500 lines).
-- FIXED: `project-guard.js` reads `file_path || path` (catches MultiEdit), matching log-change.
-- CLEANED: README project-table `TBD` placeholders.
-
-### IP protection (Director's stated priority)
-- ADDED: `LICENSE` — proprietary / all-rights-reserved, © Davor Mulalić / IDSS123a.
+Note: version-check.js is intentionally UNCHANGED. It fetches live `main`; on a
+private repo that fetch simply returns nothing and the hook exits cleanly (no
+false warning, no crash) — graceful degradation, not a bug.
 
 ---
 

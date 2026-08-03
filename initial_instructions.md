@@ -23,13 +23,13 @@ commits in English (except where Commander specifies BCS).**
 This is a Tier 3 task (M-21). Fetch and read completely, in this order:
 
 ```
-1. .commander/CONSTITUTION.md
-2. .commander/ENGINEERING_RULES.md
-3. .commander/ARCHITECTURE_PATTERNS.md
-4. .commander/ACA_COMMUNICATION_PROTOCOL.md
-5. .commander/FEATURE_LIFECYCLE.md
-6. .commander/DONE_CHECKLIST.md
-7. .commander/DECISION_LOG.md
+1. https://raw.githubusercontent.com/IDSS123a/commander/main/CONSTITUTION.md
+2. https://raw.githubusercontent.com/IDSS123a/commander/main/ENGINEERING_RULES.md
+3. https://raw.githubusercontent.com/IDSS123a/commander/main/ARCHITECTURE_PATTERNS.md
+4. https://raw.githubusercontent.com/IDSS123a/commander/main/ACA_COMMUNICATION_PROTOCOL.md
+5. https://raw.githubusercontent.com/IDSS123a/commander/main/FEATURE_LIFECYCLE.md
+6. https://raw.githubusercontent.com/IDSS123a/commander/main/DONE_CHECKLIST.md
+7. https://raw.githubusercontent.com/IDSS123a/commander/main/DECISION_LOG.md
 ```
 
 Note: M-21 says DECISION_LOG.md is "NEVER loaded at session start."
@@ -87,9 +87,7 @@ Execute:
    **pinned to the release tag matching the version read in Step 1**
    (e.g. `v1.4`), never `main`: a compromised or broken `main` must not
    auto-propagate into code that executes on the Director's machine.
-   On a PRIVATE repo, use the local shortcut above, or an authenticated
-   `git clone --branch v{version}` (below). Copy from the local
-   `commander/automation/` tree into the project:
+   Base `https://raw.githubusercontent.com/IDSS123a/commander/v{version}/automation/`:
    ```
    .claude/settings.json                    → .claude/settings.json
    .claude/hooks/version-check.js           → .claude/hooks/version-check.js
@@ -123,7 +121,7 @@ Execute:
    one line, nothing else. The version-check hook uses this to detect
    drift between the project and live Commander.
 5. Generate `CLAUDE.md` from
-   `.commander/automation/PROJECT_CLAUDE_MD_TEMPLATE.md`
+   `https://raw.githubusercontent.com/IDSS123a/commander/main/automation/PROJECT_CLAUDE_MD_TEMPLATE.md`
    — fill in [PROJECT NAME] and [project-repo], remove template
    instruction lines, keep version references at the current
    Commander version (from CONSTITUTION.md header).
@@ -137,7 +135,7 @@ Execute:
    sprints entirely.
 8. Initialize the stack per ARCHITECTURE_PATTERNS.md defaults (or the
    documented deviation from Step 6).
-9. First commit: `chore: project initialization under Commander v1.4`
+9. First commit: `chore: project initialization under Commander v1.5`
    and push.
 10. Report: "✅ Projekat [naziv] inicijalizovan. Commander upravlja.
     Počinjemo Sprint 1?" (QUICK mode: "Počinjemo gradnju?")
@@ -174,7 +172,7 @@ carries these instructions (and `/sprint-close` the sprint close-out);
 other ACAs use the reference:
 
 ```
-.commander/PROMPT_LIBRARY/kraj.md
+https://raw.githubusercontent.com/IDSS123a/commander/main/PROMPT_LIBRARY/kraj.md
 ```
 
 The protocol has 5 steps: COLLECT → ANALYSE → PROPOSE → CONFIRM → EXECUTE.

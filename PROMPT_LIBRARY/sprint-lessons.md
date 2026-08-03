@@ -53,4 +53,4 @@ rules that need updating.
 
 ---
 
-*Commander v1.5 — IDSS123a Organisation*
+*Commander v1.1 — IDSS123a Organisation*

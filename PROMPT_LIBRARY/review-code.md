@@ -8,16 +8,16 @@
 Read these documents before responding:
 
 1. Commander Constitution:
-   .commander/CONSTITUTION.md
+   https://raw.githubusercontent.com/IDSS123a/commander/main/CONSTITUTION.md
 
 2. Commander Engineering Rules:
-   .commander/ENGINEERING_RULES.md
+   https://raw.githubusercontent.com/IDSS123a/commander/main/ENGINEERING_RULES.md
 
 3. Commander Architecture Patterns:
-   .commander/ARCHITECTURE_PATTERNS.md
+   https://raw.githubusercontent.com/IDSS123a/commander/main/ARCHITECTURE_PATTERNS.md
 
 4. Commander Done Checklist:
-   .commander/DONE_CHECKLIST.md
+   https://raw.githubusercontent.com/IDSS123a/commander/main/DONE_CHECKLIST.md
 
 5. Project Constitution:
    [INSERT PROJECT CONSTITUTION URL]

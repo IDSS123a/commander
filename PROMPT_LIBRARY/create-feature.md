@@ -8,13 +8,13 @@
 Read these documents completely before responding:
 
 1. Commander Constitution:
-   .commander/CONSTITUTION.md
+   https://raw.githubusercontent.com/IDSS123a/commander/main/CONSTITUTION.md
 
 2. Commander Engineering Rules:
-   .commander/ENGINEERING_RULES.md
+   https://raw.githubusercontent.com/IDSS123a/commander/main/ENGINEERING_RULES.md
 
 3. Commander Architecture Patterns:
-   .commander/ARCHITECTURE_PATTERNS.md
+   https://raw.githubusercontent.com/IDSS123a/commander/main/ARCHITECTURE_PATTERNS.md
 
 4. Project Constitution:
    [INSERT PROJECT CONSTITUTION URL]

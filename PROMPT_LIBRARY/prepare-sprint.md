@@ -8,7 +8,7 @@
 Read these documents before responding:
 
 1. Commander Constitution:
-   .commander/CONSTITUTION.md
+   https://raw.githubusercontent.com/IDSS123a/commander/main/CONSTITUTION.md
 
 2. Project Constitution:
    [INSERT PROJECT CONSTITUTION URL]

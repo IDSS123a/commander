@@ -24,16 +24,16 @@ Use the Commander URL pattern from README.md:
 Read these documents completely before any code:
 
 Commander Constitution:
-.commander/CONSTITUTION.md
+https://raw.githubusercontent.com/IDSS123a/commander/main/CONSTITUTION.md
 
 Commander ACA Communication Protocol:
-.commander/ACA_COMMUNICATION_PROTOCOL.md
+https://raw.githubusercontent.com/IDSS123a/commander/main/ACA_COMMUNICATION_PROTOCOL.md
 
 Project Constitution:
-CONSTITUTION.md
+https://raw.githubusercontent.com/IDSS123a/[project-repo]/main/CONSTITUTION.md
 
 Current Sprint:
-sprints/SPRINT_XX.md
+https://raw.githubusercontent.com/IDSS123a/[project-repo]/main/sprints/SPRINT_XX.md
 ```
 
 For Claude Code sessions specifically, you can also place a `CLAUDE.md`
@@ -273,7 +273,7 @@ Run tests. If tests pass, commit with a structured message
 **`.claude/commands/sprint-done.md`**
 ```
 Run the full Done Checklist from:
-.commander/DONE_CHECKLIST.md
+https://raw.githubusercontent.com/IDSS123a/commander/main/DONE_CHECKLIST.md
 
 Report each item as PASS or FAIL.
 For any FAIL item: fix it, then re-check.
