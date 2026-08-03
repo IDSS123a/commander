@@ -1,6 +1,6 @@
 # ENGINEERING_RULES.md — Universal Engineering Standards
 # Commander — Project Operating System
-# Version 1.5 — August 2026
+# Version 1.5.1 — August 2026
 
 ---
 
@@ -374,4 +374,4 @@ inactive (not failing) on repos with no
 
 ---
 
-*Commander v1.5 — IDSS123a Organisation*
+*Commander v1.5.1 — IDSS123a Organisation*

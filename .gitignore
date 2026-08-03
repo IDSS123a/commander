@@ -1,1 +1,6 @@
+# Release archives are produced by GitHub Releases, never tracked (E-4)
+*.zip
+# OS / editor junk
+.DS_Store
+Thumbs.db
 *.zip

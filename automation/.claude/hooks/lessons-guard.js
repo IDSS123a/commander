@@ -3,14 +3,14 @@
  * lessons-guard.js — Commander Automation, Layer 2 (deterministic enforcement)
  * v1.1 — fixes from brutal stress test 2026-07-13:
  *   FIX-1: session freshness window — stale ACTIVITY_LOG from a previous
- *          session (older than 4h) no longer blocks conversation-only turns
+ *          session (older than 12h) no longer blocks conversation-only turns
  *   FIX-2: QUICK mode support — accepts ANY *_LESSONS.md file
  *          (SPRINT_XX_LESSONS.md or PROTOTYPE_LESSONS.md)
  */
 const fs = require('fs');
 const path = require('path');
 
-const SESSION_WINDOW_MS = 12 * 60 * 60 * 1000; // 4h — smatra se "ova sesija"
+const SESSION_WINDOW_MS = 12 * 60 * 60 * 1000; // 12h — real sessions run 8h+ (see /compact evidence)
 const GRACE_MS = 10 * 60 * 1000;              // 10 min tolerancije
 
 let input = '';
@@ -28,7 +28,7 @@ process.stdin.on('end', () => {
 
     const logMtime = fs.statSync(logFile).mtimeMs;
 
-    // FIX-1: ako je log stariji od 4h, izmjene su iz prosle sesije —
+    // FIX-1: ako je log stariji od 12h, izmjene su iz prosle sesije —
     // ne blokiraj cisto konverzacijski turn danas
     if (Date.now() - logMtime > SESSION_WINDOW_MS) process.exit(0);
 

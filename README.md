@@ -2,7 +2,7 @@
 
 **Owner:** Davor Mulalić — P.U. Internationale Deutsche Schule Sarajevo
 **Purpose:** Universal AI Coding Assistant operating system for all projects
-**Version:** 1.5 — August 2026
+**Version:** 1.5.1 — August 2026
 
 ---
 
@@ -264,6 +264,10 @@ v1.3  2026-07  Added: E-13 (checkable rules ship as automation), M-23
                cheatsheet capabilities only) + vibe-coding-journal M-18 harvest.
                Constraint: every change replaces a manual step or removes
                tokens; subagent rules and MCP expansion rejected by that test.
+
+v1.5.1 2026-08  Hygiene patch (no functional change): installer header no
+               longer hardcodes a version; lessons-guard comments 4h->12h;
+               .gitignore added so release archives are never tracked (E-4).
 
 v1.5  2026-08  Minimal maintenance on canon v1.4 (architecture unchanged).
                Added: /VERSION single source (installer seeds from it, was

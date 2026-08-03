@@ -1,5 +1,5 @@
 @echo off
-rem === COMMANDER AUTOMATION INSTALLER (v1.4) ===
+rem === COMMANDER AUTOMATION INSTALLER (reads /VERSION) ===
 rem Usage: install-automation.bat C:\path\to\project
 rem Copies .claude hooks + settings into the target project.
 

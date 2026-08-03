@@ -1,5 +1,5 @@
 # INITIAL INSTRUCTIONS — Commander Project Bootstrap
-# Version 1.5 — August 2026
+# Version 1.5.1 — August 2026
 # USAGE: Copy/paste this entire document as the FIRST message in Claude Code
 # (or any other ACA) when the Director wants to start a new project.
 # That is all. Commander takes over from here.
@@ -195,4 +195,4 @@ COMMANDER_UPDATE_PROPOSAL.md first and wait.
 
 ---
 
-*Commander v1.5 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+*Commander v1.5.1 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*

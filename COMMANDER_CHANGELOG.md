@@ -7,6 +7,23 @@
 
 ---
 
+## v1.5.1 (2026-08-03) — Hygiene patch (no functional change)
+
+From an ACA system-review of v1.5. Fixes ONLY (no rule, behavior, or doc
+content changed; identity stamps bumped 1.5 -> 1.5.1):
+- install-automation.bat header no longer hardcodes a version (says
+  "reads /VERSION") — that was the exact stamp still stuck on v1.4.
+- lessons-guard.js comments corrected 4h -> 12h to match the code (the
+  window was changed in v1.5 but three comments still said 4h).
+- .gitignore added (*.zip, OS junk) so release archives are never tracked
+  (E-4). Any archive comes from GitHub Releases, not the source tree.
+
+Deferred to a Director-approved proposal (rule/behavior changes, not hygiene):
+version-check comparing latest release TAG instead of main; C-8 scoped to
+Director-facing output vs internal filesystem edits.
+
+---
+
 ## v1.5 (2026-08-02) — Minimal maintenance on canon v1.4
 
 Scope: bug fixes + IP protection ONLY. The v1.4 architecture (fetch/tag model,
@@ -195,4 +212,4 @@ blanket MCP server expansion.
 
 ---
 
-*Commander v1.5 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+*Commander v1.5.1 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
