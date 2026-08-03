@@ -1,6 +1,6 @@
 # DECISION_LOG.md — Universal Technology Decisions
 # Commander — Project Operating System
-# Version 1.5.1 — August 2026
+# Version 1.5.2 — August 2026
 
 ---
 
@@ -203,4 +203,14 @@ speculation about what might.
 
 ---
 
-*Commander v1.5.1 — IDSS123a Organisation*
+*Commander v1.5.2 — IDSS123a Organisation*
+
+---
+
+## DL-013 — Security checklist expanded from documented vibe-coding breaches; framework bloat rejected
+
+**Decision:** Commander's security review + DONE checklist now cover the highest-severity vulnerabilities specific to vibe-coded web apps — Supabase RLS (deny-by-default, owner-scoped), object-level access control (IDOR), the `NEXT_PUBLIC_`/`VITE_` client-bundle secret trap, wildcard CORS, auth-endpoint rate limiting, security headers, SSRF, and webhook signature verification.
+
+**Rationale:** Independent testing (Carnegie Mellon) found ~61% of AI-generated code is functionally correct but only ~10.5% is secure. The added categories map directly to documented breaches of vibe-coded apps and to Commander's own stack (Next.js + Supabase). Consistent with DL-012 — build for evidence, not hypothetical coverage. Vulnerability taxonomy sourced from benavlabs/vibe-check (MIT), rewritten in Commander's format. Loaded only at security-review / DONE (M-21), so zero cost to normal sessions.
+
+**Rejected (would violate token economy / simplicity):** heavy meta-frameworks (SuperClaude: 30 commands / 20 agents / 8 MCP servers), multi-agent orchestration engines (ContractCoding), plugin marketplaces, and subagent double-review loops. They add tokens and ceremony without evidence of need in IDSS projects; revisit only if a real project proves the gap (DL-012).

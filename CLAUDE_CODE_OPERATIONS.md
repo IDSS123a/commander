@@ -1,6 +1,6 @@
 # CLAUDE_CODE_OPERATIONS.md — Claude Code Operator's Guide
 # Commander — Project Operating System
-# Version 1.5.1 — August 2026
+# Version 1.5.2 — August 2026
 # Applies to: Director's Claude Code sessions on ALL projects
 
 ---
@@ -117,6 +117,8 @@ summarises without your priorities.
 | `/diff` | Show recent file changes | Verify what Claude actually changed before committing |
 | `/doctor` | Diagnose common configuration issues | Something isn't working and you don't know why |
 | `/context` | Visualise context usage as a coloured grid | Understanding how much context window is left |
+| `/btw` | Ask a quick side question WITHOUT adding it to the main conversation or spending context | Clarify something mid-task without growing context |
+| `/rewind` (or `Esc Esc`) | Roll the conversation and/or code back to an earlier checkpoint | Recover cleanly after a wrong turn — pairs with M-23: don't fight a bad state, rewind it |
 
 ### Configuration
 
@@ -375,4 +377,4 @@ v1.0  2026-07-13  Initial Claude Code Operations Guide.
 
 ---
 
-*Commander v1.5.1 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+*Commander v1.5.2 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*

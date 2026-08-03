@@ -1,6 +1,6 @@
 # DONE_CHECKLIST.md — Universal Definition of Done
 # Commander — Project Operating System
-# Version 1.5.1 — August 2026
+# Version 1.5.2 — August 2026
 
 ---
 
@@ -46,6 +46,11 @@
 - [ ] Every new API route checks: authentication, then authorisation (role), then Zod validation
 - [ ] Every new Server Action checks: authentication, then authorisation, then Zod validation
 - [ ] No secrets or keys in client-side code
+
+- [ ] Supabase RLS enabled + deny-by-default on EVERY table (no `USING (true)`)
+- [ ] Every resource-ID route verifies the user OWNS the object, not just their role (IDOR)
+- [ ] No secret in any `NEXT_PUBLIC_` / `VITE_` / `REACT_APP_` variable
+- [ ] Auth endpoints rate-limited; CORS is an allowlist (not `*`)
 - [ ] No Supabase service role key in any route that doesn't require it
 - [ ] All file uploads validate: MIME type, extension, size limit
 - [ ] All user inputs validated with Zod before use
@@ -181,4 +186,4 @@ which should be retired.
 
 ---
 
-*Commander v1.5.1 — IDSS123a Organisation*
+*Commander v1.5.2 — IDSS123a Organisation*

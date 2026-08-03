@@ -1,6 +1,6 @@
 # CLAUDE.md — [PROJECT NAME]
 # Commander-Governed Project
-# Template version: 1.5.1 — August 2026
+# Template version: 1.5.2 — August 2026
 # INSTRUKCIJA: Kopiraj ovaj fajl kao CLAUDE.md u root svakog novog projekta.
 # Zamijeni [PROJECT NAME] i [project-repo] stvarnim vrijednostima, obriši ove 3 linije.
 
@@ -8,7 +8,7 @@
 
 ## GOVERNANCE — TIERED LOADING (M-21)
 
-This project is governed by **Commander v1.5.1**
+This project is governed by **Commander v1.5.2**
 (github.com/IDSS123a/commander). The 🔴 CRITICAL rules are inlined
 below and always apply — do NOT bulk-load full Commander documents at
 session start. Read a full document only when the task enters its
@@ -94,4 +94,4 @@ deployment target.]
 
 ---
 
-*Commander v1.5.1 — IDSS123a Organisation — Davor Mulalić*
+*Commander v1.5.2 — IDSS123a Organisation — Davor Mulalić*

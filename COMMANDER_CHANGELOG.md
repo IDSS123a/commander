@@ -7,6 +7,29 @@
 
 ---
 
+## v1.5.2 (2026-08-03) — Security hardening + native token/safety primitives
+
+From a comparative study of ~20 external vibe-coding/Claude-Code repos + the
+official Claude Code cheatsheet. Two evidence-based additions that pass the
+"simple, fast, minimal-token" test; everything else was consciously rejected
+(see DL-013). Zero cost to normal sessions — new content loads only at
+security-review / DONE (M-21).
+
+- ADDED (security-review.md + DONE_CHECKLIST.md): the top vibe-coding breach
+  vectors Commander didn't cover — Supabase RLS (deny-by-default, owner-scoped),
+  object-level access control / IDOR, the NEXT_PUBLIC_/VITE_ client-secret trap,
+  wildcard CORS, auth-endpoint rate limiting, security headers, SSRF, webhook
+  signature verification. (Taxonomy: benavlabs/vibe-check, MIT; rewritten.)
+- ADDED (CLAUDE_CODE_OPERATIONS.md): `/btw` (side question without spending
+  context) and `/rewind` / Esc Esc (roll back to a checkpoint; pairs with M-23).
+- ADDED: DL-013 records the evidence, the source, and what was rejected
+  (SuperClaude/multi-agent/subagent bloat) to protect token economy.
+
+No rule meaning changed; no architecture change. Recommendation stands: FREEZE
+and validate through real projects (DL-012).
+
+---
+
 ## v1.5.1 (2026-08-03) — Hygiene patch (no functional change)
 
 From an ACA system-review of v1.5. Fixes ONLY (no rule, behavior, or doc
@@ -212,4 +235,4 @@ blanket MCP server expansion.
 
 ---
 
-*Commander v1.5.1 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+*Commander v1.5.2 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
