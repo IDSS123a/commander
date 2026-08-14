@@ -7,6 +7,38 @@
 
 ---
 
+## v1.5.3 (2026-08-07) — IDSS Timetable lessons
+
+Director-approved proposal (`COMMANDER_UPDATE_PROPOSAL.md` / execution content
+in `COMMANDER_UPDATE_CONTENT.md`), read against the actual current content of
+each target file before applying — two of the six proposed items were already
+covered by v1.5.2 and skipped rather than duplicated.
+
+- ADDED (ENGINEERING_RULES.md, new **E-14**): schema/config changes used by
+  more than one layer require explicit consumer enumeration in the ANALYSIS
+  phase (FEATURE_LIFECYCLE Step 1) and a round-trip test (load → save →
+  compare) for every new/changed field — fields were silently lost in forms
+  that didn't know about them, twice, before this was formalised.
+- ADDED (ENGINEERING_RULES.md E-4 table, new row): CSV/Excel export of
+  user-controlled text must guard against formula injection (`=`/`+`/`-`/`@`
+  prefix) — minimum protection is an apostrophe prefix before writing the cell.
+- ADDED (DONE_CHECKLIST.md): matching checklist items for both of the above,
+  in Architecture and Security sections respectively.
+- ADDED (ACA_MANAGEMENT_GUIDE.md §1.5, §5.9): non-coder-Director default
+  communication standard (literal step-by-step, never assume terminal/git
+  familiarity) and a `web_fetch`-on-GitHub caching-unreliability warning
+  (prefer local git access when available). The project-specific IDSS
+  Handbook content already in this file was left untouched — additions only.
+- SKIPPED (already covered, not duplicated): "no secrets in frontend build"
+  (E-4's existing Secret management/Service keys rows + security-review.md's
+  Client-bundled secrets section already cover this) and "auth rate-limiting
+  same sprint" (DONE_CHECKLIST's existing rate-limit item +
+  security-review.md's Abuse resistance section already cover this).
+
+Source: IDSS Timetable project, August 2026.
+
+---
+
 ## v1.5.2 (2026-08-03) — Security hardening + native token/safety primitives
 
 From a comparative study of ~20 external vibe-coding/Claude-Code repos + the

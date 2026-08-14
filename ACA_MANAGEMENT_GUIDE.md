@@ -1,7 +1,7 @@
 # Kako upravljati AI Coding Assistantom (ACA)
 ## Univerzalni priručnik za non-codera koji gradi web apps
 ## Autor: Davor Mulalić | Sistem: Commander (github.com/IDSS123a/commander)
-## Verzija: 1.5.2 — August 2026
+## Verzija: 1.5.3 — August 2026
 
 ---
 
@@ -55,6 +55,18 @@ ISPRAVNO:  "Napiši mi cijeli actions.ts fajl s ovom izmjenom."
 ### 1.4 Nikada nemoj dati ACA-u pristup .env fajlu
 
 Neke platforme (Google Antigravity, Devin) mogu čitati i mijenjati lokalne fajlove. Antigravity je obrisao sve ključeve bez pitanja. Uvijek napravi backup .env fajla prije nego dozvolis ACA-u file-system pristup.
+
+### 1.5 Non-coder Direktor — podrazumijevani komunikacijski standard
+
+*(Naučeno na IDSS Timetable projektu.)* Kad kažeš ACA-u "ja sam non-coder"
+(ili je to već poznato iz konteksta), ACA treba PODRAZUMIJEVANO koristiti
+korak-po-korak format sa doslovnim uputama (tačan meni, tačno dugme, tačan
+tekst za kopiranje) za SVAKI tehnički korak — ne pretpostaviti poznavanje
+terminala/git-a/environment varijabli, čak ni nakon što si ih već
+nekoliko puta uspješno koristio uz asistenciju. Generičke instrukcije
+("pokreni backend", "podesi environment varijablu") su ponovljeno
+dovodile do zabune i izgubljenog vremena kad su korištene umjesto
+doslovnih koraka.
 
 ---
 
@@ -243,6 +255,17 @@ export function createSupabaseDirectAdmin() {
   )
 }
 ```
+
+### 5.9 web_fetch na GitHub repozitorijima — nepouzdano keširanje
+
+*(Naučeno na IDSS Timetable projektu.)* Ponovljeno uočeno (posebno na
+česti-mijenjani repoi kao što je sam Commander): `web_fetch` alat može
+vratiti zastarjelu, keširanu verziju GitHub stranice, bez pouzdanog
+načina da se to razlikuje od "stvarno zastarjelo" bez direktne potvrde.
+Kad je dostupan lokalni pristup (git clone/lokalni fajl), UVIJEK ga
+koristiti umjesto web_fetch za provjeru trenutnog stanja repozitorija.
+Ako lokalni pristup nije dostupan i stanje repoa je kritično za odluku,
+tražiti od Direktora da nalijepi sadržaj direktno.
 
 ---
 
@@ -489,6 +512,6 @@ Ako si zaglavljen s greškom više od 30 minuta — zaustavi se. Napiši mi. Pon
 
 ---
 
-*Commander v1.5.2 — IDSS123a Organisation*
+*Commander v1.5.3 — IDSS123a Organisation*
 *Dokument: ACA Management Guide*
 *Na osnovu iskustva gradnje IDSS Handbook Web App — Sarajevo 2026*

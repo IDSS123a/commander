@@ -1,6 +1,6 @@
 # DONE_CHECKLIST.md — Universal Definition of Done
 # Commander — Project Operating System
-# Version 1.5.2 — August 2026
+# Version 1.5.3 — August 2026
 
 ---
 
@@ -38,6 +38,10 @@
 - [ ] No AI SDK call made directly from business logic (goes through AIProvider interface)
 - [ ] Feature folder structure matches `ARCHITECTURE_PATTERNS.md`
 - [ ] Dependencies flow only top-down (Presentation → Application → Domain → Infrastructure)
+- [ ] If this sprint changed a config/schema structure used by more than
+      one layer (e.g. backend + frontend form): every consumer explicitly
+      enumerated and checked, round-trip test (load → save → compare)
+      done for every new/changed field (E-14)
 
 ---
 
@@ -54,6 +58,9 @@
 - [ ] No Supabase service role key in any route that doesn't require it
 - [ ] All file uploads validate: MIME type, extension, size limit
 - [ ] All user inputs validated with Zod before use
+- [ ] If this sprint added/changed a CSV/Excel export of user-controlled
+      text: formula-injection protection confirmed (text starting with
+      =/+/-/@ handled safely — E-4 CSV/Excel export row)
 
 ---
 
@@ -186,4 +193,4 @@ which should be retired.
 
 ---
 
-*Commander v1.5.2 — IDSS123a Organisation*
+*Commander v1.5.3 — IDSS123a Organisation*

@@ -2,7 +2,7 @@
 
 **Owner:** Davor Mulalić — P.U. Internationale Deutsche Schule Sarajevo
 **Purpose:** Universal AI Coding Assistant operating system for all projects
-**Version:** 1.5.2 — August 2026
+**Version:** 1.5.3 — August 2026
 
 ---
 
@@ -264,6 +264,15 @@ v1.3  2026-07  Added: E-13 (checkable rules ship as automation), M-23
                cheatsheet capabilities only) + vibe-coding-journal M-18 harvest.
                Constraint: every change replaces a manual step or removes
                tokens; subagent rules and MCP expansion rejected by that test.
+
+v1.5.3 2026-08  IDSS Timetable lessons: E-14 schema/config consumer
+               enumeration + round-trip test, E-4 CSV/Excel formula-
+               injection row, ACA_MANAGEMENT_GUIDE web_fetch-caching
+               and non-coder-communication additions (IDSS Handbook
+               content in that file left untouched). Secrets-in-
+               frontend-build and login rate-limiting proposals from
+               the same source skipped — already covered by v1.5.2's
+               security-review.md/DONE_CHECKLIST additions.
 
 v1.5.2 2026-08  Security hardening (evidence-based) + native primitives.
                security-review/DONE add RLS, IDOR, NEXT_PUBLIC secret trap,

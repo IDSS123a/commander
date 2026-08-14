@@ -1,6 +1,6 @@
 # ENGINEERING_RULES.md — Universal Engineering Standards
 # Commander — Project Operating System
-# Version 1.5.2 — August 2026
+# Version 1.5.3 — August 2026
 
 ---
 
@@ -105,6 +105,7 @@ substance (Zod validation, no inline logic).
 | Outbound email content    | Any user-controlled free text (title, name, message body) embedded in an outbound HTML email MUST be HTML-escaped before insertion. Any user-controlled text placed in an email SUBJECT line must have embedded `\r\n` stripped (defense-in-depth even if the mail provider's API already sanitizes it). Write this as one shared helper, not re-implemented per feature. |
 | Secret management         | `.env` only. Never commit. Never log. Never expose to client.                                                                                                                                            |
 | Service keys              | Server-side only. Never in client bundle. Never in component files.                                                                                                                                      |
+| CSV/Excel export          | Any user-controlled free text (name, title, any free-field) written into a CSV/Excel export MUST be checked for formula-injection risk before writing: text starting with `=`, `+`, `-`, or `@` can be interpreted as an executable formula when the recipient opens the file. Minimum protection: prefix with a literal apostrophe before writing the cell. |
 
 **Confirmed-safe RBAC pattern:** resolve role via a server-side profile
 lookup keyed by the verified auth-provider user id, on every request —
@@ -374,4 +375,22 @@ inactive (not failing) on repos with no
 
 ---
 
-*Commander v1.5.2 — IDSS123a Organisation*
+## E-14. Schema/Config Changes — Mandatory Consumer Enumeration `[ACTIVE]` 🟡 STANDARD
+
+*Added: v1.5.3, August 2026 — learned on the IDSS Timetable project*
+
+When a data structure (config, schema, model) used by more than one part
+of the system is extended — e.g. a field added to a shared config that
+both a backend and a frontend form read — the ANALYSIS phase
+(`FEATURE_LIFECYCLE.md` Step 1) must explicitly enumerate every consumer
+of that structure and confirm, for each one, whether it needs a change.
+Never assume "it will work because one layer is correct."
+
+**Mandatory test for every new/changed field:** a round-trip test
+(load → save → compare), not just a whole-object test. Without this,
+new fields silently disappear in forms that don't yet know about them —
+this happened twice on the same project before the rule was formalised.
+
+---
+
+*Commander v1.5.3 — IDSS123a Organisation*
