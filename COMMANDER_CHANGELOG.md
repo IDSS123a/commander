@@ -7,6 +7,55 @@
 
 ---
 
+## v1.5.5 (2026-09-26) — Vibe-Coding Journal M-22 KRAJ (end-of-project)
+
+The project's first-ever KRAJ pass -- full AUDIT_LOG.md entry is
+AUDIT-004; the approved `COMMANDER_UPDATE_PROPOSAL.md` with every
+citation lives in the project repository. Evidence base: all 8
+`corrections/SPRINT_0N_LESSONS.md` files, the 3 most recent handoffs,
+and all 91 entries of the project's own `DECISION_LOG.md`.
+
+- ADDED (ENGINEERING_RULES.md E-5): a timeout inside a key/endpoint
+  rotation loop is retryable, not terminal -- two live production
+  outages, six weeks apart, were both this exact shape.
+- ADDED (ARCHITECTURE_PATTERNS.md A-3): any UPDATE/DELETE-by-id must
+  check the affected-row count; Supabase/PostgREST returns success on
+  zero matched rows.
+- ADDED (ARCHITECTURE_PATTERNS.md A-8): PostgREST NULL filter --
+  `.is(col, null)`, never `.eq(col, null)`, which TypeScript cannot
+  catch.
+- ADDED (ARCHITECTURE_PATTERNS.md, new A-11): de-duplicate concurrent
+  in-flight requests to a shared per-page-load endpoint (only
+  overlapping calls merge; legitimate interval polling still fires
+  fresh).
+- ADDED (DONE_CHECKLIST.md Security, two items): a real live
+  adversarial pass (forged token, self-escalation, cross-tier read) is
+  a mandatory gate before real payments/production data; an "X is
+  exempt from Y" claim is proven only by making X fail Y.
+- ADDED (Learned-From, six existing rules -- verified already covered
+  in substance, so these are narrow additions, not new rules): E-4's
+  RBAC pattern names the decode-only-library pitfall (`jwt-decode`);
+  security-review.md's RLS checklist notes owner-scoped isn't
+  automatically column-safe; E-12 adds a third occurrence of long-lived
+  tokens expiring silently; M-2 adds "search for a dormant
+  implementation first"; M-4 adds "surface an instruction conflict,
+  don't silently resolve it"; M-12 adds the inverse library-discipline
+  caution (hand-rolled parsing of a standard format).
+- FIXED (hygiene, no rule/behavior change): six more Commander
+  documents (`AUDIT_LOG.md`, `DECISION_LOG.md`,
+  `ACA_COMMUNICATION_PROTOCOL.md`, `initial_instructions.md`,
+  `PROMPT_LIBRARY/commander-audit.md`, and internal `# Version` headers
+  in five files whose footers alone had been bumped by earlier
+  releases) were still stamped v1.5.2 or v1.5.3. All twelve documents
+  plus `VERSION` now agree on v1.5.5.
+- Severity changes: none. Deprecation candidates: none. New DECISION_LOG
+  entries: none (the reusable insights found were process/methodology
+  lessons, filed as Learned-From additions instead).
+
+Source: Vibe-Coding Journal project, M-22 KRAJ, September 2026.
+
+---
+
 ## v1.5.4 (2026-09-26) — Vibe-Coding Journal lessons
 
 - ADDED (ARCHITECTURE_PATTERNS.md A-3, Database Repository Pattern): a

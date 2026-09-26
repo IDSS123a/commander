@@ -54,6 +54,7 @@ Review specifically for:
 **Database — Row Level Security (Supabase):**
 - [ ] RLS is ENABLED on every table before deployment; default policy denies all
 - [ ] Every policy is owner-scoped (`auth.uid()`) — never `USING (true)` or `FOR ALL` without a WHERE/ownership condition
+- [ ] Owner-scoped is not automatically column-safe: an UPDATE policy scoped to the caller's own row can still let them rewrite a sensitive column on that row (role, subscription status, tier). Sensitive columns need a trigger guard, a narrower/split policy, or service-role-only writes — ownership scoping alone does not cover them. (Vibe-Coding Journal, PDL-051, 2026-09-18, 🔴 CRITICAL: a self-update policy let any signed-in user set their own `role` to `admin`.)
 - [ ] Firebase rules (if used) require `request.auth != null` and scope to `request.auth.uid`
 
 **Object-level access control (IDOR):**

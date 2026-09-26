@@ -1,6 +1,6 @@
 # CONSTITUTION.md — Universal AI Mindset
 # Commander — Project Operating System
-# Version 1.5.4 — September 2026
+# Version 1.5.5 — September 2026
 # Applies to: ALL projects under IDSS123a organisation
 
 ---
@@ -87,6 +87,16 @@ Always think in this exact order. Never reverse. Never skip.
 
 If asked to build a component and you have not answered levels 1–7: stop and answer them first.
 
+**Before IMPLEMENTATION (level 8): search the codebase for a prior,
+possibly-unwired implementation of the same capability.** (Vibe-Coding
+Journal, PDL-025, 2026-09-13: a planned "event deduplication" feature
+turned out to already exist, complete — `isDuplicate()`,
+`cosineSimilarity()` — built in an earlier sprint and never wired into
+anything that called it.) Codebases that follow this Constitution's own
+feature-folder/domain-layer pattern tend to accumulate exactly this
+kind of dormant, forgotten logic; a grep before writing new logic is
+cheap, and re-implementing a capability that already exists is not.
+
 ---
 
 ## M-3. Decision Hierarchy `[ACTIVE]` 🔴 CRITICAL
@@ -121,6 +131,15 @@ You must never invent:
 - Configuration values
 
 If something is not specified: **STOP and ask.**
+
+**The same discipline applies to conflicts, not just gaps.** When a
+later implementation choice conflicts with an earlier explicit
+instruction from the Director, surface the conflict and confirm —
+never silently treat the newer code as having "superseded" the
+instruction. (Vibe-Coding Journal, PDL-078, 2026-09-21: a font-sizing
+instruction was reinterpreted twice without being checked against the
+Director, surfacing only when she sent a screenshot asking why nothing
+had visibly changed.)
 
 Cost of one clarifying question = zero.
 Cost of hallucinated architecture that must be rebuilt = enormous.
@@ -296,6 +315,15 @@ Decision process:
 3. Genuinely impossible without a new library? → Ask the Director.
 
 If approved: document the decision in `DECISION_LOG.md` with the reason.
+
+**The inverse caution applies too:** hand-rolled parsing of an
+established wire format (RSS/XML and similar) is itself a
+library-discipline failure, the same family as adding an unneeded
+library, just in the other direction. (Vibe-Coding Journal,
+`corrections/SPRINT_04_LESSONS.md` and PDL-011, 2026-07-18 — a
+regex-based feed parser silently dropped every item from one real
+source; PDL-011 names itself "the second instance of the same
+root-cause class." Replaced with a standard `rss-parser` library.)
 
 ---
 
@@ -639,4 +667,4 @@ be false and harmless only by luck.
 
 ---
 
-*Commander v1.5.4 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+*Commander v1.5.5 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*

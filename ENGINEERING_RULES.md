@@ -1,6 +1,6 @@
 # ENGINEERING_RULES.md — Universal Engineering Standards
 # Commander — Project Operating System
-# Version 1.5.3 — August 2026
+# Version 1.5.5 — September 2026
 
 ---
 
@@ -114,6 +114,17 @@ this live: a forged/garbage token, a token for a different role, and
 direct route calls bypassing the UI must all be correctly rejected
 because role never came from client-supplied data.
 
+**Named pitfall (Vibe-Coding Journal, PDL-050, 2026-09-18, 🔴 CRITICAL,
+live in production):** a library whose name or API implies
+verification but only decodes (e.g. `jwt-decode`) provides ZERO
+signature guarantee on its own — a forged token carrying a real user's
+id passes straight through unless the auth provider's own
+verification call (e.g. Supabase `auth.getUser(token)`, a JWKS
+signature check) is what actually runs. This was live in production,
+caught only when the forged-token test this rule already requires was
+finally performed. A code comment claiming "verification happens
+elsewhere" is a claim to trace and prove, never to trust.
+
 **Pre-push secret audit covers text AND binaries:** before the first
 push of any repository (and after any history-affecting change), audit
 the full history for secrets. A text grep over `git log --all -p` is
@@ -175,6 +186,19 @@ downstream, then gets silently skipped by a broad catch, looks
 identical to "working correctly" until someone checks the actual
 data months later. Log and count every parse/validation failure on
 data from a "successful" external call as loudly as any other error.
+
+**A timeout inside a key/endpoint rotation loop is retryable, not
+terminal (Vibe-Coding Journal, PDL-027 2026-09-14 and PDL-090
+2026-09-26):** when a call rotates across several keys or endpoints on
+a classified failure (429, 5xx, an auth error), a request that instead
+hangs past its own configured timeout must rotate to the next key
+exactly the same way, not throw immediately and abandon every
+remaining key. Two separate live production outages, six weeks apart,
+were both this exact shape: a stalled request ended the whole rotation
+attempt on whichever key or source happened to be slow, however many
+healthy ones were left untried. Only a genuine network-level failure
+that happens before any endpoint-specific response (DNS, connection
+refused) is not a per-key issue and may fail the call immediately.
 
 ---
 
@@ -334,6 +358,15 @@ Never do these without explicit written approval in the project `DECISION_LOG.md
   `npm install --omit=dev` and every deploy fails. Verify by
   actually running `npm install --omit=dev && npm run start` locally before trusting a deploy config — reusing an
   already-populated `node_modules` will never surface this.
+- **A long-lived CLI/API session token used for infrequent admin
+  operations should be assumed expired after a multi-week real-world
+  gap, and verified with one cheap real call before being relied on.**
+  (Vibe-Coding Journal: `corrections/SPRINT_08_LESSONS.md` #11, the
+  Vercel CLI after a six-week gap; PDL-048, 2026-09-18, the Supabase
+  Management API token; and the same Supabase token again on
+  2026-09-26 — never renewed after PDL-048 had already flagged it
+  dead once.) Don't discover this mid-task; check first when resuming
+  work after a long gap or reaching for a rarely-used admin token.
 
 ---
 
@@ -393,4 +426,4 @@ this happened twice on the same project before the rule was formalised.
 
 ---
 
-*Commander v1.5.4 — IDSS123a Organisation*
+*Commander v1.5.5 — IDSS123a Organisation*

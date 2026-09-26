@@ -1,6 +1,6 @@
 # AUDIT_LOG.md — Commander Audit History
 # Commander — Project Operating System
-# Version 1.5.2 — August 2026
+# Version 1.5.5 — September 2026
 
 ---
 
@@ -216,4 +216,98 @@ since inception.
 
 ---
 
-*Commander v1.5.2 — IDSS123a Organisation*
+## AUDIT-004 — M-22 KRAJ: Vibe-Coding Journal End-of-Project Update (v1.5.5)
+
+**Date:** 2026-09-26
+**Trigger:** the Director typed KRAJ — the project's first-ever M-22 pass; only today's own working session (v1.5.4) had fed this project's lessons into Commander before this.
+**Conducted by:** Director + Claude Sonnet 5
+
+### Evidence base
+
+`corrections/SPRINT_01_LESSONS.md` through `SPRINT_08_LESSONS.md` (8
+files), `corrections/PROCESS_LESSONS.md` (both entries already M-23a/b,
+excluded), the 3 most recent handoff notes
+(`HANDOFF_CONTENT_PIPELINE_FIX.md`, `HANDOFF_SPRINT_08.md`,
+`HANDOFF_TRIGGER_RELIABILITY.md`), and the project's own
+`DECISION_LOG.md` in full — 91 entries, PDL-001 through PDL-091.
+Cross-checked against the live v1.5.4 Commander content first, so
+nothing already covered was re-proposed; two findings (JWT
+signature verification, RLS default-deny) turned out already present
+and were filed as narrow additions to the existing rules instead of
+new ones. Full proposal, with every citation, is
+`COMMANDER_UPDATE_PROPOSAL.md` in the project repository (2026-09-26),
+approved by the Director before any Commander file changed.
+
+### Changes made
+
+**New rules added:**
+- ENGINEERING_RULES.md E-5 — a timeout inside a key/endpoint rotation
+  loop is retryable, not terminal (two live outages, PDL-027 and
+  PDL-090, six weeks apart)
+- ARCHITECTURE_PATTERNS.md A-3 — UPDATE/DELETE-by-id must check the
+  affected-row count, not just the absence of an error (SPRINT_04 #4,
+  PDL-020)
+- ARCHITECTURE_PATTERNS.md A-8 — PostgREST NULL filter: `.is()` never
+  `.eq()` (SPRINT_04 #1)
+- ARCHITECTURE_PATTERNS.md new A-11 — de-duplicate concurrent
+  in-flight requests to a shared per-page-load endpoint, without
+  breaking legitimate polling (PDL-091)
+- DONE_CHECKLIST.md Security — a real, live adversarial pass (forged
+  token, self-escalation attempt, cross-tier read) is a mandatory gate
+  before real payments/production data, not an ad hoc later audit
+  (PDL-050/051/052, found 9 days after real payments had shipped)
+- DONE_CHECKLIST.md Security — an "X is exempt from Y" claim is proven
+  by making X fail Y, not by observing X pass while also satisfying Y
+  (SPRINT_07 #3)
+
+**Learned-From additions to existing rules (not new rules — verified
+already covered in substance):**
+- ENGINEERING_RULES.md E-4 (Confirmed-safe RBAC pattern) — named
+  pitfall: a decode-only library (`jwt-decode`) gives zero signature
+  guarantee (PDL-050, 🔴 CRITICAL, live in production)
+- PROMPT_LIBRARY/security-review.md (RLS checklist) — owner-scoped is
+  not automatically column-safe; a self-update policy can still allow
+  self-escalating a sensitive column (PDL-051, 🔴 CRITICAL)
+- ENGINEERING_RULES.md E-12 (Environment Gotchas) — a long-lived
+  CLI/API token should be assumed expired after a multi-week gap
+  (SPRINT_08 #11, PDL-048, and again 2026-09-26)
+- CONSTITUTION.md M-2 (Architectural Thinking Order) — search for a
+  prior, possibly-unwired implementation before writing new domain
+  logic (PDL-025)
+- CONSTITUTION.md M-4 (Anti-Hallucination Protocol) — surface a
+  conflict with an earlier instruction, never silently treat newer
+  code as "superseding" it (PDL-078)
+- CONSTITUTION.md M-12 (Library Discipline) — the inverse caution:
+  hand-rolled parsing of an established wire format is itself a
+  library-discipline failure (SPRINT_04, PDL-011)
+
+**Severity changes:** none — no existing rule's own text was found
+insufficient at its current tag.
+**Deprecation candidates:** none — no rule was found to have slowed
+this project's work without payoff.
+**New DECISION_LOG entries:** none this pass — the reusable insights
+found were process/methodology lessons, attached to existing rules
+above instead (the same shape as how M-23b was added from this
+project's own PROCESS_LESSONS.md).
+
+### Post-KRAJ checklist
+
+- [x] `CONSTITUTION.md` updated — M-2, M-4, M-12 additions
+- [x] `ENGINEERING_RULES.md` updated — E-4, E-5, E-12 additions
+- [x] `ARCHITECTURE_PATTERNS.md` updated — A-3, A-8 additions, new A-11
+- [x] `DONE_CHECKLIST.md` updated — 2 Security additions
+- [x] `PROMPT_LIBRARY/security-review.md` updated — RLS column-scoping
+- [x] All 12 Commander documents and `VERSION` brought to v1.5.5 (six
+  had drifted to stale version headers/footers since v1.5.2/1.5.3,
+  unrelated to this project's own lessons — fixed as hygiene while
+  already touching every file)
+- [x] `COMMANDER_CHANGELOG.md` entry added
+- [x] `AUDIT_LOG.md` entry appended (this entry)
+
+---
+
+*Next audit due: January 2027 or after 5th project completion, whichever comes first.*
+
+---
+
+*Commander v1.5.5 — IDSS123a Organisation*

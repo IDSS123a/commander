@@ -1,6 +1,6 @@
 # DONE_CHECKLIST.md — Universal Definition of Done
 # Commander — Project Operating System
-# Version 1.5.3 — August 2026
+# Version 1.5.5 — September 2026
 
 ---
 
@@ -61,6 +61,24 @@
 - [ ] If this sprint added/changed a CSV/Excel export of user-controlled
       text: formula-injection protection confirmed (text starting with
       =/+/-/@ handled safely — E-4 CSV/Excel export row)
+- [ ] Before enabling real payments or storing real production user
+      data for the first time: a REAL, LIVE adversarial pass has been
+      run — not a text/code review — against the running app: a
+      forged/garbage auth token is rejected, a self-update attempt on
+      a sensitive column (role, tier, status) fails, and a cross-tier
+      or cross-role read attempt (e.g. a Basic account reading Premium
+      content, a non-admin reading another user's data) is refused.
+      (Vibe-Coding Journal, PDL-050/051/052, 2026-09-18: three 🔴
+      CRITICAL vulnerabilities — auth bypass, self-admin-escalation,
+      broad unauthorized reads — were all found live, but only nine
+      days AFTER real sandbox payments had already shipped.)
+- [ ] Every "role/tier X is exempt from check Y" claim was verified by
+      deliberately making X fail Y and confirming access still holds —
+      not by observing X pass while incidentally also satisfying Y.
+      (Vibe-Coding Journal, `corrections/SPRINT_07_LESSONS.md` #3: an
+      admin billing exemption was proven only after temporarily
+      expiring the admin test account's own subscription and
+      confirming dashboard access still worked.)
 
 ---
 
@@ -193,4 +211,4 @@ which should be retired.
 
 ---
 
-*Commander v1.5.4 — IDSS123a Organisation*
+*Commander v1.5.5 — IDSS123a Organisation*

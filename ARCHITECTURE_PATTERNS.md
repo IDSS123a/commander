@@ -1,6 +1,6 @@
 # ARCHITECTURE_PATTERNS.md — Universal Structural Rules
 # Commander — Project Operating System
-# Version 1.5.2 — August 2026
+# Version 1.5.5 — September 2026
 
 ---
 
@@ -174,6 +174,18 @@ paginated *display* query needs a limit for UX; a *processing* query
 needs one to cap the blast radius of its own failure. Name the cap
 in `constants/index.ts` (E-11) and let a real backlog drain safely
 across multiple runs instead of one run trying to consume it whole.
+
+**Any UPDATE/DELETE used for a by-id/by-key operation must check the
+affected-row count, not just the absence of a driver error.** Supabase/
+PostgREST returns success on zero matched rows -- a by-id write that
+silently touched nothing looks identical to one that worked. Found
+twice independently (Vibe-Coding Journal: `corrections/
+SPRINT_04_LESSONS.md` #4, 2026-07-18, an admin-role setup UPDATE
+silently affected 0 rows because the profile row didn't exist yet;
+PDL-020, 2026-09-11, a suggestion-status PATCH on a nonexistent id
+returned 200 instead of 404). Pattern: `.select().maybeSingle()` (or
+`RETURNING`) after the write, and treat a null result as the
+operation's real failure case, not a formality.
 
 ---
 
@@ -358,6 +370,12 @@ The service role key (`SUPABASE_SERVICE_ROLE_KEY`) is used only in:
 Never use the service role key in client-side code.
 Never use the service role key in standard API routes.
 
+**PostgREST NULL filter: use `.is(col, null)`, never `.eq(col,
+null)`.** `.eq()` serializes to the literal string `"null"`, not SQL
+NULL, and produces a type/UUID error PostgREST-side that TypeScript
+cannot catch at compile time (Vibe-Coding Journal, `corrections/
+SPRINT_04_LESSONS.md` #1, 2026-07-18).
+
 > **Express stack equivalent:** There is no browser client. The Vite
 > SPA calls the Express API; the Express API uses a single server
 > Supabase client created once in `server/lib/db/supabase.ts`.
@@ -416,4 +434,46 @@ in sync.
 
 ---
 
-*Commander v1.5.4 — IDSS123a Organisation*
+## A-11. De-duplicate Concurrent In-Flight Requests to a Shared Endpoint
+
+When several independent components on the same page each need the
+same answer from a per-request endpoint (an identity/session check, a
+config fetch) -- a nav bar, a paywall guard, a payment banner all
+asking "who is this user" -- do not let each one fire its own fetch.
+Found live (Vibe-Coding Journal, PDL-091, 2026-09-26): eleven
+components each independently re-checked the same `/api/me`-style
+endpoint; two or three firing on one page load meant two or three full
+round trips (0.7 to 1.2s each, server-side) for the identical answer,
+and the page's own real data fetch did not start until all of them
+finished.
+
+Some of the same components legitimately *poll* that endpoint every
+few seconds after a payment, to detect webhook activation without
+trusting the client-side approval event -- so the fix cannot be a
+time-based cache, which would go stale during exactly the window that
+matters.
+
+**Pattern:** memoize only the in-flight promise, keyed by whatever
+identifies the request (e.g. the auth token). Two callers that request
+it while it is still pending share the one real request and its one
+answer. The moment the request settles, clear the memoized entry --
+a call made after that point (a poll two seconds later, a different
+page) always fires fresh. This collapses only genuine overlap; it
+never suppresses a legitimately new request.
+
+```typescript
+let inFlight: { key: string; promise: Promise<T> } | null = null;
+
+function fetchShared(key: string): Promise<T> {
+  if (inFlight && inFlight.key === key) return inFlight.promise;
+  const promise = fetch(/* ... */).finally(() => {
+    if (inFlight?.promise === promise) inFlight = null;
+  });
+  inFlight = { key, promise };
+  return promise;
+}
+```
+
+---
+
+*Commander v1.5.5 — IDSS123a Organisation*
