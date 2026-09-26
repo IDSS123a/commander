@@ -512,6 +512,6 @@ Ako si zaglavljen s greškom više od 30 minuta — zaustavi se. Napiši mi. Pon
 
 ---
 
-*Commander v1.5.3 — IDSS123a Organisation*
+*Commander v1.5.4 — IDSS123a Organisation*
 *Dokument: ACA Management Guide*
 *Na osnovu iskustva gradnje IDSS Handbook Web App — Sarajevo 2026*

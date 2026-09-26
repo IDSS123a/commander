@@ -7,6 +7,34 @@
 
 ---
 
+## v1.5.4 (2026-09-26) — Vibe-Coding Journal lessons
+
+- ADDED (ARCHITECTURE_PATTERNS.md A-3, Database Repository Pattern): a
+  repository function feeding a batch loop (AI calls, outbound HTTP —
+  anything with a real per-row cost) must take a mandatory, named
+  `limit`, never an unbounded `SELECT *` "because it's just a queue" —
+  a failed run's leftover rows otherwise compound whole into the next
+  run and can blow that run's own time/rate budget. Found live,
+  independently, twice on the same project before being generalized.
+- ADDED (ARCHITECTURE_PATTERNS.md A-7, Environment Variables Pattern):
+  three env var gotchas found live in one session — (1) a numbered
+  set (`KEY_1`, `KEY_2`, ...) scanned by a loop with a hardcoded upper
+  bound silently drops anything added past it, no error; (2) a local
+  `.env`/`.env.local` change never reaches a deployed platform's own
+  Production store on its own, always confirm it landed there before
+  trusting a fix is live; (3) on Vercel, a `NEXT_PUBLIC_*` var cannot
+  be saved as type Secret, and once saved as Secret cannot be
+  converted to Config in place — delete and re-add instead.
+- FIXED (hygiene, no rule/behavior change): the version identity stamp
+  at the bottom of `CONSTITUTION.md`, `CLAUDE_CODE_OPERATIONS.md` and
+  `FEATURE_LIFECYCLE.md` still read v1.5.2 — the v1.5.3 update had
+  only bumped the three files it actually changed content in. All
+  seven Commander documents plus `VERSION` now agree on v1.5.4.
+
+Source: Vibe-Coding Journal project, September 2026.
+
+---
+
 ## v1.5.3 (2026-08-07) — IDSS Timetable lessons
 
 Director-approved proposal (`COMMANDER_UPDATE_PROPOSAL.md` / execution content

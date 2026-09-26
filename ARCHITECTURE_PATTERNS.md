@@ -159,6 +159,22 @@ Repository functions:
 > only by Express route handlers in `server/features/[name]/routes.ts`.
 > The pattern, naming, and error handling are identical.
 
+**A repository function whose results feed a batch loop (AI calls,
+outbound HTTP, anything with a real per-row cost) must take a
+mandatory, named `limit` parameter — never `SELECT *` with no bound
+"because it's just fetching a queue."** A run that fails partway
+through processing leaves its rows unprocessed; the next run's
+identical unbounded query then inherits that backlog whole, on top
+of its own new rows, and processing all of it in one run is itself
+what then blows the caller's own time or rate budget — compounding
+the very failure that created the backlog in the first place. Found
+live, independently, twice on the same project (Vibe-Coding Journal,
+2026-09-10 and again 2026-09-14) before the fix was generalized: a
+paginated *display* query needs a limit for UX; a *processing* query
+needs one to cap the blast radius of its own failure. Name the cap
+in `constants/index.ts` (E-11) and let a real backlog drain safely
+across multiple runs instead of one run trying to consume it whole.
+
 ---
 
 ## A-4. Permissions Pattern
@@ -296,6 +312,29 @@ When adding a new environment variable:
 2. Add to `.env.example` (placeholder value)
 3. Add to `CHANGELOG.md`: `[DATE] [ENV] Added VARIABLE_NAME for X purpose`
 
+**Three gotchas found live (Vibe-Coding Journal, 2026-09-25), each
+worth checking before trusting an env var change is actually live:**
+
+- **A numbered set (`GEMINI_API_KEY_1`, `_2`, ...) read by a loop
+  with a hardcoded upper bound silently drops anything added past
+  it** — no error, no warning, the extra values are simply never
+  seen. If the set is meant to grow, the scan bound must be
+  generous on purpose (comfortably above any realistic count), not
+  whatever number happened to be true when the loop was written.
+- **A value added to local `.env`/`.env.local` never reaches a
+  deployed platform's own Production environment store on its own**
+  — they are separate stores and nothing keeps them in sync
+  automatically. After adding or changing a var meant for
+  production, confirm it exists in the platform's own Production
+  environment (dashboard or API) before treating the fix as live.
+- **On Vercel specifically: a `NEXT_PUBLIC_*` var cannot be saved as
+  type "Secret"** (Secret is write-only, which contradicts a var
+  whose whole purpose is to be inlined into the browser bundle) —
+  **and once a var IS saved as Secret, the dashboard will not let it
+  be converted to Config in place.** The fix is to delete the entry
+  and re-add it fresh as Config, not to hunt for a "change type"
+  control that does not exist for an already-saved Secret.
+
 ---
 
 ## A-8. Supabase Client Pattern
@@ -377,4 +416,4 @@ in sync.
 
 ---
 
-*Commander v1.5.2 — IDSS123a Organisation*
+*Commander v1.5.4 — IDSS123a Organisation*

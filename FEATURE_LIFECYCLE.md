@@ -178,4 +178,4 @@ Next sprint: Sprint 08 — OCR Pipeline
 
 ---
 
-*Commander v1.5.2 — IDSS123a Organisation*
+*Commander v1.5.4 — IDSS123a Organisation*

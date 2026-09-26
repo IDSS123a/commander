@@ -377,4 +377,4 @@ v1.0  2026-07-13  Initial Claude Code Operations Guide.
 
 ---
 
-*Commander v1.5.2 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+*Commander v1.5.4 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
