@@ -2,7 +2,7 @@
 
 **Owner:** Davor Mulalić — P.U. Internationale Deutsche Schule Sarajevo
 **Purpose:** Universal AI Coding Assistant operating system for all projects
-**Version:** 1.5.3 — August 2026
+**Version:** 1.6 — September 2026
 
 ---
 
@@ -199,7 +199,8 @@ commander/
 │       ├── project-guard.config.example.json
 │       ├── hooks/                   ← version-check, log-change,
 │       │                              project-guard, lessons-guard,
-│       │                              patterns-detect
+│       │                              patterns-detect, package.json
+│       │                              (CommonJS — v1.6)
 │       └── skills/                  ← /kraj, /sprint-close, /commander-audit
 └── PROMPT_LIBRARY/
     ├── start-new-project.md         ← Redirect to initial_instructions.md
@@ -223,6 +224,7 @@ commander/
 | IDSS Handbook Web App                 | [web-app-idss-handbook](https://github.com/IDSS123a/web-app-idss-handbook) | Active                             |
 | Chronos (Obligation/Deadline Tracker) | [web-app-chronos](https://github.com/IDSS123a/web-app-chronos)             | Active — v1.0, 10 sprints complete |
 | Vibe-Coding Journal                   | [web-app-vibe-coding-journal](https://github.com/IDSS123a/web-app-vibe-coding-journal) | Active — 6 sprints, deployed |
+| Davor Mulalić Personal Web Page       | [personal-web-page](https://github.com/mulalicd/personal-web-page)         | Live — 4 sprints (S04 rolled back) |
 | VIP Travel                            | TBD                                                                        | Active                             |
 | IDSS ISO QMS Web App                  | TBD                                                                        | Planned                            |
 | AISBP Framework                       | TBD                                                                        | Planned                            |
@@ -264,6 +266,20 @@ v1.3  2026-07  Added: E-13 (checkable rules ship as automation), M-23
                cheatsheet capabilities only) + vibe-coding-journal M-18 harvest.
                Constraint: every change replaces a manual step or removes
                tokens; subagent rules and MCP expansion rejected by that test.
+
+v1.6  2026-09  personal-web-page lessons (M-22 KRAJ): new E-15 (performance
+               claims need stable measurement), A-11 + DL-014 (content single
+               source, every fact sourced), DL-005 model hard pin deprecated
+               (availability-checked alias + fallback), A-5 AI resilience and
+               injection hardening, A-8 Vite + Supabase shared schemas, E-4
+               uniform public responses, E-11/E-12 additions, DONE_CHECKLIST
+               and stress-test pass 5. Automation: hooks/package.json
+               (CommonJS), project-guard flags archives, tag-check workflow.
+               All document stamps unified to v1.6; tags v1.5.3/v1.5.4 added.
+
+v1.5.4 2026-09  Vibe-Coding Journal lessons: A-3 mandatory limit on batch
+               queries, A-7 env var gotchas (numbered keys, platform env
+               stores, Vercel Secret type).
 
 v1.5.3 2026-08  IDSS Timetable lessons: E-14 schema/config consumer
                enumeration + round-trip test, E-4 CSV/Excel formula-

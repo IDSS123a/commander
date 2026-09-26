@@ -1,5 +1,5 @@
 # INITIAL INSTRUCTIONS — Commander Project Bootstrap
-# Version 1.5.2 — August 2026
+# Version 1.6 — September 2026
 # USAGE: Copy/paste this entire document as the FIRST message in Claude Code
 # (or any other ACA) when the Director wants to start a new project.
 # That is all. Commander takes over from here.
@@ -95,6 +95,7 @@ Execute:
    .claude/hooks/project-guard.js           → .claude/hooks/project-guard.js
    .claude/hooks/lessons-guard.js           → .claude/hooks/lessons-guard.js
    .claude/hooks/patterns-detect.js         → .claude/hooks/patterns-detect.js
+   .claude/hooks/package.json               → .claude/hooks/package.json   (CommonJS — required in "type": "module" projects)
    .claude/project-guard.config.example.json → .claude/project-guard.config.json
    .claude/skills/kraj/SKILL.md             → .claude/skills/kraj/SKILL.md
    .claude/skills/sprint-close/SKILL.md     → .claude/skills/sprint-close/SKILL.md
@@ -195,4 +196,4 @@ COMMANDER_UPDATE_PROPOSAL.md first and wait.
 
 ---
 
-*Commander v1.5.2 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+*Commander v1.6 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*

@@ -7,6 +7,52 @@
 
 ---
 
+## v1.6 (2026-09-26) — personal-web-page lessons (KRAJ)
+
+Director-approved `COMMANDER_UPDATE_PROPOSAL.md` from
+https://github.com/mulalicd/personal-web-page (4 sprints; evidence in its
+`corrections/SPRINT_01..04_LESSONS.md`).
+
+- ADDED (ENGINEERING_RULES.md, new **E-15**): performance claims require
+  stable measurement — production HTTPS, ≥ 5 interleaved runs or
+  PageSpeed Insights, acceptance metric agreed before an architecture
+  change; traps: fading in the LCP element, forced vendor chunks.
+- ADDED (ARCHITECTURE_PATTERNS.md, new **A-11**) + **DL-014**: content
+  sites keep every fact in one content module feeding UI and chatbot;
+  every number/badge sourced, no invented scores.
+- CHANGED (DECISION_LOG.md **DL-005**): the hard pin
+  `gemini-2.5-flash` is DEPRECATED (NOT_FOUND by 2026-09) — verify the
+  model at project start, prefer `gemini-flash-latest` + one fallback.
+- ADDED (A-5): AI resilience — retry before streaming, fallback model,
+  key rotation, machine error codes, prompt-injection hardening + test.
+- ADDED (A-8): Vite + Supabase — Edge Functions share the browser's Zod
+  schemas via import map; SDK-free `config.ts` keeps supabase-js off
+  public pages.
+- ADDED (E-4): uniform responses on public email/identifier endpoints;
+  SPA 404 `noindex`.
+- ADDED (E-11): two rows — decoration utilities must not set layout
+  properties; no side effects in React state updaters.
+- ADDED (E-12): Supabase config push / CLI login expiry, Git Bash curl
+  encoding, GCM push hang, Resend DNS leftovers, Vercel snapshot URLs,
+  and "test tooling that lies" (frozen rAF, no compression on localhost).
+- ADDED (CONSTITUTION.md M-4): "verify with a second method before
+  reporting" — four single-observation claims in four sprints.
+- ADDED (DONE_CHECKLIST.md): real-time visual verification, E-15
+  measurement, deletable test data, rate-limit boundary test.
+- ADDED (PROMPT_LIBRARY/pre-deploy-stress-test.md): pass 5 —
+  performance, accessibility, links, responsive range, AI attacks.
+- AUTOMATION: `automation/.claude/hooks/package.json` (`"type":
+  "commonjs"`) shipped and installed — hooks crashed in every
+  `"type": "module"` project; project-guard `--scan` reports tracked
+  archives (.zip/.7z/.rar/.tar/.gz) it cannot scan;
+  `.github/workflows/version-tag.yml` warns when VERSION has no tag.
+- FIXED (hygiene): document headers/footers read 1.5.2, 1.5.3 and 1.5.4
+  in different files — all now v1.6; DECISION_LOG footer that sat
+  before DL-013 moved to the end; missing tags v1.5.3 and v1.5.4 created
+  on their release commits.
+
+---
+
 ## v1.5.4 (2026-09-26) — Vibe-Coding Journal lessons
 
 - ADDED (ARCHITECTURE_PATTERNS.md A-3, Database Repository Pattern): a
@@ -295,4 +341,4 @@ blanket MCP server expansion.
 
 ---
 
-*Commander v1.5.2 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+*Commander v1.6 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*

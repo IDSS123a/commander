@@ -1,6 +1,6 @@
 # AUDIT_LOG.md — Commander Audit History
 # Commander — Project Operating System
-# Version 1.5.2 — August 2026
+# Version 1.6 — September 2026
 
 ---
 
@@ -212,8 +212,35 @@ since inception.
 
 ---
 
+## AUDIT-004 — personal-web-page End-of-Project Update (M-22 KRAJ)
+
+**Date:** 2026-09-26
+**Trigger:** Director "GOTOVO. Ažuriraj System COMMANDER" → KRAJ protocol;
+proposal approved with "odobri".
+**Conducted by:** Director + Claude Opus 5.5
+**Project reviewed:** https://github.com/mulalicd/personal-web-page
+(4 sprints: backend rebuild, three.js hero, gamification, prerender —
+the last shipped and rolled back).
+
+### Findings
+- **Repeat violations:** M-4/M-10 ×4 (single-observation claims) →
+  learned-from text, no severity change (already 🔴); test data left in
+  production ×2 → DONE_CHECKLIST item; untagged releases ×2 (v1.5.3,
+  v1.5.4) → tags created + CI warning.
+- **Rule that slowed work:** DL-005 model hard pin (dead model) →
+  deprecated in favour of an availability-checked alias.
+- **Uncovered problems:** performance measurement noise → E-15;
+  content drift on a content site → A-11/DL-014; AI provider outages and
+  prompt injection → A-5; hooks broken by `"type": "module"` → shipped
+  hooks/package.json.
+
+### Result
+Commander v1.6 — see COMMANDER_CHANGELOG.md for the full list.
+
+---
+
 *Next audit due: January 2027 or after 5th project completion, whichever comes first.*
 
 ---
 
-*Commander v1.5.2 — IDSS123a Organisation*
+*Commander v1.6 — IDSS123a Organisation*

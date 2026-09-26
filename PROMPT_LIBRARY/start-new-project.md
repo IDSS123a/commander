@@ -29,4 +29,4 @@ Read it completely and execute from Step 1.
 
 ---
 
-*Commander v1.2 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+*Commander v1.6 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*

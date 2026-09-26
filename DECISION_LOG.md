@@ -1,6 +1,6 @@
 # DECISION_LOG.md — Universal Technology Decisions
 # Commander — Project Operating System
-# Version 1.5.2 — August 2026
+# Version 1.6 — September 2026
 
 ---
 
@@ -78,9 +78,17 @@ Wrap all AI calls behind an `AIProvider` interface in `lib/ai/`.
 Gemini's free tier (8 API keys × 15 RPM = ~120 RPM effective) is sufficient for
 institutional use. The Provider Interface means swapping to Claude, OpenAI, or any
 other provider requires only a new implementation class — zero changes to business logic.
-**Current model strings:**
-- Generation: `gemini-2.5-flash` (exact string, no other version)
-- Embeddings: `text-embedding-004` (exact string, dimension: 768)
+**Current model strings (revised v1.6 — the v1.0 hard pin is DEPRECATED):**
+- Generation: verify with a live call at every project start. Default:
+  the Google-maintained alias `gemini-flash-latest`, plus one fallback
+  model (e.g. `gemini-3.5-flash-lite`) — both recorded in the project's
+  DECISION_LOG with a review date.
+- ~~`gemini-2.5-flash` (exact string, no other version)~~ — returned
+  NOT_FOUND by 2026-09 (Google restricted the 2.5 line); a hard-pinned
+  model silently kills the feature while the key is still valid.
+- Embeddings: `text-embedding-004` (dimension: 768) — verify at project
+  start like the generation model.
+**Learned from:** personal-web-page PDL-005 (2026-09).
 
 ---
 
@@ -203,10 +211,6 @@ speculation about what might.
 
 ---
 
-*Commander v1.5.2 — IDSS123a Organisation*
-
----
-
 ## DL-013 — Security checklist expanded from documented vibe-coding breaches; framework bloat rejected
 
 **Decision:** Commander's security review + DONE checklist now cover the highest-severity vulnerabilities specific to vibe-coded web apps — Supabase RLS (deny-by-default, owner-scoped), object-level access control (IDOR), the `NEXT_PUBLIC_`/`VITE_` client-bundle secret trap, wildcard CORS, auth-endpoint rate limiting, security headers, SSRF, and webhook signature verification.
@@ -214,3 +218,22 @@ speculation about what might.
 **Rationale:** Independent testing (Carnegie Mellon) found ~61% of AI-generated code is functionally correct but only ~10.5% is secure. The added categories map directly to documented breaches of vibe-coded apps and to Commander's own stack (Next.js + Supabase). Consistent with DL-012 — build for evidence, not hypothetical coverage. Vulnerability taxonomy sourced from benavlabs/vibe-check (MIT), rewritten in Commander's format. Loaded only at security-review / DONE (M-21), so zero cost to normal sessions.
 
 **Rejected (would violate token economy / simplicity):** heavy meta-frameworks (SuperClaude: 30 commands / 20 agents / 8 MCP servers), multi-agent orchestration engines (ContractCoding), plugin marketplaces, and subagent double-review loops. They add tokens and ceremony without evidence of need in IDSS projects; revisit only if a real project proves the gap (DL-012).
+
+---
+
+## DL-014 — Content sites: one content module, every fact sourced
+
+**Date:** 2026-09-26
+**Decision:** Personal, professional and institutional content sites keep
+every fact in one typed content module that feeds all UI sections and the
+chatbot system prompt (ARCHITECTURE_PATTERNS.md A-11). Every number,
+badge, trophy or level traces to a named source; no invented scores or
+self-ratings, gamification included.
+**Rationale:** The inherited personal-web-page repeated facts in 6+
+components and the chatbot prompt, and they had drifted. The site is a
+C-level candidate's credibility surface — one wrong number costs more
+than any feature adds.
+
+---
+
+*Commander v1.6 — IDSS123a Organisation*

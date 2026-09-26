@@ -1,0 +1,29 @@
+name: Commander version tag check
+
+# Every VERSION bump gets a matching git tag (CLAUDE_CODE_OPERATIONS.md,
+# CONSTITUTION.md M-22 Step 5). v1.5.3 and v1.5.4 shipped untagged, so
+# projects had to pin automation to v1.5.2 (personal-web-page, v1.6).
+# Warns instead of failing: the tag is pushed right after main.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: VERSION has a matching tag
+        run: |
+          sleep 60
+          git fetch --tags --force
+          v="v$(tr -d '[:space:]' < VERSION)"
+          if git rev-parse -q --verify "refs/tags/$v" >/dev/null; then
+            echo "Tag $v exists."
+          else
+            echo "::warning::VERSION is ${v#v} but tag $v does not exist — run: git tag $v && git push origin $v"
+          fi

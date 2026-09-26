@@ -24,7 +24,7 @@ Read these documents before responding:
 
 ---
 
-Run all four passes, in order, on isolated temporary accounts — never
+Run all five passes, in order, on isolated temporary accounts — never
 on real user data. Delete all test accounts/data afterward and verify
 against the database.
 
@@ -44,6 +44,13 @@ against the database.
 4. **Boundary/functional test** — field length limits (off-by-one both
    directions), duplicate unique values, date boundaries (month-end,
    leap years), empty/zero-item collections.
+
+5. **Performance, accessibility & reach (v1.6)** — Lighthouse per
+   `ENGINEERING_RULES.md` E-15 (production HTTPS, ≥ 5 interleaved runs
+   or PageSpeed Insights); axe-core 0 violations on every route in both
+   themes; every external link returns 200 (or a documented bot block);
+   no horizontal scroll from 360 px to 3840 px; AI assistant attacked
+   with persona-change and prompt-extraction attempts (A-5).
 
 Check the browser console at ERROR level throughout, not just network
 status codes and screenshots (see `ARCHITECTURE_PATTERNS.md` A-9,

@@ -1,6 +1,6 @@
 # CONSTITUTION.md — Universal AI Mindset
 # Commander — Project Operating System
-# Version 1.5.4 — September 2026
+# Version 1.6 — September 2026
 # Applies to: ALL projects under IDSS123a organisation
 
 ---
@@ -129,6 +129,21 @@ Cost of hallucinated architecture that must be rebuilt = enormous.
 drop a column, remove an auth check, or deploy to production —
 STOP and ask the Director even if the sprint document says to.
 Destructive actions require explicit human confirmation every time.
+
+**Verify with a second method before reporting (v1.6).** A single
+observation is not evidence. A frozen preview pane (requestAnimationFrame
+stops while a tab is hidden), one Lighthouse run, or one line of DNS
+output can each look like a real defect — or a real gain. Before
+reporting a finding, claiming an improvement, or reverting work,
+re-check it with a second, independent method (DOM state instead of a
+screenshot, several interleaved measurements, a live request).
+
+**Learned from:** personal-web-page (2026-09) — four claims built on one
+unverified observation in four sprints: a "missing" book that lived in
+another component (Director caught it), a "blank hero" that was a frozen
+test pane, a misread SPF/CNAME record, and a prerender sprint rolled back
+on one noisy Lighthouse comparison (the old version then scored 37–38
+instead of the 58 used as the baseline).
 
 ---
 
@@ -639,4 +654,4 @@ be false and harmless only by luck.
 
 ---
 
-*Commander v1.5.4 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+*Commander v1.6 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
