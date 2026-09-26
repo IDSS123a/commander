@@ -31,6 +31,8 @@ copy /Y "%SOURCE%.claude\hooks\log-change.js" "%TARGET%\.claude\hooks\log-change
 copy /Y "%SOURCE%.claude\hooks\project-guard.js" "%TARGET%\.claude\hooks\project-guard.js"
 copy /Y "%SOURCE%.claude\hooks\lessons-guard.js" "%TARGET%\.claude\hooks\lessons-guard.js"
 copy /Y "%SOURCE%.claude\hooks\patterns-detect.js" "%TARGET%\.claude\hooks\patterns-detect.js"
+rem hooks are CommonJS; without this file they crash in "type": "module" projects (v1.6)
+copy /Y "%SOURCE%.claude\hooks\package.json" "%TARGET%\.claude\hooks\package.json"
 
 if exist "%SOURCE%.claude\skills" (
     xcopy /E /I /Y "%SOURCE%.claude\skills" "%TARGET%\.claude\skills" >nul

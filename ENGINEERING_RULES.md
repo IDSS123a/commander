@@ -1,6 +1,6 @@
 # ENGINEERING_RULES.md — Universal Engineering Standards
 # Commander — Project Operating System
-# Version 1.5.5 — September 2026
+# Version 1.6.1 — September 2026
 
 ---
 
@@ -147,6 +147,13 @@ not on every verification. Document this in the project Constitution
 and surface it in the admin UI rather than building a custom
 revocation blocklist, unless the project's risk profile specifically
 requires instant cutoff.
+
+**Public endpoints that take an email or identifier answer uniformly
+(v1.6).** A public "request access / request a document / reset" endpoint
+returns the same response whether or not the address already exists or
+was already approved — otherwise it becomes an enumeration oracle.
+SPA 404 pages set `<meta name="robots" content="noindex">` (a rewrite-to-
+index SPA returns HTTP 200 for every path — a soft 404).
 
 ---
 
@@ -321,6 +328,8 @@ Never do these without explicit written approval in the project `DECISION_LOG.md
 | Fetching data directly in a React component   | Use Server Components or Server Actions |
 | Business logic inside UI components           | Move to domain layer                    |
 | Skipping `.env.example` update                | Always update when adding env vars      |
+| Decoration/effect CSS utilities that set layout properties (`position`, `display`, sizing) | Custom utilities declared after Tailwind win the cascade and silently override `absolute`/`hidden` on the element (personal-web-page S03: a card collapsed) |
+| Side effects (analytics, timers, storage writes) inside a React state updater | Updaters must be pure — StrictMode calls them twice. Mirror state in a ref and run the effect outside |
 | Test/fixture rows with realistic future dates in production tables | They silently satisfy "already exists for today" idempotency checks once the calendar catches up. Delete in-session, track as a cleanup item, or use sentinel values (`1970-01-01`, `is_test` flag) |
 
 ---
@@ -367,6 +376,31 @@ Never do these without explicit written approval in the project `DECISION_LOG.md
   2026-09-26 — never renewed after PDL-048 had already flagged it
   dead once.) Don't discover this mid-task; check first when resuming
   work after a long gap or reaching for a rarely-used admin token.
+
+- **Supabase / Vercel / Git / DNS (v1.6 — personal-web-page):**
+  (1) `supabase config push` with a partial `config.toml` resets
+  unrelated auth settings (MFA, email confirmation) to local defaults —
+  change single settings in the dashboard. (2) The Supabase CLI login
+  can expire within hours — run `supabase projects list` before CLI
+  work and batch the test and its cleanup in that window. (3) Git Bash
+  `curl` on Windows sends non-ASCII arguments in the ANSI code page
+  ("Šehić" arrives as invalid UTF-8) — send UTF-8 bodies from a file
+  (`--data-binary @body.json`). (4) Git Credential Manager can silently
+  start requiring interactive login and hang a push — push with
+  `GIT_TERMINAL_PROMPT=0`, a timeout and
+  `-c credential.helper= -c "credential.helper=!gh auth git-credential"`.
+  (5) Email DNS (Resend): a leftover SPF TXT on the same host as the new
+  CNAME, or an old DKIM TXT next to the new one, keeps verification
+  failing — delete the old records. (6) Vercel per-deployment URLs are
+  immutable snapshots — always give the Director the production domain;
+  when previews are behind Vercel login, run `vite preview --host` on
+  the Director's PC (localhost + LAN IP for the phone).
+- **Test tooling that lies (v1.6):** hidden preview panes and background
+  tabs freeze `requestAnimationFrame` (animations stay at `initial`,
+  rAF-scheduled code never runs); `vite preview` and `serve` send no
+  compression and `http://localhost` gets no brotli; `serve -s` applies
+  rewrites before `index.html` (Vercel checks the filesystem first).
+  Verify animation-dependent UI through DOM state, speed per E-15.
 
 ---
 
@@ -424,6 +458,33 @@ Never assume "it will work because one layer is correct."
 new fields silently disappear in forms that don't yet know about them —
 this happened twice on the same project before the rule was formalised.
 
+
 ---
 
-*Commander v1.5.5 — IDSS123a Organisation*
+## E-15. Performance Claims Require Stable Measurement `[ACTIVE]` 🟡 STANDARD
+
+*Added: v1.6, September 2026 — learned on personal-web-page*
+
+1. Judge speed on the HTTPS production (or production-equivalent) URL —
+   never on `vite preview`, `serve` or plain `http://localhost` (no
+   brotli, different routing).
+2. A performance decision needs **≥ 5 interleaved runs per variant**
+   (A, B, A, B, …) or PageSpeed Insights runs (pagespeed.web.dev);
+   report the median and the spread, not a single number.
+3. Before a performance-motivated architecture change (SSR, prerender,
+   framework switch), write the acceptance metric and the measurement
+   method into the sprint document and get the Director's agreement.
+4. Known traps: never fade in (`opacity: 0`) the LCP element — LCP waits
+   for the animation; never force a route-only library (e.g. supabase-js)
+   into a `manualChunks` vendor chunk — it gets preloaded on every page.
+
+**Learned from:** local Lighthouse against the same production URL
+ranged 58 → 37 between runs; a full prerender sprint was shipped and
+rolled back on one noisy comparison, and afterwards neither "better" nor
+"worse" could be proven. Real wins that survived measurement: removing
+supabase-js from the homepage (−181 KB), non-blocking font CSS, a
+preloaded LCP portrait without fade-in (desktop 79 → 91).
+
+---
+
+*Commander v1.6.1 — IDSS123a Organisation*

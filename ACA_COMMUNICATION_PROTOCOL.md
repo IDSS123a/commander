@@ -1,6 +1,6 @@
 # ACA_COMMUNICATION_PROTOCOL.md — Universal ACA Output Standards
 # Commander — Project Operating System
-# Version 1.5.5 — September 2026
+# Version 1.6.1 — September 2026
 # Applies to: ALL projects under IDSS123a organisation
 
 ---
@@ -331,4 +331,4 @@ v1.0  2026-07-13  Initial ACA Communication Protocol.
 
 ---
 
-*Commander v1.5.5 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+*Commander v1.6.1 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*

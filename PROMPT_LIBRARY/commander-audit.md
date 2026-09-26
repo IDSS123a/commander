@@ -55,6 +55,7 @@ Update this list as projects complete:
 - https://github.com/IDSS123a/web-app-idss-handbook
 - https://github.com/IDSS123a/web-app-chronos
 - https://github.com/IDSS123a/web-app-vibe-coding-journal
+- https://github.com/mulalicd/personal-web-page
 - [add new projects as they complete]
 ```
 
@@ -73,4 +74,4 @@ After the Director approves the audit findings:
 
 ---
 
-*Commander v1.5.5 — IDSS123a Organisation*
+*Commander v1.6.1 — IDSS123a Organisation*

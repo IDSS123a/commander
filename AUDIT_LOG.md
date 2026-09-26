@@ -1,6 +1,6 @@
 # AUDIT_LOG.md — Commander Audit History
 # Commander — Project Operating System
-# Version 1.5.5 — September 2026
+# Version 1.6.1 — September 2026
 
 ---
 
@@ -212,11 +212,65 @@ since inception.
 
 ---
 
+## AUDIT-004 — personal-web-page End-of-Project Update (M-22 KRAJ)
+
+**Date:** 2026-09-26
+**Trigger:** Director "GOTOVO. Ažuriraj System COMMANDER" → KRAJ protocol;
+proposal approved with "odobri".
+**Conducted by:** Director + Claude Opus 5.5
+**Project reviewed:** https://github.com/mulalicd/personal-web-page
+(4 sprints: backend rebuild, three.js hero, gamification, prerender —
+the last shipped and rolled back).
+
+### Findings
+- **Repeat violations:** M-4/M-10 ×4 (single-observation claims) →
+  learned-from text, no severity change (already 🔴); test data left in
+  production ×2 → DONE_CHECKLIST item; untagged releases ×2 (v1.5.3,
+  v1.5.4) → tags created + CI warning.
+- **Rule that slowed work:** DL-005 model hard pin (dead model) →
+  deprecated in favour of an availability-checked alias.
+- **Uncovered problems:** performance measurement noise → E-15;
+  content drift on a content site → A-11/DL-014; AI provider outages and
+  prompt injection → A-5; hooks broken by `"type": "module"` → shipped
+  hooks/package.json.
+
+### Result
+Commander v1.6 — see COMMANDER_CHANGELOG.md for the full list.
+
+---
+
 *Next audit due: January 2027 or after 5th project completion, whichever comes first.*
 
 ---
 
-## AUDIT-004 — M-22 KRAJ: Vibe-Coding Journal End-of-Project Update (v1.5.5)
+## AUDIT-004 — personal-web-page End-of-Project Update (M-22 KRAJ)
+
+**Date:** 2026-09-26
+**Trigger:** Director "GOTOVO. Ažuriraj System COMMANDER" → KRAJ protocol;
+proposal approved with "odobri".
+**Conducted by:** Director + Claude Opus 5.5
+**Project reviewed:** https://github.com/mulalicd/personal-web-page
+(4 sprints: backend rebuild, three.js hero, gamification, prerender —
+the last shipped and rolled back).
+
+### Findings
+- **Repeat violations:** M-4/M-10 ×4 (single-observation claims) →
+  learned-from text, no severity change (already 🔴); test data left in
+  production ×2 → DONE_CHECKLIST item; untagged releases ×2 (v1.5.3,
+  v1.5.4) → tags created + CI warning.
+- **Rule that slowed work:** DL-005 model hard pin (dead model) →
+  deprecated in favour of an availability-checked alias.
+- **Uncovered problems:** performance measurement noise → E-15;
+  content drift on a content site → A-11/DL-014; AI provider outages and
+  prompt injection → A-5; hooks broken by `"type": "module"` → shipped
+  hooks/package.json.
+
+### Result
+Commander v1.6 — see COMMANDER_CHANGELOG.md for the full list.
+
+---
+
+## AUDIT-005 — M-22 KRAJ: Vibe-Coding Journal End-of-Project Update (v1.6.1)
 
 **Date:** 2026-09-26
 **Trigger:** the Director typed KRAJ — the project's first-ever M-22 pass; only today's own working session (v1.5.4) had fed this project's lessons into Commander before this.
@@ -297,12 +351,28 @@ project's own PROCESS_LESSONS.md).
 - [x] `ARCHITECTURE_PATTERNS.md` updated — A-3, A-8 additions, new A-11
 - [x] `DONE_CHECKLIST.md` updated — 2 Security additions
 - [x] `PROMPT_LIBRARY/security-review.md` updated — RLS column-scoping
-- [x] All 12 Commander documents and `VERSION` brought to v1.5.5 (six
-  had drifted to stale version headers/footers since v1.5.2/1.5.3,
-  unrelated to this project's own lessons — fixed as hygiene while
-  already touching every file)
+- [x] All Commander documents and `VERSION` brought to a consistent
+  version stamp (six had drifted to stale v1.5.2/1.5.3 headers or
+  footers, unrelated to this project's own lessons — fixed as hygiene
+  while already touching every file)
 - [x] `COMMANDER_CHANGELOG.md` entry added
 - [x] `AUDIT_LOG.md` entry appended (this entry)
+
+**Concurrent KRAJ, merged by hand:** this update was prepared as v1.5.5
+against commit 444e9b9, but a second session ran personal-web-page's own
+KRAJ concurrently and pushed first, reaching v1.6 from the same starting
+point — including its own new `A-11` in `ARCHITECTURE_PATTERNS.md`,
+directly colliding with this update's own new `A-11`. Reconciled by
+merge: personal-web-page's content kept as `A-11` (it landed first),
+this update's in-flight-request pattern renumbered to `A-12`, both
+sets of rule/checklist additions verified present after merge (no
+content from either session was dropped), and the final version
+raised to v1.6.1 to sit cleanly after both. This is the first time two
+KRAJ updates from different projects have landed on Commander at
+effectively the same time; worth the annual audit (M-19) checking
+whether concurrent-update collision needs its own explicit protocol
+(e.g. reserving the next rule number before writing content) rather
+than being caught and fixed by hand after the fact.
 
 ---
 
@@ -310,4 +380,4 @@ project's own PROCESS_LESSONS.md).
 
 ---
 
-*Commander v1.5.5 — IDSS123a Organisation*
+*Commander v1.6.1 — IDSS123a Organisation*

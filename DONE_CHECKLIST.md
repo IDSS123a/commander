@@ -1,6 +1,6 @@
 # DONE_CHECKLIST.md — Universal Definition of Done
 # Commander — Project Operating System
-# Version 1.5.5 — September 2026
+# Version 1.6.1 — September 2026
 
 ---
 
@@ -100,6 +100,11 @@
 - [ ] Every list or data view has a designed empty state (no blank screens)
 - [ ] All interactions work on mobile viewport
 - [ ] Accessibility: new UI elements have proper labels, roles, keyboard navigation
+- [ ] Visual/animation features verified with a real-time capture (CDP
+  or real hardware) or DOM state — not a hidden preview pane, which
+  freezes `requestAnimationFrame` (v1.6)
+- [ ] Performance claims measured per E-15 (production HTTPS, ≥ 5
+  interleaved runs or PageSpeed Insights) (v1.6)
 
 ---
 
@@ -137,6 +142,14 @@
   values (`1970-01-01`, `is_test` flag) that can never collide
   with real data (E-11). Future-dated fixtures silently defeat
   "already exists for today" idempotency checks later.
+- [ ] Test data is created only through a channel that can also delete
+  it, and is deleted in the same session. If it cannot be deleted, tell
+  the Director exactly which row to reject/ignore BEFORE he meets it in
+  the admin UI (v1.6 — a leftover test request was approved and raised
+  an "email NOT sent" alert)
+- [ ] Rate limits tested at the exact boundary: N requests allowed,
+  N+1 blocked (v1.6 — an off-by-one blocked the 3rd of 3 allowed
+  attempts and was found only live)
 
 ---
 
@@ -211,4 +224,4 @@ which should be retired.
 
 ---
 
-*Commander v1.5.5 — IDSS123a Organisation*
+*Commander v1.6.1 — IDSS123a Organisation*
