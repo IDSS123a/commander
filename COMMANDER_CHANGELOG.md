@@ -7,6 +7,46 @@
 
 ---
 
+## v1.6.2 (2026-10-02) — Vibe-Coding Journal M-22 KRAJ (second pass)
+
+The project's second KRAJ pass, covering `DECISION_LOG.md` PDL-092
+through PDL-095 (everything since the first pass, AUDIT-005/v1.6.1) --
+full `AUDIT_LOG.md` entry is AUDIT-006; the approved
+`COMMANDER_UPDATE_PROPOSAL.md` with every citation lives in the project
+repository. No new sprint-handoff or `corrections/` files existed for
+this pass; the evidence base was the project's own `DECISION_LOG.md`
+plus this session's own live operational experience.
+
+- ADDED (Learned-From, `ARCHITECTURE_PATTERNS.md` A-4): a permission
+  gate does not have to be all-or-nothing per page -- a feature sold
+  across two tiers can split by section, filtering one endpoint's
+  response per caller tier instead of a single broad 403 (PDL-094).
+- ADDED (Learned-From, `ARCHITECTURE_PATTERNS.md` A-5): classify a new
+  AI content-growth call as EXTRACTIVE (corroborate across sources
+  before publishing) or GENERATIVE (always human-review, no
+  corroboration is possible for invented content) before designing its
+  safety gate -- confirmed across three independent instances
+  (PDL-042, PDL-094, PDL-095).
+- ADDED (Learned-From, `ARCHITECTURE_PATTERNS.md` A-12): documented
+  limitation -- the in-flight request cache only merges calls that
+  overlap in time; two genuinely sequential calls to the same endpoint
+  are invisible to it and need their data composed into one response
+  instead (PDL-092).
+- ADDED (Learned-From, `ENGINEERING_RULES.md` E-12): a `git push` is
+  not an instant deploy -- firing an external trigger against a
+  brand-new route immediately after push can 404 against the previous
+  deployment still live; confirm with a polling loop, not a guessed
+  sleep or the push itself as the signal.
+- FIXED (hygiene, no rule/behavior change): brought every Commander
+  document plus `VERSION` to one consistent version stamp.
+- New rules: none. Severity changes: none. Deprecation candidates:
+  none. New DECISION_LOG entries: none (same shape as v1.6.1 -- all
+  reusable insights attach to rules already shipped).
+
+Source: Vibe-Coding Journal project, M-22 KRAJ (second pass), October 2026.
+
+---
+
 ## v1.6.1 (2026-09-26) — Vibe-Coding Journal M-22 KRAJ (end-of-project)
 
 The project's first-ever KRAJ pass -- full AUDIT_LOG.md entry is

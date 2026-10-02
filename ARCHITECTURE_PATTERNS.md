@@ -1,6 +1,6 @@
 # ARCHITECTURE_PATTERNS.md — Universal Structural Rules
 # Commander — Project Operating System
-# Version 1.6.1 — September 2026
+# Version 1.6.2 — October 2026
 
 ---
 
@@ -228,6 +228,17 @@ and server (to actually enforce). Without this, buttons render as
 clickable for records the user cannot actually edit, and the
 server silently 403s.
 
+**A permission gate does not have to be all-or-nothing per page.**
+(Vibe-Coding Journal, PDL-094, 2026-10-02) When one feature is sold
+across two tiers that each unlock a different PART of the same page
+(a lower tier reads section A, a higher tier reads A + B), give it
+two narrow permission functions instead of one broad gate — both
+still route through `lib/permissions.ts` unchanged. The API route
+filters its own response by the caller's tier rather than returning
+403 for anyone short of the top tier, and the page renders the
+locked section as an inline upsell next to the unlocked content
+instead of blocking the whole page.
+
 ---
 
 ## A-5. AI Provider Interface
@@ -283,6 +294,23 @@ was dead with a valid key; `gemini-flash-latest` answered 503 on ~1 in 3
 requests and a 10-request burst hit free-tier 429s (fixed: 12/12 OK after
 retry + fallback + key rotation); a "you are now a pirate" injection was
 half-adopted before hardening.
+
+**Classify a new AI content-growth call as EXTRACTIVE or GENERATIVE
+before designing its safety gate** (Vibe-Coding Journal, three
+independent instances: PDL-042, PDL-094, PDL-095). Extractive — the
+AI pulls out something the source material already names (a term, a
+tool) — can be corroborated: require the same fact across several
+independent sources inside a time window before it becomes real
+content; a single sighting is cheap to discard. Generative — the AI
+invents new content grounded in a trend across sources (a lesson
+topic, a project idea) — has no corroboration signal possible, since
+nothing existed before the call to compare it against. A generative
+call must always land in a human-review queue before it is ever
+shown to an end user, with no threshold-based auto-publish path.
+Applying extractive-style corroboration to a generative call is
+meaningless (nothing to corroborate against); skipping human review
+on a generative call because it "passed a confidence check" is how
+an invented, ungrounded claim reaches a user as fact.
 
 ---
 
@@ -527,6 +555,22 @@ function fetchShared(key: string): Promise<T> {
 }
 ```
 
+**Limitation: this pattern does not catch SEQUENTIAL duplicate calls.**
+(Vibe-Coding Journal, PDL-092, 2026-10-02, found immediately after
+this rule itself shipped from PDL-091) The in-flight cache only
+merges calls that overlap in time. Two calls to the same
+identity/config endpoint where the second starts only once the first
+has already resolved are invisible to it — found live: a page still
+called the shared endpoint twice this way even with the cache in
+place. The fix for THAT shape is different: compose the two callers'
+data needs into one endpoint response so the second call never needs
+to exist at all (worked example: the identity endpoint grew one more
+field so a second component stopped calling its own separate
+endpoint for a related answer, and that second endpoint was deleted).
+Diagnose which shape is present — concurrent (this cache fixes it) or
+sequential (only composing the responses fixes it) — before assuming
+this pattern alone closes out a duplicate-call finding.
+
 ---
 
-*Commander v1.6.1 — IDSS123a Organisation*
+*Commander v1.6.2 — IDSS123a Organisation*

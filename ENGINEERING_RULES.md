@@ -1,6 +1,6 @@
 # ENGINEERING_RULES.md — Universal Engineering Standards
 # Commander — Project Operating System
-# Version 1.6.1 — September 2026
+# Version 1.6.2 — October 2026
 
 ---
 
@@ -401,6 +401,17 @@ Never do these without explicit written approval in the project `DECISION_LOG.md
   compression and `http://localhost` gets no brotli; `serve -s` applies
   rewrites before `index.html` (Vercel checks the filesystem first).
   Verify animation-dependent UI through DOM state, speed per E-15.
+- **A push is not an instant deploy (Vibe-Coding Journal, 2026-10-02).**
+  `git push` to the branch a host deploys from does not mean the new
+  code is already serving traffic — the build/deploy takes real time.
+  Manually firing an external trigger (a GitHub Actions
+  `workflow_dispatch`, a webhook) against a brand-new route right
+  after push can hit the PREVIOUS deployment still live at that URL
+  and get a plain 404, which looks identical to a real routing
+  mistake. Confirm the new route is actually live by polling it until
+  the response changes, rather than guessing a fixed sleep or trusting
+  the push itself as the signal:
+  `until [ "$(curl -s -o /dev/null -w '%{http_code}' URL)" != "404" ]; do sleep 5; done`
 
 ---
 
@@ -487,4 +498,4 @@ preloaded LCP portrait without fade-in (desktop 79 → 91).
 
 ---
 
-*Commander v1.6.1 — IDSS123a Organisation*
+*Commander v1.6.2 — IDSS123a Organisation*

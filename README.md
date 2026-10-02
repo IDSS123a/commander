@@ -2,7 +2,7 @@
 
 **Owner:** Davor Mulalić — P.U. Internationale Deutsche Schule Sarajevo
 **Purpose:** Universal AI Coding Assistant operating system for all projects
-**Version:** 1.6 — September 2026
+**Version:** 1.6.2 — October 2026
 
 ---
 
@@ -266,6 +266,16 @@ v1.3  2026-07  Added: E-13 (checkable rules ship as automation), M-23
                cheatsheet capabilities only) + vibe-coding-journal M-18 harvest.
                Constraint: every change replaces a manual step or removes
                tokens; subagent rules and MCP expansion rejected by that test.
+
+v1.6.2 2026-10  Vibe-Coding Journal lessons (M-22 KRAJ, second pass):
+               A-4 split-tier-by-section permission gating, A-5
+               extractive-vs-generative AI call classification (three
+               confirmed instances), A-12 documented limitation
+               (sequential calls are invisible to the in-flight cache),
+               E-12 a push is not an instant deploy. No new rules, no
+               severity changes, no deprecations -- all four are
+               Learned-From additions to rules already shipped in
+               v1.6.1. All document stamps unified to v1.6.2.
 
 v1.6.1 2026-09  Vibe-Coding Journal lessons (M-22 KRAJ, its first-ever
                pass): E-5 timeout-as-retryable in rotation loops, A-3

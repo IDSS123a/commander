@@ -1,6 +1,6 @@
 # FEATURE_LIFECYCLE.md — Universal Feature Build Process
 # Commander — Project Operating System
-# Version 1.6.1 — September 2026
+# Version 1.6.2 — October 2026
 
 ---
 
@@ -178,4 +178,4 @@ Next sprint: Sprint 08 — OCR Pipeline
 
 ---
 
-*Commander v1.6.1 — IDSS123a Organisation*
+*Commander v1.6.2 — IDSS123a Organisation*

@@ -1,6 +1,6 @@
 # CLAUDE_CODE_OPERATIONS.md — Claude Code Operator's Guide
 # Commander — Project Operating System
-# Version 1.6.1 — September 2026
+# Version 1.6.2 — October 2026
 # Applies to: Director's Claude Code sessions on ALL projects
 
 ---
@@ -377,4 +377,4 @@ v1.0  2026-07-13  Initial Claude Code Operations Guide.
 
 ---
 
-*Commander v1.6.1 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+*Commander v1.6.2 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*

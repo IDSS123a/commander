@@ -1,6 +1,6 @@
 # AUDIT_LOG.md — Commander Audit History
 # Commander — Project Operating System
-# Version 1.6.1 — September 2026
+# Version 1.6.2 — October 2026
 
 ---
 
@@ -376,8 +376,74 @@ than being caught and fixed by hand after the fact.
 
 ---
 
+## AUDIT-006 — M-22 KRAJ: Vibe-Coding Journal End-of-Project Update, second pass (v1.6.2)
+
+**Date:** 2026-10-02
+**Trigger:** the Director typed KRAJ again, after the Tools and Ideas features (and three smaller fixes) shipped since the project's first pass (AUDIT-005, v1.6.1).
+**Conducted by:** Director + Claude Sonnet 5
+
+### Evidence base
+
+The project's own `DECISION_LOG.md`, PDL-092 through PDL-095 (the full
+log now runs PDL-001 through PDL-095) -- the four entries added since
+AUDIT-005 last read it through PDL-091. No new `corrections/` or
+sprint-handoff files existed for this pass. Cross-checked against the
+live v1.6.1 Commander content first, so nothing already covered was
+re-proposed. Full proposal, with every citation, is
+`COMMANDER_UPDATE_PROPOSAL.md` in the project repository (2026-10-02),
+approved by the Director before any Commander file changed.
+
+### Changes made
+
+**Learned-From additions to existing rules (not new rules):**
+- `ARCHITECTURE_PATTERNS.md` A-4 (Permissions Pattern) -- a permission
+  gate can split by section instead of gating a whole page: Vibe-Coding
+  Journal's "Top Tools to Try" feeds two subscription tiers from one
+  endpoint, filtered by caller tier (PDL-094).
+- `ARCHITECTURE_PATTERNS.md` A-5 (AI Provider Interface) -- classify a
+  new AI content-growth call as EXTRACTIVE (corroborate across sources
+  before publishing) or GENERATIVE (always human-review, never
+  threshold-based auto-publish) before designing its safety gate,
+  confirmed across three independent instances in this one project
+  (PDL-042 University, PDL-094 Tools, PDL-095 Ideas).
+- `ARCHITECTURE_PATTERNS.md` A-12 (De-duplicate Concurrent In-Flight
+  Requests, shipped last pass from PDL-091) -- documented limitation:
+  the in-flight cache only merges calls that overlap in time; two
+  genuinely sequential calls to the same endpoint are invisible to it
+  and need their two data needs composed into one response instead,
+  which is the actual fix PDL-092 applied (`/api/me` + `rewards/state`
+  merged into one endpoint).
+- `ENGINEERING_RULES.md` E-12 (Environment Gotchas) -- a `git push` is
+  not an instant deploy: an external cron trigger fired immediately
+  after pushing a brand-new route can 404 against the still-live
+  previous deployment; confirmed live triggering Vibe-Coding Journal's
+  new `ideas-generate` endpoint minutes after pushing it, fixed by
+  polling the URL until it stopped 404ing instead of guessing a sleep.
+
+**Severity changes:** none. **Deprecation candidates:** none -- no
+rule was found to have slowed this pass's work without payoff. **New
+DECISION_LOG entries:** none -- same shape as AUDIT-005: the reusable
+insights found were architecture/process lessons, attached to existing
+rules above rather than filed as new standalone entries.
+**Not proposed (considered and rejected):** PDL-092's Reddit
+retirement and book pop-up interval, and PDL-093's hnrss.org-to-Algolia
+migration, are business/vendor-specific decisions, not reusable
+engineering material -- documented in the project's own
+`COMMANDER_UPDATE_PROPOSAL.md` rather than silently dropped.
+
+### Post-KRAJ checklist
+
+- [x] `ARCHITECTURE_PATTERNS.md` updated -- A-4, A-5, A-12 additions
+- [x] `ENGINEERING_RULES.md` updated -- E-12 addition
+- [x] `COMMANDER_CHANGELOG.md` updated -- new v1.6.2 entry
+- [x] `README.md` version history updated -- new v1.6.2 entry
+- [x] `VERSION` and every document stamp unified to v1.6.2
+- [x] Committed, pushed, tagged `v1.6.2`
+
+---
+
 *Next audit due: January 2027 or after 5th project completion, whichever comes first.*
 
 ---
 
-*Commander v1.6.1 — IDSS123a Organisation*
+*Commander v1.6.2 — IDSS123a Organisation*
