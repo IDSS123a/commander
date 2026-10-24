@@ -164,7 +164,7 @@ test pane, a misread SPF/CNAME record, and a prerender sprint rolled back
 on one noisy Lighthouse comparison (the old version then scored 37–38
 instead of the 58 used as the baseline).
 
-**A public-facing claim about an algorithm's own behaviour (a threshold, a frequency, a count) is checked word for word against the named constants in the code before it ships, not phrased from memory or a general sense of the rule (Vibe-Coding Journal, PDL-111, 2026-10-24: a draft homepage sentence said "several independent sources" where the real, named rule is at least two).**
+**A public-facing claim about an algorithm's own behaviour (a threshold, a frequency, a count) is checked word for word against the named constants in the code before it ships, not phrased from memory or a general sense of the rule (Vibe-Coding Journal, PDL-111, 2026-10-24: a draft homepage sentence said "several independent sources" where the real, named rule in the code is at least 3 mentions from at least 2 distinct sources within 14 days).**
 
 ---
 
@@ -306,7 +306,7 @@ Never assume institutional policy.
 
 **Full context and a clear instruction do not guarantee the stated target is reachable as described.** When a measurement shows the literal target cannot be met without a change outside the approved scope, stop and report the actual numbers rather than silently expanding scope to force it, or silently settling for less than what was asked.
 
-**Worked example (Vibe-Coding Journal, PDL-112, 2026-10-24).** An approved fix asked for four border measurements to come out equal at one named value. Three of the four matched as asked; the fourth pair, a separate grid built with a deliberately heavier border weight by design, could only be forced to match by thinning every side of every card in that grid, a materially larger change than anything approved. Reported the real measurements and stopped, rather than making that larger change or quietly reporting success against a target that was not actually met.
+**Worked example (Vibe-Coding Journal, PDL-112, 2026-10-24).** An approved fix asked for four border measurements, two cells in one grid and two cards in a separate grid, to all come out equal at one named value. The fix itself worked: the two cells matched each other at the named value after it was applied, and the two cards already matched each other on their own, unrelated value. The stated target, all four equal to one single value, could not be met, because the two grids are built with different border weights by design, not by accident. Making them equal would mean thinning every side of every card in the second grid, a materially larger change than anything approved. Reported the real measurements and stopped, rather than making that larger change or quietly reporting success against a target that was not actually met.
 
 ---
 

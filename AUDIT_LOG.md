@@ -442,6 +442,49 @@ engineering material -- documented in the project's own
 
 ---
 
+## AUDIT-007: Vibe-Coding Journal, PDL-096 through PDL-112 (v1.6.3)
+
+**Date:** 2026-10-25
+**Trigger:** a Director-requested, read-only Commander assessment of `DECISION_LOG.md` PDL-096 through PDL-112, the range since AUDIT-006 last read it through PDL-095, followed by written approval to prepare the amendment.
+**Conducted by:** Director + Claude Sonnet 5
+
+### Evidence base
+
+The project's own `DECISION_LOG.md`, PDL-096 through PDL-112 (the full log now runs PDL-001 through PDL-112). No new `corrections/` or sprint-handoff files existed for this pass. Cross-checked against the live v1.6.2 Commander content first, confirming each candidate was genuinely not yet covered before proposing it.
+
+### Changes made
+
+**New rules and patterns:**
+- `CONSTITUTION.md` M-24 (Real-Account Session Boundary, critical, new) -- never create, mint, borrow or reuse a session for a real user account, formalising a standing instruction repeated throughout this project's admin-feature work.
+- `ARCHITECTURE_PATTERNS.md` A-13 (Destructive Action with Snapshot-Based Undo, new) -- write a verified snapshot before any destructive statement, support restoring it, handle pointers to rows outside the snapshot, and check the more specific status flag first when deriving what an undo panel shows (PDL-108, PDL-109, PDL-110).
+- `ARCHITECTURE_PATTERNS.md` A-14 (SSRF-Safe Outbound Fetch, new) -- a connection-time lookup hook that honours Node's real `options.all` callback contract, plus HTTPS-only, no non-default port, re-validated redirects, a response size cap and one total deadline (PDL-103, PDL-104).
+- `ENGINEERING_RULES.md` E-16 (PostgREST `.in()` Id-List Limits, new) -- chunk at 100 ids per request past a few hundred ids, prefer a server-side join, and the documented anti-join trick does not work on a to-many embedded relation (PDL-105, PDL-106).
+
+**Learned-From additions to existing rules (not new rules):**
+- `ARCHITECTURE_PATTERNS.md` A-8 (Supabase Client Pattern) -- RLS with zero SELECT policies does not error on an anon-client read, it silently returns an empty result; confirm the table's actual policies, or read with the service-role client for admin-only data (PDL-101).
+- `ARCHITECTURE_PATTERNS.md` A-10 (Pre-Check Deletion Blockers) -- an audit or snapshot table's reference to a user needs `ON DELETE SET NULL`, not the default blocking behaviour, checked at the time the table is created (PDL-100).
+- `ENGINEERING_RULES.md` E-6 (API Routes and Server Actions) -- the Authorise step must check every relevant flag already available on the user object, not only the one the check was originally written for (PDL-107).
+- `ENGINEERING_RULES.md` E-11 (Forbidden Patterns) -- a border-removal class and its matching thick-border class must share the exact same breakpoint prefix, or the later block silently re-applies what the earlier one removed (PDL-097).
+- `ENGINEERING_RULES.md` E-13 (Mechanically Checkable Rules Ship as Automation) -- a read-only script can enforce its own read-only-ness with a test that scans its own source for a write call (PDL-099).
+- `CONSTITUTION.md` M-4 (Anti-Hallucination Protocol) -- a public claim about an algorithm's own behaviour is checked word for word against the named constants in the code before it ships, not phrased from memory (PDL-111).
+- `CONSTITUTION.md` M-10 (Context Insufficiency Rule) -- stop and report, with a worked example, when a measurement shows the stated target cannot be met without a change outside the approved scope (PDL-112).
+
+**Severity changes:** none. **Deprecation candidates:** none -- no rule was found to have slowed this pass's work without payoff. **New DECISION_LOG entries:** none -- same shape as AUDIT-005 and AUDIT-006: every reusable insight attaches to a rule already shipped or a short new one.
+**Not proposed (considered and rejected):** PDL-096's link and README fix, PDL-098's static sample-page build, and PDL-111's homepage content gap were found to be project-specific, not reusable engineering material.
+
+### Post-KRAJ checklist
+
+- [x] `ARCHITECTURE_PATTERNS.md` updated -- A-8, A-10 additions, new A-13, A-14
+- [x] `ENGINEERING_RULES.md` updated -- E-6, E-11, E-13 additions, new E-16
+- [x] `CONSTITUTION.md` updated -- M-4, M-10 additions, new M-24
+- [x] `COMMANDER_CHANGELOG.md` updated -- new v1.6.3 entry
+- [ ] `README.md` version history -- not done, outside the Director's approved file list for this pass
+- [x] `VERSION` and the three edited documents' own stamps unified to v1.6.3
+- [x] Committed and pushed on branch `commander-v1.6.3`, Pull Request opened against `main`, not yet merged
+- [x] `AUDIT_LOG.md` entry appended (this entry)
+
+---
+
 *Next audit due: January 2027 or after 5th project completion, whichever comes first.*
 
 ---
