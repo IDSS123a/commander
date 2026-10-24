@@ -1,6 +1,6 @@
 # ARCHITECTURE_PATTERNS.md — Universal Structural Rules
 # Commander — Project Operating System
-# Version 1.6.2 — October 2026
+# Version 1.6.3 — October 2026
 
 ---
 
@@ -417,6 +417,12 @@ The service role key (`SUPABASE_SERVICE_ROLE_KEY`) is used only in:
 Never use the service role key in client-side code.
 Never use the service role key in standard API routes.
 
+**RLS with zero SELECT policies does not error on an anon-client
+read, it silently returns an empty result (Vibe-Coding Journal,
+PDL-101, 2026-10-24).** A page or query that looks correct with no
+rows is not proof RLS is absent. Confirm the table's actual policies,
+or read with the service-role client for any admin-only data.
+
 **PostgREST NULL filter: use `.is(col, null)`, never `.eq(col,
 null)`.** `.eq()` serializes to the literal string `"null"`, not SQL
 NULL, and produces a type/UUID error PostgREST-side that TypeScript
@@ -491,6 +497,14 @@ or migrating the parent would silently wipe every row of generated
 content with no trace. Bind derived content to a stable key, or
 regenerate it explicitly; never rely on cascading delete to keep it
 in sync.
+
+**An audit or snapshot table's reference to a user needs `ON DELETE
+SET NULL`, not the default blocking behaviour (Vibe-Coding Journal,
+PDL-100, 2026-10-24).** `deleted_by`/`restored_by`-style columns left
+at the default on a new table silently block the referenced user from
+ever being erased later. Check this on every new audit or history
+table at the time it is created, not only on tables an earlier pass
+already covered.
 
 
 ---
@@ -573,4 +587,41 @@ this pattern alone closes out a duplicate-call finding.
 
 ---
 
-*Commander v1.6.2 — IDSS123a Organisation*
+## A-13. Destructive Action with Snapshot-Based Undo
+
+*Added: v1.6.3, October 2026 -- learned on Vibe-Coding Journal (PDL-108, PDL-109, PDL-110)*
+
+Before any statement that destroys user data, write a full-row snapshot of every affected table, read it back from the database and verify its counts match what was written, and only proceed to the actual delete once verification passes. On a read-back mismatch, delete the snapshot row itself before raising the error, so a failed snapshot never sits in the table looking valid.
+
+Record a fixed retention window and purge snapshot rows past it automatically, inside the same request path, never allowed to fail the response.
+
+A restore must handle rows outside the snapshot that a restored row still points to. Check each such pointer against the real table: a target that is itself inside the same snapshot keeps its pointer, since it restores in the same batch; a target that is missing and was not restored gets its pointer cleared instead, so the restore does not fail outright on a foreign-key violation.
+
+**State-derivation ordering, for the undo panel's own display.** When a shown status depends on more than one flag, check the more specific one first. PDL-110: a snapshot's "the original rows still exist" flag means two different things depending on history, since a successful restore also makes the rows exist again; checking it before the "was this restored" flag showed a correctly-restored row as if nothing had ever been deleted.
+
+**Learned from:** PDL-108 built the first version of this pattern, a 30-day undo for admin-deleted articles with a verified snapshot. PDL-109, a same-day audit, found a restore could fail outright on a foreign-key pointer to a still-deleted, unrestored row. PDL-110, found in the Director's own live test, fixed the ordering bug above.
+
+---
+
+## A-14. SSRF-Safe Outbound Fetch
+
+*Added: v1.6.3, October 2026 -- learned on Vibe-Coding Journal (PDL-103, PDL-104)*
+
+Any fetch the application makes to a URL supplied or suggested by an untrusted source (an admin-submitted feed URL, a redirect target) needs protection at connection time, not only before it. A URL can look safe at the moment it is checked and still resolve somewhere private by the time the actual connection happens, through DNS rebinding.
+
+**The core mechanism: a connection-time lookup hook.** Pass a custom `lookup` function straight into Node's own `https.request`/`net.connect`, so the hostname is resolved once, checked, and the already-checked address is the one actually used to connect, never a second, later, separate resolution. The hook must handle both callback shapes Node actually uses: Node calls it with `options.all = true` on every real connection, expecting an array of addresses back, not the single-address shape a hook written from memory tends to assume. Test the real transport directly at least once, not only through a mocked seam, since a shape mismatch here fails invisibly in every mocked test and only shows up on a real connection.
+
+**The other controls this needs alongside the lookup hook, all confirmed necessary in practice, not optional extras:**
+- HTTPS only; reject any other scheme before ever resolving the host.
+- Reject a URL naming a non-default port; the actual connection always goes to 443 regardless of what the URL claims, so a mismatched port would otherwise fetch the wrong thing silently instead of being refused.
+- Every redirect hop re-runs the full check, syntax and the connection-time lookup, against the new URL, capped at a small fixed number of hops, with connection reuse disabled so no hop can reuse an already-validated connection for an unvalidated one.
+- A response size cap, enforced while streaming, not only checked against a declared Content-Length header.
+- One total deadline across the whole operation, not just per network hop, since a single logical action can legitimately make more than one fetch, for example following one discovered link.
+
+**Residual risk, stated plainly, not hidden:** this closes the DNS-rebinding race specifically. It does not close an application-layer SSRF where the destination itself proxies the request onward after accepting a normal connection; no DNS-level check can see through that. It is also a point-in-time check: a hostname that resolves safely today could be repointed later, after it has already been added.
+
+**Learned from:** PDL-103 built the mechanism. PDL-104, a same-day audit, found the lookup hook's callback-shape bug above; every real, non-mocked call would have failed before ever reaching the address-safety logic, which was itself correct, only the wiring into Node's actual contract was wrong.
+
+---
+
+*Commander v1.6.3 — IDSS123a Organisation*

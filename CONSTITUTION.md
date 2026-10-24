@@ -1,6 +1,6 @@
 # CONSTITUTION.md — Universal AI Mindset
 # Commander — Project Operating System
-# Version 1.6.2 — October 2026
+# Version 1.6.3 — October 2026
 # Applies to: ALL projects under IDSS123a organisation
 
 ---
@@ -164,6 +164,8 @@ test pane, a misread SPF/CNAME record, and a prerender sprint rolled back
 on one noisy Lighthouse comparison (the old version then scored 37–38
 instead of the 58 used as the baseline).
 
+**A public-facing claim about an algorithm's own behaviour (a threshold, a frequency, a count) is checked word for word against the named constants in the code before it ships, not phrased from memory or a general sense of the rule (Vibe-Coding Journal, PDL-111, 2026-10-24: a draft homepage sentence said "several independent sources" where the real, named rule is at least two).**
+
 ---
 
 ## M-5. Layered Architecture — Non-Negotiable `[ACTIVE]` 🔴 CRITICAL
@@ -301,6 +303,10 @@ Never invent schema.
 Never invent business rules.
 Never assume institutional policy.
 ```
+
+**Full context and a clear instruction do not guarantee the stated target is reachable as described.** When a measurement shows the literal target cannot be met without a change outside the approved scope, stop and report the actual numbers rather than silently expanding scope to force it, or silently settling for less than what was asked.
+
+**Worked example (Vibe-Coding Journal, PDL-112, 2026-10-24).** An approved fix asked for four border measurements to come out equal at one named value. Three of the four matched as asked; the fourth pair, a separate grid built with a deliberately heavier border weight by design, could only be forced to match by thinning every side of every card in that grid, a materially larger change than anything approved. Reported the real measurements and stopped, rather than making that larger change or quietly reporting success against a target that was not actually met.
 
 ---
 
@@ -682,4 +688,14 @@ be false and harmless only by luck.
 
 ---
 
-*Commander v1.6.2 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+## M-24. Real-Account Session Boundary `[ACTIVE]` 🔴 CRITICAL
+
+*Added: v1.6.3, October 2026*
+
+Never create, mint, borrow or reuse a session for a real user account. No admin-level auth call that issues a session for someone else, no magic-link generation, no OTP verification, no token placed in browser storage, for any account that is not a disposable one created for this purpose. If a signed-in view is genuinely needed to verify something, stop and ask the Director first.
+
+**Learned from:** Vibe-Coding Journal, a standing instruction repeated in every approval message across this project's admin-feature work, formalised here so it no longer depends on being restated each time.
+
+---
+
+*Commander v1.6.3 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
