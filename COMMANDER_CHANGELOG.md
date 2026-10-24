@@ -7,6 +7,64 @@
 
 ---
 
+## v1.6.3 (2026-10-25) — Vibe-Coding Journal, PDL-096 through PDL-112
+
+Covers `DECISION_LOG.md` PDL-096 through PDL-112 (admin source and
+article control, the homepage review batches, and the three homepage
+follow-up fixes), the range since the previous pass (AUDIT-006/v1.6.2).
+Prepared following a read-only Commander assessment the Director
+approved; full `AUDIT_LOG.md` entry is AUDIT-007. Evidence base: the
+project's own `DECISION_LOG.md` for this PDL range.
+
+- ADDED (`ARCHITECTURE_PATTERNS.md` A-8): RLS with zero SELECT policies
+  does not error on an anon-client read, it silently returns an empty
+  result. Confirm the table's actual policies, or read with the
+  service-role client for admin-only data (PDL-101).
+- ADDED (`ARCHITECTURE_PATTERNS.md` A-10): an audit or snapshot table's
+  reference to a user needs `ON DELETE SET NULL`, not the default
+  blocking behaviour, checked at the time the table is created (PDL-100).
+- NEW (`ARCHITECTURE_PATTERNS.md` A-13): Destructive Action with
+  Snapshot-Based Undo -- write a verified snapshot before any destructive
+  statement, support restoring it, handle pointers to rows outside the
+  snapshot, and check the more specific status flag first when deriving
+  what the undo panel shows (PDL-108, PDL-109, PDL-110).
+- NEW (`ARCHITECTURE_PATTERNS.md` A-14): SSRF-Safe Outbound Fetch -- a
+  connection-time lookup hook that honours Node's real `options.all`
+  callback contract, plus HTTPS-only, no non-default port, re-validated
+  redirects, a response size cap and one total deadline (PDL-103,
+  PDL-104).
+- ADDED (`ENGINEERING_RULES.md` E-6): the Authorise step must check
+  every relevant flag already available on the user object, not only
+  the one the check was originally written for (PDL-107).
+- ADDED (`ENGINEERING_RULES.md` E-11): a border-removal class and its
+  matching thick-border class must share the exact same breakpoint
+  prefix, or the later block silently re-applies what the earlier one
+  removed (PDL-097).
+- ADDED (`ENGINEERING_RULES.md` E-13): a read-only script can enforce
+  its own read-only-ness with a test that scans its own source for a
+  write call (PDL-099).
+- NEW (`ENGINEERING_RULES.md` E-16): PostgREST `.in()` Id-List Limits --
+  chunk at 100 ids per request past a few hundred ids, prefer a
+  server-side join, and the documented anti-join trick does not work on
+  a to-many embedded relation (PDL-105, PDL-106).
+- ADDED (`CONSTITUTION.md` M-4): a public claim about an algorithm's own
+  behaviour is checked word for word against the named constants in the
+  code before it ships (PDL-111).
+- ADDED (`CONSTITUTION.md` M-10): stop and report, with a worked example,
+  when a measurement shows the stated target cannot be met without a
+  change outside the approved scope (PDL-112).
+- NEW (`CONSTITUTION.md` M-24, critical): Real-Account Session Boundary
+  -- never create, mint, borrow or reuse a session for a real user
+  account, formalising a standing instruction repeated throughout this
+  project's admin-feature work.
+- New rules: one critical (M-24), two new patterns (A-13, A-14), one new
+  engineering rule (E-16). Severity changes: none. Deprecation
+  candidates: none. New DECISION_LOG entries: none (same shape as prior
+  passes -- every reusable insight attaches to a rule already shipped or
+  a short new one).
+
+---
+
 ## v1.6.2 (2026-10-02) — Vibe-Coding Journal M-22 KRAJ (second pass)
 
 The project's second KRAJ pass, covering `DECISION_LOG.md` PDL-092

@@ -1,6 +1,6 @@
 # ENGINEERING_RULES.md — Universal Engineering Standards
 # Commander — Project Operating System
-# Version 1.6.2 — October 2026
+# Version 1.6.3 — October 2026
 
 ---
 
@@ -233,6 +233,8 @@ Every API route must have a JSDoc comment block:
  */
 ```
 
+**Step 2, Authorise: check every relevant flag already in hand, not only the primary one (Vibe-Coding Journal, PDL-107, 2026-10-24).** A user-blocked flag was already being read and carried on the verified-user object, but the admin authorisation check only looked at the role, never at that flag. Blocking an administrator's account stopped new sign-ins but did nothing to a session that already had a valid token. When adding or reviewing an authorisation check, list every flag the function already has available on the user object and confirm each one that should matter is actually read, not only the one the check was originally written for.
+
 ---
 
 ## E-7. State Management `[ACTIVE]` 🟡 STANDARD
@@ -331,6 +333,7 @@ Never do these without explicit written approval in the project `DECISION_LOG.md
 | Decoration/effect CSS utilities that set layout properties (`position`, `display`, sizing) | Custom utilities declared after Tailwind win the cascade and silently override `absolute`/`hidden` on the element (personal-web-page S03: a card collapsed) |
 | Side effects (analytics, timers, storage writes) inside a React state updater | Updaters must be pure — StrictMode calls them twice. Mirror state in a ref and run the effect outside |
 | Test/fixture rows with realistic future dates in production tables | They silently satisfy "already exists for today" idempotency checks once the calendar catches up. Delete in-session, track as a cleanup item, or use sentinel values (`1970-01-01`, `is_test` flag) |
+| A border-removal class and its matching thick-border class on different Tailwind breakpoint prefixes (`sm:border-r-0` paired with `md:border-4`) | Tailwind emits breakpoint blocks in ascending order, so the later block silently re-applies what the earlier one removed. Invisible from the class names alone, only visible in `getComputedStyle` (Vibe-Coding Journal, PDL-097). Keep every border-removal class on the exact same breakpoint prefix as the thick border it is meant to share |
 
 ---
 
@@ -451,6 +454,8 @@ server-side on every push and PR, closing that gap. Install it via
 inactive (not failing) on repos with no
 `.claude/project-guard.config.json`, same contract as the hook itself.
 
+**A read-only script can enforce its own read-only-ness the same way (Vibe-Coding Journal, PDL-099, 2026-10-24).** A backup or export script that must never write can ship with its own test that reads the script's own source text and fails the build if `insert`, `update`, `delete`, `upsert` or `rpc` ever appears in it. The property holds for every future edit automatically, not only for the version someone reviewed by eye.
+
 ---
 
 ## E-14. Schema/Config Changes — Mandatory Consumer Enumeration `[ACTIVE]` 🟡 STANDARD
@@ -498,4 +503,16 @@ preloaded LCP portrait without fade-in (desktop 79 → 91).
 
 ---
 
-*Commander v1.6.2 — IDSS123a Organisation*
+## E-16. PostgREST `.in()` Id-List Limits `[ACTIVE]` 🟡 STANDARD
+
+*Added: v1.6.3, October 2026 -- learned on Vibe-Coding Journal (PDL-105, PDL-106)*
+
+`.in(column, ids)` sends every id in the request itself, as part of the query string. Past a few hundred ids this overflows the request's own HTTP headers and the call fails outright, not gracefully, with an error that gives no hint the cause was list length. An id list built from a real, growing table can reach this size without anyone deliberately choosing a large number.
+
+Chunk any such list at 100 ids per request, both for a count and for the matching rows, rather than sending the whole list in one call. Where the real need is "rows matching a relationship," prefer a server-side filter through an embedded join instead of building a client-side id list at all; it avoids the limit entirely and is usually the faster query besides.
+
+**The standard anti-join trick does not work for a to-many embedded relation on PostgREST.** The documented pattern for "rows with no related row" (`select=*,table!left(id)&table.id=is.null`) returns every row unfiltered against a to-many embed, since PostgREST represents "no related rows" there as an empty array, not SQL NULL, so the `is.null` filter never matches. Verify this directly against the real schema before relying on it; do not assume the documented pattern works for every relation shape.
+
+---
+
+*Commander v1.6.3 — IDSS123a Organisation*
