@@ -1,6 +1,6 @@
 # CONSTITUTION.md — Universal AI Mindset
 # Commander — Project Operating System
-# Version 1.6.3 — October 2026
+# Version 1.7.0 — October 2026
 # Applies to: ALL projects under IDSS123a organisation
 
 ---
@@ -165,6 +165,8 @@ on one noisy Lighthouse comparison (the old version then scored 37–38
 instead of the 58 used as the baseline).
 
 **A public-facing claim about an algorithm's own behaviour (a threshold, a frequency, a count) is checked word for word against the named constants in the code before it ships, not phrased from memory or a general sense of the rule (Vibe-Coding Journal, PDL-111, 2026-10-24: a draft homepage sentence said "several independent sources" where the real, named rule in the code is at least 3 mentions from at least 2 distinct sources within 14 days).**
+
+**The rule covers more than code (Weekly Menu, October 2026).** One near-miss per sprint, each in a different place: a drafted message to a third party stated an unconfirmed fact about the owner (S00), a suggested dish translation contradicted the dish's own ingredients (S00), a non-technical controller's legal terms were nearly recorded as legal fact (S02), and a hosting platform's import screen offered an "integration" that would have created a new empty database and injected a service-role key (S03). Drafted outbound messages, content facts and platform-suggested integrations are checked against evidence exactly like code.
 
 ---
 
@@ -500,6 +502,10 @@ applicable improvements."
 This replaces the previous practice of relying on ACA session memory
 for end-of-project Commander updates. The filesystem is the memory.
 
+**Tag lessons with the rule they actually concern (Weekly Menu, October 2026).** Environment and tooling gotchas belong to E-12; E-13 is only for a check that should have been automated and was not. Mis-tagged gotchas made `patterns-detect` report E-13 as recurring in 3 sprints when the real recurrence was in E-12. Run the sprint close-out before KRAJ, so the last sprint's compliance block exists as M-22 input.
+
+**The lessons guard asks for a lesson after every burst of edits.** `lessons-guard.js` blocks the end of a turn when the newest `*_LESSONS.md` is more than 10 minutes older than the latest logged file change, even if lessons were written earlier in the same session. This is by design: each working stretch closes with its lesson, or with the explicit "No lessons" line.
+
 ---
 
 ## M-19. Annual Commander Audit `[ACTIVE]` 🟢 PREFERRED
@@ -696,6 +702,8 @@ Never create, mint, borrow or reuse a session for a real user account. No admin-
 
 **Learned from:** Vibe-Coding Journal, a standing instruction repeated in every approval message across this project's admin-feature work, formalised here so it no longer depends on being restated each time.
 
+**A preview route is a real session if the browser ever held one (Weekly Menu, 2026-10-25).** A dev-only synthetic preview, opened in an automation browser that still carried the owner's cookie from an approved live check, sent a Server Action as the owner to the hosted project (nothing was written only because the synthetic id did not exist). The fix is structural, not discipline: the proxy refuses every non-GET request on preview paths and strips cookies before any database client exists (DL-018). Verify a setting by reading it (for example `GET /auth/v1/settings` for sign-up), never by attempting the forbidden action against the real project.
+
 ---
 
-*Commander v1.6.3 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+*Commander v1.7.0 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*

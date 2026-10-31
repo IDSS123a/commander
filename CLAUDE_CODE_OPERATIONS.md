@@ -1,6 +1,6 @@
 # CLAUDE_CODE_OPERATIONS.md — Claude Code Operator's Guide
 # Commander — Project Operating System
-# Version 1.6.2 — October 2026
+# Version 1.7.0 — October 2026
 # Applies to: Director's Claude Code sessions on ALL projects
 
 ---
@@ -356,9 +356,30 @@ a newline (useful for multi-line prompts):
 
 ---
 
+## 11. WORKING NEXT TO A NON-TECHNICAL OWNER (Weekly Menu, October 2026)
+
+- **Do not change code while the owner is testing on the dev server.**
+  A rebuild in the middle of a sign-in left the router on a stale entry
+  and the page hung on "Rendering". If a change cannot wait, tell the
+  owner to reload first.
+- **When hosting deploys from the working branch, every push is a
+  release.** Run the full check set before each push, not only before
+  "big" ones (DL-017), and record it in memory so the next session knows.
+- **Never sign in with a real account in the automation browser;**
+  before using a preview, check that no session cookie is left (M-24,
+  DL-018).
+- **Paste tasks for the owner:** putting the exact text on the clipboard
+  (`Set-Clipboard` on Windows) removes the "which file do I copy?" step;
+  always name the fallback file too (C-12).
+
+---
+
 ## VERSIONING
 
 ```
+v1.7  2026-10-31  Added section 11 (working next to a non-technical
+                  owner) from the Weekly Menu project.
+
 v1.3  2026-07-23  Added: measured context practice (/context at phase
                   boundaries, deliberate /compact with focus
                   instructions). Note: recurring rituals now ship as
@@ -377,4 +398,4 @@ v1.0  2026-07-13  Initial Claude Code Operations Guide.
 
 ---
 
-*Commander v1.6.2 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+*Commander v1.7.0 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*

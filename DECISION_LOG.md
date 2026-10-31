@@ -1,6 +1,6 @@
 # DECISION_LOG.md — Universal Technology Decisions
 # Commander — Project Operating System
-# Version 1.6.2 — October 2026
+# Version 1.7.0 — October 2026
 
 ---
 
@@ -236,4 +236,44 @@ than any feature adds.
 
 ---
 
-*Commander v1.6.2 — IDSS123a Organisation*
+## DL-015 — Free-tier AI for reading handwriting and translating, in zero-budget projects
+
+**Date:** 2026-10-31
+**Decision:** When the owner rules out paid services, handwriting reading (photo → form) and short translations use the Google Gemini free tier over plain REST with a JSON schema for the answer: the best model and two fast "lite" models run in parallel (wait up to 20 s for the best, 40 s each for the fast ones), with `thinkingLevel: low`. Every AI-filled field stays marked until a person confirms it, and the earlier human translation of the same dish wins over an AI suggestion. The key is server-only; logs carry reason codes, never menu text.
+**Rationale:** Weekly Menu (PDL-038, 039, 043): the owner said "Samo besplatne opcije". Deep thinking on the free tier took minutes and returned 503 errors; low thinking on lite models answered in about 4 s, and the full chain read 26/26 dishes of a synthetic handwritten photo in 20 s. The human check is what makes a free, sometimes wrong reader safe.
+
+---
+
+## DL-016 — Send through the organisation's existing mailbox, counting recipients
+
+**Date:** 2026-10-31
+**Decision:** When pasting formatted mail into webmail needs editor steps the users will not do, the app sends itself over SMTP of the organisation's existing mailbox (password entered by the owner only), counts every recipient against the host's hourly limit (parts of at most 90 per hour on a 100/h host), and embeds the logo as an inline `cid:` attachment. Probe the server read-only before asking for the password; cap live login retries at two (E-4).
+**Rationale:** Weekly Menu (PDL-034, PDL-035): three webmail rounds failed for non-technical staff (clipboard formats, editor modes, `cpsess` tokens); the server-side send worked first time once the right password was entered, with SPF/DKIM/DMARC already in place.
+
+---
+
+## DL-017 — Hosting a small Next.js staff tool for free: Vercel Hobby from a personal GitHub account
+
+**Date:** 2026-10-31
+**Decision:** A small staff tool with Server Actions, sessions and SMTP runs on Vercel Hobby, imported from a repository of a personal GitHub account, in the region next to its database. GitHub Pages is not a host for such apps: it serves static files only (no sessions, Server Actions, SMTP or secrets) and needs a paid plan for private repositories. Skip platform "integrations" for services that already exist. Once hosting deploys from `main`, every push is a release: the full check set (types, lint, tests, guard; build when config or routes change) runs before each push. The owner accepts in writing the risk that Hobby is meant for non-commercial personal use; the fallback is the organisation's own Node-capable hosting.
+**Rationale:** Weekly Menu (PDL-046): the owner declined to ask Vercel Support or the host first and proposed GitHub hosting; the trade-offs were stated and recorded before deploying.
+
+---
+
+## DL-018 — UI checks without real sessions: a dev-only synthetic preview, guarded in the proxy
+
+**Date:** 2026-10-31
+**Decision:** Signed-in screens are verified on a dev-only route with synthetic data: the page file uses a `*.dev.tsx` extension compiled only in development, the proxy answers 403 to every non-GET request on the preview path and strips cookies before any database client exists, and the path is 404 in production. Server Actions are never tried there; they are covered by unit and database tests.
+**Rationale:** Weekly Menu (PDL-016, S03): a preview opened in a browser that still held the owner's session sent a write as the owner. "Do not click again" depends on discipline (Senior Developer); the proxy guard makes the mistake impossible (M-24).
+
+---
+
+## DL-019 — An owner-supplied character as an in-app guide
+
+**Date:** 2026-10-31
+**Decision:** When the owner supplies their own character pictures for a guide, the files are copied byte-identical (hash-checked) and never redrawn, cropped or replaced; movement is done only by moving and fading whole pictures; the guide sits in the page flow (it never covers a button or a sticky bar), can be folded away per page, and turns off for "reduce motion". Its texts use the owner's own voice, taken from the owner's example sentence, and are written per role, not per page.
+**Rationale:** Weekly Menu (PDL-042): the owner's mandate forbade any substitute or AI-made version; the first texts used the app's formal address and were corrected ("Nikoga ne persiram").
+
+---
+
+*Commander v1.7.0 — IDSS123a Organisation*

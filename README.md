@@ -2,7 +2,7 @@
 
 **Owner:** Davor Mulalić — P.U. Internationale Deutsche Schule Sarajevo
 **Purpose:** Universal AI Coding Assistant operating system for all projects
-**Version:** 1.6.2 — October 2026
+**Version:** 1.7.0 — October 2026
 
 ---
 
@@ -266,6 +266,15 @@ v1.3  2026-07  Added: E-13 (checkable rules ship as automation), M-23
                cheatsheet capabilities only) + vibe-coding-journal M-18 harvest.
                Constraint: every change replaces a manual step or removes
                tokens; subagent rules and MCP expansion rejected by that test.
+
+v1.7.0 2026-10  Weekly Menu (IMH + IDSS) end-of-project update (M-22 KRAJ):
+               new E-17 (text with escapes via file tools), E-18 (owner-run
+               SQL scripts, CRITICAL), E-19 (owner-lockout rehearsal,
+               CRITICAL), E-20 (authorization matrix with role changes),
+               E-21 (dependent fields refresh), C-12 (owner file handling);
+               DL-015 to DL-019; Learned-From additions to M-4, M-18, M-24,
+               E-4, E-8, E-12, E-13, E-16; DONE checklist, operations
+               section 11 and an audit-gated bootstrap variant.
 
 v1.6.2 2026-10  Vibe-Coding Journal lessons (M-22 KRAJ, second pass):
                A-4 split-tier-by-section permission gating, A-5

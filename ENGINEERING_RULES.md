@@ -1,6 +1,6 @@
 # ENGINEERING_RULES.md — Universal Engineering Standards
 # Commander — Project Operating System
-# Version 1.6.3 — October 2026
+# Version 1.7.0 — October 2026
 
 ---
 
@@ -155,6 +155,15 @@ was already approved — otherwise it becomes an enumeration oracle.
 SPA 404 pages set `<meta name="robots" content="noindex">` (a rewrite-to-
 index SPA returns HTTP 200 for every path — a soft 404).
 
+**Live credentials: diagnose by properties, stop after two failures
+(Weekly Menu, 2026-10-25).** Before asking an owner for a secret, probe
+the external service read-only without credentials (SMTP greeting, EHLO,
+QUIT; DNS for SPF/DKIM/DMARC). When a login then fails, compare the
+secret only by properties (raw vs loaded length, character classes,
+booleans), never by value, and stop after two failed attempts: hosts
+such as cPanel cPHulk lock the account or IP. The next step goes to the
+owner or the provider, with a ready question.
+
 ---
 
 ## E-5. Error Handling `[ACTIVE]` 🔴 CRITICAL
@@ -255,7 +264,10 @@ in the project `DECISION_LOG.md`.
 
 ## E-8. Monitoring and Error Tracking `[ACTIVE]` 🟡 STANDARD
 
-- **Sentry** for error tracking — install from project start, not as an afterthought
+- **Sentry** for error tracking — install from project start, not as an afterthought,
+  **unless the project's privacy rules forbid third-party telemetry on
+  personal data** (Weekly Menu, PDL-002): then structured server logs with
+  error codes only, never request bodies, addresses or menu/child data
 - **Project-specific LLM monitoring** — defined in each project Constitution
 - Log at INFO level: significant user actions (login, document upload, quiz completion)
 - Log at ERROR level: all caught exceptions with full context
@@ -415,6 +427,35 @@ Never do these without explicit written approval in the project `DECISION_LOG.md
   the response changes, rather than guessing a fixed sleep or trusting
   the push itself as the signal:
   `until [ "$(curl -s -o /dev/null -w '%{http_code}' URL)" != "404" ]; do sleep 5; done`
+- **Next.js / Turbopack and browser tooling (Weekly Menu, October 2026):**
+  - After new CSS tokens or a new `@custom-variant`, the Turbopack dev
+    server can keep serving the old CSS even after a restart. Stop it,
+    delete `.next/dev`, start again; before blaming the code, look for the
+    rule in the production build's CSS.
+  - Headless Edge below about 500 px wide clips the page instead of laying
+    it out; measure phone widths in a real browser viewport
+    (`scrollWidth` vs `innerWidth`).
+  - An in-app preview pane may render a local HTML file as a static
+    snapshot without its relative images, and in phone emulation may
+    return a stale screenshot. Trust DOM state (opacity,
+    `document.getAnimations()`), or a region zoom.
+  - Entrance animations move, never fade: content that starts at
+    opacity 0 stays invisible wherever frames are skipped. Use
+    `animation-fill-mode: backwards`, so no lasting transform turns a page
+    section into the containing block of the fixed dialogs inside it.
+  - React dev mode runs effects twice: write a "once per session" flag
+    when the thing has happened (timer end, user action), not when the
+    effect starts.
+  - After a session change (sign-in, MFA, new password) do a full page
+    load; a client navigation during a dev rebuild can hang on a stale
+    router entry. Do not edit code while the owner tests on the dev
+    server.
+  - Git Bash (MSYS) rewrites `/dev/...`-style arguments, including inside
+    a curl `-w` format string; set `MSYS_NO_PATHCONV=1` for such checks.
+  - A hosting platform's import screen may offer "integrations" for a
+    service the project already uses (Vercel → Supabase). They create
+    new resources and inject their own keys; skip them and enter the
+    existing settings by hand.
 
 ---
 
@@ -455,6 +496,8 @@ inactive (not failing) on repos with no
 `.claude/project-guard.config.json`, same contract as the hook itself.
 
 **A read-only script can enforce its own read-only-ness the same way (Vibe-Coding Journal, PDL-099, 2026-10-24).** A backup or export script that must never write can ship with its own test that reads the script's own source text and fails the build if `insert`, `update`, `delete`, `upsert` or `rpc` ever appears in it. The property holds for every future edit automatically, not only for the version someone reviewed by eye.
+
+**A guard must not fail open on its own broken config (Weekly Menu, S00 and S01).** A shell edit corrupted a regex in `project-guard.config.json`; the guard then reported "no active config", which reads like "clean". After any config change, run `--scan` against a file with a known violation, not only against the clean project. Candidate for the hook itself: print a WARNING when the config exists but does not parse.
 
 ---
 
@@ -513,6 +556,56 @@ Chunk any such list at 100 ids per request, both for a count and for the matchin
 
 **The standard anti-join trick does not work for a to-many embedded relation on PostgREST.** The documented pattern for "rows with no related row" (`select=*,table!left(id)&table.id=is.null`) returns every row unfiltered against a to-many embed, since PostgREST represents "no related rows" there as an empty array, not SQL NULL, so the `is.null` filter never matches. Verify this directly against the real schema before relying on it; do not assume the documented pattern works for every relation shape.
 
+**Embeds over two tables with more than one foreign key between them must name the key (Weekly Menu, 2026-10-25).** `menus.current_revision_id` and `menu_revisions.menu_id` link the same two tables, so an unnamed embed failed with PGRST201 on the hosted project only: an in-process Postgres test (PGlite) never runs PostgREST and cannot see it. Name the FK in the embed, and add a schema test that every embed the repository uses is unambiguous.
+
 ---
 
-*Commander v1.6.3 — IDSS123a Organisation*
+## E-17. Text with Escapes Is Edited Only with File Tools `[ACTIVE]` 🟡 STANDARD
+
+*Added: v1.7.0, October 2026 -- learned on Weekly Menu (S00, S03)*
+
+Regexes, Windows paths, `$$`, `﻿`, backticks and non-ASCII text written through `sed`, `perl` or `node -e` strings are silently corrupted: one escape level disappears, or the substitution matches nothing and reports success. It happened seven times in one project: a guard config regex (the guard then went inactive, S00), regex backslashes three times, a Windows path in the owner's instructions, `$$` in a JavaScript `String.replace` replacement (it means a single `$`, and a migration stopped parsing), and a perl substitution with Bosnian letters that changed nothing (S03).
+
+Any line that contains an escape, a regex, a path or non-ASCII text is written with the Edit/Write tools. Shell edits are for plain ASCII only. When a replacement string must contain `$`, pass a replacer function (`() => text`) or use a named dollar tag (`$fn$`).
+
+---
+
+## E-18. Owner-Run SQL Scripts `[ACTIVE]` 🔴 CRITICAL
+
+*Added: v1.7.0, October 2026 -- learned on Weekly Menu (migrations 006, 011, test-data cleanup)*
+
+A script the owner runs in a hosted dashboard's SQL editor does not run the way a local test runs it. The Supabase SQL editor committed statement by statement, so a migration that relied on a temporary table across statements failed at its final check after half of it had applied (006). The owner twice pasted the Markdown instructions instead of the `.sql` file (011).
+
+- Destructive scripts are **one `DO` block**: all or nothing, and any trigger or lock switched off inside it is switched back on inside it. No temporary objects across statements.
+- A **read-only preview script comes first**, showing exactly what will change and what stays.
+- The script is **tested on a migrated copy** with realistic rows: sent, locked and corrected records next to rows that must survive; a second run must be harmless.
+- The instruction names the exact `.sql` file and how to recognise it (its first line is `-- Migration: …`, not `#`). Where possible, put the SQL on the owner's clipboard or in the outbox as the only file to open.
+- Before a re-run after a failure, read the current state with a read-only check; never assume the failed run changed nothing.
+
+---
+
+## E-19. Owner-Lockout Rehearsal for Identity Migrations `[ACTIVE]` 🔴 CRITICAL
+
+*Added: v1.7.0, October 2026 -- learned on Weekly Menu (migration 006, Senior Developer review)*
+
+A migration that changes how the owner's own account is recognised or authorised is the one change that can lock the owner out of the system that would fix it. It ships with: a rehearsal test on live-shaped data (the owner can still sign in and reach the admin functions afterwards), pre- and post-checks inside the script, and a tested rollback script. The owner's first instruction step compares the live state with the rehearsed one, because the ACA usually cannot see the hosted database.
+
+---
+
+## E-20. An Authorization Matrix Ships with Every Role-Model Change `[ACTIVE]` 🟡 STANDARD
+
+*Added: v1.7.0, October 2026 -- learned on Weekly Menu (ADR-10, PDL-039)*
+
+Changing who may do what (a new role, moving approval from the director to the menu-entry person) lands together with a test that walks the matrix: role × table × operation × organisation × assurance level, including the refusals. Only then may UI work use the new model. In the source project this caught a read-only assistant who could still have changed approval state directly.
+
+---
+
+## E-21. Dependent Fields Refresh; a Flag Is Not Enough `[ACTIVE]` 🟡 STANDARD
+
+*Added: v1.7.0, October 2026 -- learned on Weekly Menu (PDL-039, PDL-043)*
+
+When one field is derived from another (a translation, a total, a code), changing the source recomputes or re-requests the dependent value. Marking it "check this" is not enough when the mark may already be set: after an AI photo reading every English field was already marked, so correcting the Bosnian dish name added no new signal, and the misread English ("Portuna cream soup") could be confirmed. Results of the async refresh update state functionally (`set(current => …)`), never from a captured value, or edits made while waiting are lost.
+
+---
+
+*Commander v1.7.0 — IDSS123a Organisation*

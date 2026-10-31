@@ -1,6 +1,6 @@
 # DONE_CHECKLIST.md — Universal Definition of Done
 # Commander — Project Operating System
-# Version 1.6.2 — October 2026
+# Version 1.7.0 — October 2026
 
 ---
 
@@ -105,6 +105,11 @@
   freezes `requestAnimationFrame` (v1.6)
 - [ ] Performance claims measured per E-15 (production HTTPS, ≥ 5
   interleaved runs or PageSpeed Insights) (v1.6)
+- [ ] Every deferred feature is either absent from the screen or says it
+  is coming; no button leads to a dead end (Weekly Menu, v1.7: special
+  menus could be created but not sent)
+- [ ] Entrance animations move, never fade from opacity 0; reduced motion
+  turns them off (E-12, v1.7)
 
 ---
 
@@ -124,6 +129,11 @@
 
 - [ ] `npm run build` completes with zero errors
 - [ ] `npm run build` completes with zero TypeScript errors
+- [ ] Build output marks every auth-dependent route as dynamic (ƒ), not
+  static (○) (Weekly Menu, v1.7: a dashboard built before the env existed
+  froze the "not connected" screen into a static page)
+- [ ] Owner-run SQL follows E-18 (one block, preview first, tested on a
+  migrated copy); identity migrations follow E-19 (v1.7)
 - [ ] No new environment variables missing from `.env.example`
 - [ ] No new dependencies added without updating `DECISION_LOG.md`
 - [ ] Every package a production script invokes (build tools,
@@ -224,4 +234,4 @@ which should be retired.
 
 ---
 
-*Commander v1.6.2 — IDSS123a Organisation*
+*Commander v1.7.0 — IDSS123a Organisation*

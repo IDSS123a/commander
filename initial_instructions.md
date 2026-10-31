@@ -1,5 +1,5 @@
 # INITIAL INSTRUCTIONS — Commander Project Bootstrap
-# Version 1.6.2 — October 2026
+# Version 1.7.0 — October 2026
 # USAGE: Copy/paste this entire document as the FIRST message in Claude Code
 # (or any other ACA) when the Director wants to start a new project.
 # That is all. Commander takes over from here.
@@ -73,6 +73,12 @@ Adapt to your environment:
 - **Claude Code / filesystem + git available:** execute directly.
 - **No filesystem (e.g. web chat):** generate all files as downloadable
   package + ONE setup command for the Director. Do not skip anything.
+- **Audit-gated project (the mandate says "audit first, no code before
+  approval"):** the mandate wins. Scaffold only governance files now
+  (CLAUDE.md, CONSTITUTION.md, corrections/, DECISION_LOG.md, the
+  automation hooks); application code waits for the approved audit gate.
+  (Weekly Menu, 2026-10-25: this step's "no permission requests"
+  conflicted with an audit-first mandate.)
 
 Execute:
 
@@ -196,4 +202,4 @@ COMMANDER_UPDATE_PROPOSAL.md first and wait.
 
 ---
 
-*Commander v1.6.2 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+*Commander v1.7.0 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*

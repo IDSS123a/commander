@@ -1,6 +1,6 @@
 # ACA_COMMUNICATION_PROTOCOL.md — Universal ACA Output Standards
 # Commander — Project Operating System
-# Version 1.6.2 — October 2026
+# Version 1.7.0 — October 2026
 # Applies to: ALL projects under IDSS123a organisation
 
 ---
@@ -319,6 +319,22 @@ No other emoji in ACA output. These are tools, not decoration.
 
 ---
 
+## C-12. Owner File Handling `[ACTIVE]` 🟡 STANDARD
+
+*Added: v1.7.0, October 2026 -- learned on Weekly Menu*
+
+A non-technical owner cannot follow a repo-relative link, does not know which of two similar files to open, and should not have to assemble a message from several files.
+
+- Every file the owner must open, run or send is named with its **absolute local path** and the exact action ("open in Notepad → Ctrl+A → Ctrl+C").
+- Anything the owner must **send** to someone else is **one self-contained file** in a gitignored outbox folder (`ZA_SLANJE\` in the source project).
+- For a paste task (SQL into a dashboard, a value into a form), putting the text on the owner's clipboard is allowed and often safest; name the fallback file as well.
+- A blocking question to a third party is named in every "waiting on whom" line until it is answered, and the draft is re-checked whenever the project's scope changes. In the source project two hosting questions waited unsent for six days and described a tool that no longer existed.
+- Every final message to the owner ends with the same three parts: what was done, the owner's numbered steps (with paths), and what is waiting on whom.
+
+**Learned from:** Weekly Menu (2026-10): the owner was told to send documents via links he could not open (S02); he pasted the instruction file instead of the migration twice (S03); drafts to Vercel Support and the school's host went stale unsent (S03).
+
+---
+
 ## VERSIONING
 
 ```
@@ -327,8 +343,9 @@ v1.0  2026-07-13  Initial ACA Communication Protocol.
                   testable standing instructions.
                   Source: Commander repo analysis + Claude Code
                   source leak research (March 2026).
+v1.7  2026-10-31  C-12 Owner File Handling (Weekly Menu).
 ```
 
 ---
 
-*Commander v1.6.2 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+*Commander v1.7.0 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*

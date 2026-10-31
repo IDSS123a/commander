@@ -7,6 +7,51 @@
 
 ---
 
+## v1.7.0 (2026-10-31) — Weekly Menu (IMH + IDSS), end-of-project update
+
+M-22 KRAJ for web-app-weekly-menu (4 sprints, PDL-001 to PDL-046), approved
+by the Director ("Odobri", 2026-10-31). Full entry: `AUDIT_LOG.md` AUDIT-008.
+
+- NEW `ENGINEERING_RULES.md` E-17 🟡 — text with escapes, regexes, paths or
+  non-ASCII is edited only with file tools (7 silent corruptions).
+- NEW `ENGINEERING_RULES.md` E-18 🔴 — owner-run SQL scripts: one `DO` block,
+  read-only preview first, tested on a migrated copy, exact `.sql` named.
+- NEW `ENGINEERING_RULES.md` E-19 🔴 — owner-lockout rehearsal and rollback
+  for migrations touching the owner's identity or authorization.
+- NEW `ENGINEERING_RULES.md` E-20 🟡 — authorization matrix test ships with
+  every role-model change.
+- NEW `ENGINEERING_RULES.md` E-21 🟡 — dependent fields are refreshed, not
+  only flagged.
+- NEW `ACA_COMMUNICATION_PROTOCOL.md` C-12 🟡 — owner file handling
+  (absolute paths, one file in an outbox, clipboard for paste tasks,
+  unanswered third-party questions stay visible).
+- NEW `DECISION_LOG.md` DL-015 (free-tier AI for handwriting and
+  translation), DL-016 (send through the existing mailbox, count
+  recipients), DL-017 (Vercel Hobby from a personal GitHub account; GitHub
+  Pages is not a server host; every push to `main` is a release), DL-018
+  (guarded dev-only synthetic preview), DL-019 (owner-supplied character
+  as guide).
+- ADDED Learned-From: M-4 (outbound drafts, content facts, platform
+  integrations), M-18 (tag gotchas E-12; lessons guard asks after every
+  edit burst, by design), M-24 (a preview in a browser that held a session
+  is a real session), E-4 (secrets by properties, stop after 2 failed
+  logins), E-8 (Sentry unless privacy rules forbid it), E-12 (Turbopack,
+  headless widths, preview panes, animations, React dev effects, MSYS,
+  platform integrations), E-13 (a guard must not fail open on a broken
+  config), E-16 (name the FK in ambiguous embeds).
+- ADDED `DONE_CHECKLIST.md`: no dead-end deferred features; entrance
+  animations never fade; auth routes dynamic in build output; owner SQL per
+  E-18/E-19. `CLAUDE_CODE_OPERATIONS.md` section 11; `initial_instructions.md`
+  audit-gated bootstrap variant.
+- Severity changes: none. Deprecations: none (E-8 narrowed, not removed).
+- Correction to the approved proposal: it described `lessons-guard.js` as
+  ignoring lessons committed earlier in the session. Reading the hook shows
+  it compares the newest lessons file with the latest logged edit (10-minute
+  grace), so it asks for a lesson after every burst of edits by design. No
+  code change; documented in M-18 instead.
+
+---
+
 ## v1.6.3 (2026-10-25) — Vibe-Coding Journal, PDL-096 through PDL-112
 
 Covers `DECISION_LOG.md` PDL-096 through PDL-112 (admin source and

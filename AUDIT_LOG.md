@@ -485,8 +485,43 @@ The project's own `DECISION_LOG.md`, PDL-096 through PDL-112 (the full log now r
 
 ---
 
+## AUDIT-008: Weekly Menu (IMH + IDSS), M-22 KRAJ end-of-project update (v1.7.0)
+
+**Date:** 2026-10-31
+**Trigger:** the Director asked to update Commander after the app went live ("Nakon toga ažuriraj System Commander"); `COMMANDER_UPDATE_PROPOSAL.md` in the project repo was approved with "Odobri".
+**Conducted by:** Director + Claude Opus 5.5
+**Project:** web-app-weekly-menu (https://github.com/IDSS123a/web-app-weekly-menu), live on Vercel Hobby.
+
+### Evidence base
+- `corrections/SPRINT_00–03_LESSONS.md` (46 dated entries plus the S00/S01 summary sections), `corrections/PATTERNS.md` (M-4 in 4 sprints, E-13 in 3), project `DECISION_LOG.md` PDL-001 to PDL-046, compliance blocks of SPRINT_01 and SPRINT_02.
+- Gap: SPRINT_03 had no handoff or compliance block (sprint close-out not run before KRAJ); recorded as an M-18 note.
+
+### Changes
+- New rules: E-17 🟡, E-18 🔴, E-19 🔴, E-20 🟡, E-21 🟡 (`ENGINEERING_RULES.md`); C-12 🟡 (`ACA_COMMUNICATION_PROTOCOL.md`).
+- New decisions: DL-015 to DL-019.
+- Learned-From: M-4, M-18, M-24, E-4, E-8, E-12, E-13, E-16.
+- `DONE_CHECKLIST.md`, `CLAUDE_CODE_OPERATIONS.md` section 11, `initial_instructions.md` audit-gated variant, `README.md` history, project CLAUDE.md template stamp.
+- Severity changes: none (M-4 is already 🔴; its recurrences were scope gaps). Deprecations: none (E-8 narrowed).
+
+### Correction found during execution
+The approved proposal said `lessons-guard.js` ignores lessons committed earlier in a session. The hook's code compares the newest `*_LESSONS.md` with the latest `ACTIVITY_LOG.md` change (10-minute grace), so it asks for a lesson after each burst of edits by design. The proposed hook fix was therefore not made; the behaviour is documented in M-18. Reported to the Director.
+
+### Post-KRAJ checklist
+
+- [x] `ENGINEERING_RULES.md` — E-4, E-8, E-12, E-13, E-16 additions, new E-17 to E-21
+- [x] `CONSTITUTION.md` — M-4, M-18, M-24 additions
+- [x] `ACA_COMMUNICATION_PROTOCOL.md` — new C-12
+- [x] `DECISION_LOG.md` — DL-015 to DL-019
+- [x] `DONE_CHECKLIST.md`, `CLAUDE_CODE_OPERATIONS.md`, `initial_instructions.md`, `README.md`
+- [x] `COMMANDER_CHANGELOG.md` — new v1.7.0 entry
+- [x] `VERSION` and the edited documents' stamps set to v1.7.0 (`ARCHITECTURE_PATTERNS.md` not edited, stays v1.6.3)
+- [x] `AUDIT_LOG.md` entry appended (this entry)
+- [x] Merged to `main` (fast-forward) and tagged `v1.7.0`
+
+---
+
 *Next audit due: January 2027 or after 5th project completion, whichever comes first.*
 
 ---
 
-*Commander v1.6.2 — IDSS123a Organisation*
+*Commander v1.7.0 — IDSS123a Organisation*
