@@ -552,7 +552,7 @@ The project session's GitHub account had no push access to IDSS123a/commander; t
 - [x] `COMMANDER_CHANGELOG.md` — new v1.8.0 entry
 - [x] `VERSION`, `README.md` history and every edited document's stamp set to v1.8.0
 - [x] `AUDIT_LOG.md` entry appended (this entry)
-- [ ] Pushed to `main` and tagged `v1.8.0` (by an account with push access)
+- [x] Pushed to `main` (fast-forward) and tagged `v1.8.0`, after the Director gave the session's account write access ("pristup dat", 2026-11-14)
 
 ---
 
