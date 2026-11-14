@@ -1,6 +1,6 @@
 # ARCHITECTURE_PATTERNS.md — Universal Structural Rules
 # Commander — Project Operating System
-# Version 1.6.3 — October 2026
+# Version 1.8.0 — November 2026
 
 ---
 
@@ -311,6 +311,8 @@ Applying extractive-style corroboration to a generative call is
 meaningless (nothing to corroborate against); skipping human review
 on a generative call because it "passed a confidence check" is how
 an invented, ungrounded claim reaches a user as fact.
+
+**Learned from (IBL Lesson Planner, v1.8.0):** streaming adapters are tested by splitting the byte stream at every offset — before the fix, 303 of 314 split points corrupted diacritics (Sprint 05). Before any quota diagnosis or claim about which credential serves what, run a one-request-per-key health check (labels only, duplicate detection): only 5 of 12 keys served the model.
 
 ---
 
@@ -624,4 +626,4 @@ Any fetch the application makes to a URL supplied or suggested by an untrusted s
 
 ---
 
-*Commander v1.6.3 — IDSS123a Organisation*
+*Commander v1.8.0 — IDSS123a Organisation*

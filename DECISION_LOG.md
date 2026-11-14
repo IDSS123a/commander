@@ -1,6 +1,6 @@
 # DECISION_LOG.md — Universal Technology Decisions
 # Commander — Project Operating System
-# Version 1.7.0 — October 2026
+# Version 1.8.0 — November 2026
 
 ---
 
@@ -276,4 +276,44 @@ than any feature adds.
 
 ---
 
-*Commander v1.7.0 — IDSS123a Organisation*
+## DL-020 — Vite SPA + Supabase Edge Functions as the whole backend
+
+**Date:** 2026-11-14
+**Decision:** For a small institutional tool, Supabase Edge Functions carry the Application layer (authenticate → authorise → Zod → execute) and Row Level Security carries authorisation; no separate Express server. The stack deviation is documented as a path (M-16), not debt.
+**Rationale:** IBL Lesson Planner (project DL-P01): the P1 authorization matrix (51 checks) and the P6 live adversarial check (8/8 on production) held without an extra server to run or pay for.
+
+---
+
+## DL-021 — Free-tier Gemini with a per-key model fallback and a key-health check
+
+**Date:** 2026-11-14
+**Decision:** Rotate several free-tier keys; on 503/404 fall back to the next model on the same key; keep a one-request-per-key health check (labels only, duplicate detection) and run it before any quota diagnosis.
+**Rationale:** IBL Lesson Planner (project DL-P14, DL-P18): "12 keys" turned out to be 5 working ones (4 projects without the model, 1 invalid key, 1 without a free tier, 1 duplicate); key rotation alone does not help against a model-wide overload.
+
+---
+
+## DL-022 — Official letterhead Word export from the institution's own template
+
+**Date:** 2026-11-14
+**Decision:** Convert the institution's `.dotx` letterhead once into a `.docx` template (metadata stripped) and fill its body with the `docx` library's `patchDocument`; headers, footers and images stay byte for byte. Every Word export of the app (document, conversation) uses the same builder, with real headings and tables.
+**Rationale:** IBL Lesson Planner: the Director required the official memorandum on every exported plan; a second, older export builder was missed until the Director found it (M-7).
+
+---
+
+## DL-023 — Institution colour system enforced on the BUILT CSS
+
+**Date:** 2026-11-14
+**Decision:** Restrict the Tailwind palette to the brand colours plus neutral greys, alias Tailwind's own `gray` and default ring colour to them, fail CI on any other colour found in the built CSS, measure WCAG AA contrast on the rendered screens, and self-host OFL fonts.
+**Rationale:** IBL Lesson Planner (project DL-P33): Tailwind's base styles brought `#9CA3AF` and a blue ring that a search of the source could not find; contrast measured on 20 screens found 3 texts below AA that a palette review had passed.
+
+---
+
+## DL-024 — Owner-approved user guide as an in-app page with real screenshots
+
+**Date:** 2026-11-14
+**Decision:** The user guide is a page of the app, open before sign-in, written in the order of the work, each step with a real screenshot produced by the same Playwright script as the checks (so the screenshots are renewed with the UI); its texts are approved by the owner before release.
+**Rationale:** IBL Lesson Planner (project DL-P38): the Director asked for a guide that "follows the user through the app"; complements DL-019 (an owner-supplied guide character).
+
+---
+
+*Commander v1.8.0 — IDSS123a Organisation*

@@ -1,6 +1,6 @@
 # CONSTITUTION.md — Universal AI Mindset
 # Commander — Project Operating System
-# Version 1.7.0 — October 2026
+# Version 1.8.0 — November 2026
 # Applies to: ALL projects under IDSS123a organisation
 
 ---
@@ -168,6 +168,8 @@ instead of the 58 used as the baseline).
 
 **The rule covers more than code (Weekly Menu, October 2026).** One near-miss per sprint, each in a different place: a drafted message to a third party stated an unconfirmed fact about the owner (S00), a suggested dish translation contradicted the dish's own ingredients (S00), a non-technical controller's legal terms were nearly recorded as legal fact (S02), and a hosting platform's import screen offered an "integration" that would have created a new empty database and injected a service-role key (S03). Drafted outbound messages, content facts and platform-suggested integrations are checked against evidence exactly like code.
 
+**Learned from (IBL Lesson Planner, v1.8.0):** "30 minutes without activity" also means "the tab was closed and reopened tomorrow"; "the eval never touches production keys" was stated without checking key identity; an existence probe called a function that deletes. Probe only side-effect-free objects; check identity before a claim (Sprints 04–06).
+
 ---
 
 ## M-5. Layered Architecture — Non-Negotiable `[ACTIVE]` 🔴 CRITICAL
@@ -237,6 +239,8 @@ If you find yourself writing the same logic twice: stop. Extract it.
 - UI constants → `constants/index.ts` and CSS tokens
 - AI configuration → `lib/ai/ai-provider.ts`
 - Business rules → `features/[name]/domain.ts`
+
+**Learned from (IBL Lesson Planner, v1.8.0):** a stale "current priority" in two documents; the PSI version label hard-coded in 4 places; AI language names in 2 modules; a second Word builder for one output format (Sprints 03, 05, 06). When a rule about an output changes ("every export on the letterhead"), search for every producer of that output — e.g. every import of the document library — not only the one in front of you.
 
 ---
 
@@ -310,6 +314,8 @@ Never assume institutional policy.
 
 **Worked example (Vibe-Coding Journal, PDL-112, 2026-10-24).** An approved fix asked for four border measurements, two cells in one grid and two cards in a separate grid, to all come out equal at one named value. The fix itself worked: the two cells matched each other at the named value after it was applied, and the two cards already matched each other on their own, unrelated value. The stated target, all four equal to one single value, could not be met, because the two grids are built with different border weights by design, not by accident. Making them equal would mean thinning every side of every card in the second grid, a materially larger change than anything approved. Reported the real measurements and stopped, rather than making that larger change or quietly reporting success against a target that was not actually met.
 
+**Learned from (IBL Lesson Planner, v1.8.0):** "tables exist" was taken for "migration applied", "merged" for "live" (the production bundle was still the old one), and a brief that contradicted the constitution was nearly resolved silently (Sprints 03, 04, 06). Verify live state — bundle hash, deploy run, schema dump — before stating it.
+
 ---
 
 ## M-11. Refactoring Boundary `[ACTIVE]` 🟡 STANDARD
@@ -380,6 +386,8 @@ in a Markdown file in the repository.
 
 An ACA that has the repository URL has everything it needs.
 No long pastes. No lost context. No repeated explanations.
+
+**Learned from (IBL Lesson Planner, v1.8.0):** an open PR silently absorbs new commits on the same branch; a commit pushed while the owner was merging was reported as "in the PR" (Sprints 05, 06). Before saying a change is in a PR, check the PR is open and its head is the pushed commit; merged is not deployed — check the deploy run and the live bundle.
 
 ---
 
@@ -706,4 +714,4 @@ Never create, mint, borrow or reuse a session for a real user account. No admin-
 
 ---
 
-*Commander v1.7.0 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+*Commander v1.8.0 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*

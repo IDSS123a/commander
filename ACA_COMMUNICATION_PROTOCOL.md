@@ -1,6 +1,6 @@
 # ACA_COMMUNICATION_PROTOCOL.md — Universal ACA Output Standards
 # Commander — Project Operating System
-# Version 1.7.0 — October 2026
+# Version 1.8.0 — November 2026
 # Applies to: ALL projects under IDSS123a organisation
 
 ---
@@ -319,9 +319,9 @@ No other emoji in ACA output. These are tools, not decoration.
 
 ---
 
-## C-12. Owner File Handling `[ACTIVE]` 🟡 STANDARD
+## C-12. Owner File Handling `[ACTIVE]` 🔴 CRITICAL
 
-*Added: v1.7.0, October 2026 -- learned on Weekly Menu*
+*Added: v1.7.0, October 2026 -- learned on Weekly Menu. Severity raised to 🔴 in v1.8.0 (IBL Lesson Planner: corrected by the Director in Sprint 04 and Sprint 05).*
 
 A non-technical owner cannot follow a repo-relative link, does not know which of two similar files to open, and should not have to assemble a message from several files.
 
@@ -332,6 +332,25 @@ A non-technical owner cannot follow a repo-relative link, does not know which of
 - Every final message to the owner ends with the same three parts: what was done, the owner's numbered steps (with paths), and what is waiting on whom.
 
 **Learned from:** Weekly Menu (2026-10): the owner was told to send documents via links he could not open (S02); he pasted the instruction file instead of the migration twice (S03); drafts to Vercel Support and the school's host went stale unsent (S03).
+
+- One action per numbered step, with the exact clickable link to the exact page and the exact button, tab and field names as shown on screen.
+- Name the look-alike option the owner must NOT use (e.g. GitHub "Secrets", not "Variables").
+- Say what success looks like after the step, and what to do if it does not appear.
+
+**Learned from (IBL Lesson Planner, v1.8.0):** the Director corrected instructions twice ("answer what the owner did first", Sprint 04; the look-alike option and the expected screen were missing, Sprint 05); the project then needed its own standing order on top of C-12.
+
+---
+
+## C-13. Show the Owner Results, Not Stages `[ACTIVE]` 🔴 CRITICAL
+
+*Added: v1.8.0, November 2026 -- learned on IBL Lesson Planner (Sprint 05, Sprint 06)*
+
+- Never ask the owner to approve a stage whose screenshots do not yet show what he approved; staging is an engineering detail.
+- Before asking for approval of a UI change, check a route × state × viewport inventory — every screen and state the change touches, including the owner's own screen size and the shortest step of every multi-step screen — each with a screenshot and a console check.
+- A success message is shown only after the visible result is checked; a working feature that shows nothing is reported as a defect.
+- Live-test steps for the owner come from a real production output, never from a test fixture.
+
+**Learned from:** IBL Lesson Planner, Sprint 06 — four Director catches in one phase: an intermediate stage shown as the result ("Ama nipošto"), a whole screen left out of a "total" redesign ("Stari izgled?"), an overlap visible only at 1920 px, a saved plan that worked in the chat but was not shown ("nije aktivna"); Sprint 05 — a false "success" and test steps taken from a fixture.
 
 ---
 
@@ -344,8 +363,10 @@ v1.0  2026-07-13  Initial ACA Communication Protocol.
                   Source: Commander repo analysis + Claude Code
                   source leak research (March 2026).
 v1.7  2026-10-31  C-12 Owner File Handling (Weekly Menu).
+v1.8  2026-11-14  C-12 raised to CRITICAL; C-13 Show the Owner Results, Not Stages
+                  (IBL Lesson Planner).
 ```
 
 ---
 
-*Commander v1.7.0 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+*Commander v1.8.0 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*

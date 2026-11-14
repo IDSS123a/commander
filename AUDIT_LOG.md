@@ -520,8 +520,44 @@ The approved proposal said `lessons-guard.js` ignores lessons committed earlier 
 
 ---
 
+## AUDIT-009: IBL Lesson Planner, M-22 KRAJ end-of-project update (v1.8.0)
+
+**Date:** 2026-11-14
+**Trigger:** the Director typed "KRAJ" after the roadmap P0–P6 was closed (Sprint 06, device test "sve radi", production live security check 8/8); `COMMANDER_UPDATE_PROPOSAL.md` in the project repo was approved with "odobri".
+**Conducted by:** Director + Claude Opus 5.5
+**Project:** ibl-lesson-planner (https://github.com/mulalicd/ibl-lesson-planner), live on Vercel with Supabase.
+
+### Evidence base
+- `corrections/SPRINT_03–06_LESSONS.md` (≈ 75 entries; Sprint 05 and 06 consolidated with summary sections), `corrections/PATTERNS.md` (M-4, M-7, M-10 each in 3 sprints), project `DECISION_LOG.md` DL-P01 to DL-P38, compliance blocks of Sprint 04, Sprint 05 (+ continuation) and Sprint 06.
+- Sprint close-out (Sprint 06) was run before KRAJ, so the last compliance block existed as input.
+
+### Changes
+- New rules: E-22 🔴, E-23 🟡, E-24 🟡, E-25 🟡 (`ENGINEERING_RULES.md`); C-13 🔴 (`ACA_COMMUNICATION_PROTOCOL.md`).
+- Severity change: C-12 🟡→🔴 (Director corrections in Sprint 04 and Sprint 05).
+- New decisions: DL-020 to DL-024.
+- Learned-From: M-4, M-7, M-10, M-14, E-12, E-13, E-15, E-18, A-5.
+- M-4, M-7, M-10 are already 🔴; their recurrence across three sprints is recorded as Learned-From (scope and clarity), not a severity change.
+- Deprecations: none (every compliance block: "rules that slowed work: none").
+
+### Execution note
+The project session's GitHub account had no push access to IDSS123a/commander; the update was prepared as a ready commit and a patch in the project repository (`commander-update/v1.8.0/`) and applied from there.
+
+### Post-KRAJ checklist
+
+- [x] `ENGINEERING_RULES.md` — E-12, E-13, E-15, E-18 additions, new E-22 to E-25
+- [x] `CONSTITUTION.md` — M-4, M-7, M-10, M-14 additions
+- [x] `ACA_COMMUNICATION_PROTOCOL.md` — C-12 raised to 🔴 with additions, new C-13
+- [x] `ARCHITECTURE_PATTERNS.md` — A-5 addition
+- [x] `DECISION_LOG.md` — DL-020 to DL-024
+- [x] `COMMANDER_CHANGELOG.md` — new v1.8.0 entry
+- [x] `VERSION`, `README.md` history and every edited document's stamp set to v1.8.0
+- [x] `AUDIT_LOG.md` entry appended (this entry)
+- [ ] Pushed to `main` and tagged `v1.8.0` (by an account with push access)
+
+---
+
 *Next audit due: January 2027 or after 5th project completion, whichever comes first.*
 
 ---
 
-*Commander v1.7.0 — IDSS123a Organisation*
+*Commander v1.8.0 — IDSS123a Organisation*
