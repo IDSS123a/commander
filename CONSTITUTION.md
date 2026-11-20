@@ -1,6 +1,6 @@
 # CONSTITUTION.md — Universal AI Mindset
 # Commander — Project Operating System
-# Version 1.8.0 — November 2026
+# Version 1.8.1 — November 2026
 # Applies to: ALL projects under IDSS123a organisation
 
 ---
@@ -714,4 +714,4 @@ Never create, mint, borrow or reuse a session for a real user account. No admin-
 
 ---
 
-*Commander v1.8.0 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+*Commander v1.8.1 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*

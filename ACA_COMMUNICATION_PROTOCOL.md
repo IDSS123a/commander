@@ -1,6 +1,6 @@
 # ACA_COMMUNICATION_PROTOCOL.md — Universal ACA Output Standards
 # Commander — Project Operating System
-# Version 1.8.0 — November 2026
+# Version 1.8.1 — November 2026
 # Applies to: ALL projects under IDSS123a organisation
 
 ---
@@ -369,4 +369,4 @@ v1.8  2026-11-14  C-12 raised to CRITICAL; C-13 Show the Owner Results, Not Stag
 
 ---
 
-*Commander v1.8.0 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+*Commander v1.8.1 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*

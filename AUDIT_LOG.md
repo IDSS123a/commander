@@ -1,6 +1,6 @@
 # AUDIT_LOG.md — Commander Audit History
 # Commander — Project Operating System
-# Version 1.6.2 — October 2026
+# Version 1.8.1 — November 2026
 
 ---
 
@@ -556,8 +556,37 @@ The project session's GitHub account had no push access to IDSS123a/commander; t
 
 ---
 
+## AUDIT-010: Commander v1.8.0 review + personal-web-page maintenance (v1.8.1)
+
+**Date:** 2026-11-20
+**Trigger:** personal-web-page session-start warning (project v1.6, Commander
+v1.8.0); the Director asked for a careful upgrade ("hirurški precizan bez
+greške") and approved the proposal (`COMMANDER_UPGRADE_v1.8.0_PROPOSAL.md`
+in the project repo).
+**Conducted by:** Director + Claude Opus 5.5
+
+### Findings in v1.8.0
+- Live version stamps uneven (1.6, 1.6.1, 1.6.2 next to 1.8.0).
+- CLAUDE.md template omitted seven 🔴 rules it claims to inline.
+- Uncovered problem from production: the project's Supabase free-plan
+  instance paused (whole backend offline, no alert) although a keep-alive
+  workflow existed — it hit an endpoint that rejects anon keys and `curl`
+  without `--fail` kept every run green.
+
+### Changes
+See COMMANDER_CHANGELOG.md v1.8.1. No new rules, severity changes or
+deprecations — hygiene fixes and two Learned-From additions (A-8, E-12).
+
+### Post-update checklist
+- [x] Every live stamp + `VERSION` = 1.8.1 (verified by grep: no other live stamp left)
+- [x] Template inlines all 🔴 rules (M-1…M-5, M-7, M-10, M-15, M-21…M-24, E-1, E-2, E-4…E-6, E-18, E-19, E-22, C-12, C-13)
+- [x] COMMANDER_CHANGELOG, README history, AUDIT_LOG
+- [x] Pushed to `main` and tagged `v1.8.1`; personal-web-page re-pinned to v1.8.1
+
+---
+
 *Next audit due: January 2027 or after 5th project completion, whichever comes first.*
 
 ---
 
-*Commander v1.8.0 — IDSS123a Organisation*
+*Commander v1.8.1 — IDSS123a Organisation*

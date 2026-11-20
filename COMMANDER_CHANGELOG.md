@@ -7,6 +7,29 @@
 
 ---
 
+## v1.8.1 (2026-11-20) — hygiene + personal-web-page maintenance lessons
+
+Director-approved (personal-web-page, "Ostalo imaš moju saglasnost", 2026-11-20)
+after a file-by-file review of v1.8.0. Full entry: `AUDIT_LOG.md` AUDIT-010.
+
+- FIXED (hygiene): live version stamps were uneven in v1.8.0 —
+  ACA_MANAGEMENT_GUIDE, AUDIT_LOG, FEATURE_LIFECYCLE and three PROMPT_LIBRARY
+  files said 1.6.2, the COMMANDER_CHANGELOG footer 1.6.1, the CLAUDE.md
+  template header 1.6. Every live stamp and `VERSION` now read 1.8.1;
+  history lines are unchanged.
+- FIXED (`automation/PROJECT_CLAUDE_MD_TEMPLATE.md`): the template states
+  that every 🔴 rule is inlined, but M-23, M-24, E-18, E-19, E-22, C-12 and
+  C-13 were missing, and it still pointed to "C-1–C-5". All seven inlined
+  (one line each), "C-1–C-13".
+- ADDED Learned-From (`ARCHITECTURE_PATTERNS.md` A-8): Supabase free plan
+  pauses projects after 7 idle days — ship a real-query keep-alive and a
+  daily end-to-end health check with every free-plan project.
+- ADDED Learned-From (`ENGINEERING_RULES.md` E-12): a scheduled check built
+  on `curl` without `--fail` is always green — assert the status code.
+- New rules: none. Severity changes: none. Deprecations: none.
+
+---
+
 ## v1.8.0 (2026-11-14) — IBL Lesson Planner, end-of-project update
 
 M-22 KRAJ for ibl-lesson-planner (6 sprints, roadmap P0–P6, project DL-P01 to DL-P38), approved by the Director
@@ -556,4 +579,4 @@ blanket MCP server expansion.
 
 ---
 
-*Commander v1.6.1 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*
+*Commander v1.8.1 — IDSS123a Organisation — Davor Mulalić — direktor@idss.ba*

@@ -1,6 +1,6 @@
 # DONE_CHECKLIST.md — Universal Definition of Done
 # Commander — Project Operating System
-# Version 1.8.0 — November 2026
+# Version 1.8.1 — November 2026
 
 ---
 
@@ -234,4 +234,4 @@ which should be retired.
 
 ---
 
-*Commander v1.8.0 — IDSS123a Organisation*
+*Commander v1.8.1 — IDSS123a Organisation*

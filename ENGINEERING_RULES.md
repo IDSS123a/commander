@@ -1,6 +1,6 @@
 # ENGINEERING_RULES.md — Universal Engineering Standards
 # Commander — Project Operating System
-# Version 1.8.0 — November 2026
+# Version 1.8.1 — November 2026
 
 ---
 
@@ -459,6 +459,14 @@ Never do these without explicit written approval in the project `DECISION_LOG.md
 
 **Learned from (IBL Lesson Planner, v1.8.0):** JavaScript `\b` is ASCII-only, so č ć š ž đ are not word characters (use Unicode lookarounds); a persisted SDK session survives a closed tab, so in-tab idle timers miss "came back tomorrow"; Playwright `addInitScript` runs on every navigation; a cross-origin mock must send the real API's CORS exposure headers (e.g. `content-range`) or the page reads nothing and a screenshot shows a bug that does not exist; a component placed beside another zone must size itself by its container (ResizeObserver), not the viewport; a cloud environment can allow a host while the session's permission check still refuses the command — then cross-browser proof comes from the owner's devices.
 
+- **A scheduled check that is always green proves nothing (v1.8.1 —
+  personal-web-page).** `curl` exits 0 on HTTP 4xx/5xx unless called with
+  `--fail`, so a keep-alive workflow ran "success" for weeks while every
+  request was rejected ("Invalid API key") and the project paused anyway.
+  Every scheduled check asserts the status code (and, where possible, the
+  content) explicitly and fails the run otherwise; read one real run's log
+  after creating it.
+
 ---
 
 ## E-13. Mechanically Checkable Rules Ship as Automation `[ACTIVE]` 🟡 STANDARD
@@ -656,4 +664,4 @@ A source file imported by two runtimes (Vite and Deno, browser and server) uses 
 
 ---
 
-*Commander v1.8.0 — IDSS123a Organisation*
+*Commander v1.8.1 — IDSS123a Organisation*

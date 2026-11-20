@@ -1,6 +1,6 @@
 # DECISION_LOG.md — Universal Technology Decisions
 # Commander — Project Operating System
-# Version 1.8.0 — November 2026
+# Version 1.8.1 — November 2026
 
 ---
 
@@ -316,4 +316,4 @@ than any feature adds.
 
 ---
 
-*Commander v1.8.0 — IDSS123a Organisation*
+*Commander v1.8.1 — IDSS123a Organisation*

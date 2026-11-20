@@ -1,6 +1,6 @@
 # ARCHITECTURE_PATTERNS.md — Universal Structural Rules
 # Commander — Project Operating System
-# Version 1.8.0 — November 2026
+# Version 1.8.1 — November 2026
 
 ---
 
@@ -449,6 +449,19 @@ SPRINT_04_LESSONS.md` #1, 2026-07-18).
 > Do not force supabase-js into a `manualChunks` vendor chunk — Rollup
 > parks shared helpers there and the chunk is preloaded on every page.
 
+> **Free plan pauses idle projects (v1.8.1 — personal-web-page, 2026-11-20):**
+> a Supabase free-plan project with no database activity for 7 days is
+> paused — its domain stops resolving (NXDOMAIN) and every Edge Function,
+> form and chatbot goes offline with no alert. Every free-plan project
+> ships with (1) a daily keep-alive that runs a real table query (e.g. a
+> Vercel cron calling `GET /rest/v1/<table>?select=id&limit=1` with the
+> publishable key — RLS may return `[]`, the query still reaches Postgres)
+> and (2) a daily end-to-end health check (DB read + one real feature
+> call, e.g. a chatbot answer) whose failure notifies a human. `GET
+> /rest/v1/` (the OpenAPI root) rejects publishable/anon keys and is NOT
+> activity. If the project must never pause, the alternative is a paid
+> plan — decided by the Director.
+
 ---
 
 ## A-9. Memoize Derived Values Used as Effect Dependencies
@@ -626,4 +639,4 @@ Any fetch the application makes to a URL supplied or suggested by an untrusted s
 
 ---
 
-*Commander v1.8.0 — IDSS123a Organisation*
+*Commander v1.8.1 — IDSS123a Organisation*
